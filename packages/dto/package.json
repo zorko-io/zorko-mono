@@ -1,5 +1,5 @@
 {
-  "name": "@zorko-io/dto",
+  "name": "@zorko/dto",
   "version": "1.0.0-alpha.1",
   "description": "Data Transfer Objects for Zorko API",
   "author": "igornester <inesterenko@nucleushealth.io>",

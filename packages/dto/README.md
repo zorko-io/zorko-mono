@@ -1,4 +1,4 @@
-# `@zorko-io/dto`
+# `@zorko/dto`
 
 Date Transfer Object to work with Zorko API
 
