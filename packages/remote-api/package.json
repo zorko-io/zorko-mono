@@ -1,0 +1,26 @@
+{
+  "name": "@zorko/remote-api",
+  "version": "1.0.0-alpha.2",
+  "description": "Remote API Interfaces/Typings to share between frontend and backend",
+  "author": "nesterone <igornester@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.ts",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@zorko/dto": "^1.0.0-alpha.2"
+  }
+}
