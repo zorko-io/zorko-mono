@@ -1,0 +1,27 @@
+{
+  "name": "@zorko/client-api",
+  "version": "1.0.0-alpha.4",
+  "description": "Client API to Zorko Server",
+  "author": "nesterone <igornester@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.ts",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@zorko/dto": "latest",
+    "@zorko/remote-api": "latest"
+  }
+}
