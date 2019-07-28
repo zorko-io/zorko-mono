@@ -1,6 +1,6 @@
 {
   "name": "@zorko/dto",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Data Transfer Objects for Zorko API",
   "author": "nesterone <igornester@gmail.com>",
   "homepage": "",
