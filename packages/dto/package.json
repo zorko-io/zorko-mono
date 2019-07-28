@@ -1,6 +1,6 @@
 {
-  "name": "zorko-dto",
-  "version": "1.0.0",
+  "name": "@zorko-io/dto",
+  "version": "1.0.0-alpha.1",
   "description": "Data Transfer Objects for Zorko API",
   "author": "igornester <inesterenko@nucleushealth.io>",
   "homepage": "",
@@ -16,6 +16,9 @@
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@nestjs/common": "^6.5.3",
