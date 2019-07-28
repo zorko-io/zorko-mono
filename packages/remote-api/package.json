@@ -1,6 +1,6 @@
 {
   "name": "@zorko/remote-api",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "Remote API Interfaces/Typings to share between frontend and backend",
   "author": "nesterone <igornester@gmail.com>",
   "homepage": "",
@@ -21,6 +21,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@zorko/dto": "^1.0.0-alpha.3"
+    "@zorko/dto": "^1.0.0-alpha.4"
   }
 }
