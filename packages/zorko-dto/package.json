@@ -1,0 +1,28 @@
+{
+  "name": "zorko-dto",
+  "version": "1.0.0",
+  "description": "Data Transfer Objects for Zorko API",
+  "author": "igornester <inesterenko@nucleushealth.io>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.ts",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@nestjs/common": "^6.5.3",
+    "@nestjs/swagger": "^3.1.0",
+    "@types/node": "^12.6.8",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.9.1",
+    "rxjs": "^6.5.2"
+  }
+}
