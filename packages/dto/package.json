@@ -2,7 +2,7 @@
   "name": "@zorko/dto",
   "version": "1.0.0-alpha.2",
   "description": "Data Transfer Objects for Zorko API",
-  "author": "igornester <inesterenko@nucleushealth.io>",
+  "author": "nesterone <igornester@gmail.com>",
   "homepage": "",
   "license": "ISC",
   "main": "lib/index.ts",

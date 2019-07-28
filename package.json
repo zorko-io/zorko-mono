@@ -4,9 +4,11 @@
   "description": "Root project for Zorko",
   "main": "index.js",
   "scripts": {
+    "build": "lerna run build",
+    "publish": "lerna run publich",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "nesterone <igornester@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "lerna": "^3.15.0"
