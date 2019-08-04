@@ -15,12 +15,16 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "clean": "rimraf lib && rimraf node_modules"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@zorko/dto": "^1.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.3"
   }
 }

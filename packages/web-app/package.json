@@ -2,6 +2,14 @@
   "name": "web-app",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "clean": "rimraf build && rimraf node_modules"
+  },
   "dependencies": {
     "@types/jest": "24.0.15",
     "@types/node": "12.6.8",
@@ -14,12 +22,8 @@
     "source-map-explorer": "^2.0.1",
     "typescript": "3.5.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+  "devDependencies": {
+    "rimraf": "^2.6.3"
   },
   "eslintConfig": {
     "extends": "react-app"
