@@ -1,14 +1,9 @@
 {
+  "extends": "../../tsconfig",
   "compilerOptions": {
-    "module": "commonjs",
+    "target": "esnext",
     "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es6",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./"
+    "outDir": "./dist"
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "script", "seed"]
 }
