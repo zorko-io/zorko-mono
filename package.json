@@ -9,7 +9,8 @@
     "build": "lerna run build",
     "publish": "lerna publish",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ci": "./scripts/run-e2e-api.sh"
+    "ci": "./scripts/run-e2e-api.sh",
+    "watch": "lerna run watch --stream"
   },
   "author": "nesterone <igornester@gmail.com>",
   "license": "ISC",

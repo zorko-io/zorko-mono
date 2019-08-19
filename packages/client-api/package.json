@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "watch": "tsc --watch",
     "test": "jest --config jest.config.json",
     "clean": "rimraf lib && rimraf node_modules"
   },

@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "watch": "tsc --watch",
     "test": "echo \"Error: run tests from root\" && exit 1",
     "clean": "rimraf lib && rimraf node_modules"
   },
