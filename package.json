@@ -10,7 +10,9 @@
     "build": "lerna run build",
     "publish": "lerna publish",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ci": "./scripts/run-e2e-api.sh",
+    "ci:api": "./scripts/run-e2e-api.sh",
+    "ci:ui": "./scripts/run-e2e-ui.sh",
+    "ci": "npm run ci:api && npm run ci:ui",
     "watch": "lerna run watch --stream"
   },
   "author": "nesterone <igornester@gmail.com>",
