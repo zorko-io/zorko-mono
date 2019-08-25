@@ -34,9 +34,9 @@ export function LoginForm (props: PropTypes){
   onSubmit={handleSubmit}>
     {(form: FormikBag<PropTypes, FormValues>) => (
       <Form autoComplete='off'>
-        <Field name="login" type="text" />
-        <Field name="password" type="text" />
-        <button type="submit">Submit</button>
+        <Field data-test="email-input" name="login" type="text" />
+        <Field data-test="password-input" name="password" type="text" />
+        <button data-test="submit" type="submit">Submit</button>
         <button onClick={()=> {
           form.resetForm()
         }}>Cancel</button>
