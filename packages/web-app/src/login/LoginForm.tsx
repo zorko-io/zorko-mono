@@ -1,11 +1,5 @@
 import { TokenDto } from '@zorko/dto';
-import {
-  Field,
-  Form,
-  Formik,
-  FormikActions,
-  FormikBag
-} from 'formik';
+import { Field, Form, Formik, FormikActions, FormikBag } from 'formik';
 import React from 'react';
 import Api from '@zorko/client-api';
 
@@ -25,11 +19,9 @@ export function LoginForm (props: PropTypes){
       email: values.login,
       password: values.password
     }).then((payload) => {
-      console.log('LOGIN', {payload});
       actions.setSubmitting(true);
       props.onSuccess(payload);
     }).catch((error) => {
-      console.log('ERROR', {error});
       actions.setError(error);
     })
   }

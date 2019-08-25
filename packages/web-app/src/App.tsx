@@ -1,21 +1,16 @@
 import React from 'react';
-import './App.css';
-import Api from '@zorko/client-api';
-import { LoginForm } from './LoginForm';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { LoginPage } from './login/LoginPage';
 
-Api.setConfig({
-  baseURL: process.env.REACT_APP_SEVER_API_URL
-});
-
-const App: React.FC = () => {
-
+export function App() {
   return (
-    <div className="App">
-      <LoginForm onSuccess={(token)=>{
-         console.log('TOKEN', { token });
-      }}/>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact={true} path={'/'} component={LoginPage} />
+        <Route exact={true} path={'/login'} component={LoginPage} />
+      </Switch>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;

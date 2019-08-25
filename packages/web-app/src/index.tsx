@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import Api from '@zorko/client-api';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+Api.setConfig({
+  baseURL: process.env.REACT_APP_SEVER_API_URL
+});
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
