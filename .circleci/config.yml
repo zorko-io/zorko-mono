@@ -43,6 +43,7 @@ workflows:
   build:
     jobs:
       - cypress/run:
+          working_directory: 'packages/e2e-test-suite'
           start: npm run ci:ui
           wait-on: 'http://localhost:8080'
           spec: cypress/integration/basic/*
