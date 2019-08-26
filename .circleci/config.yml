@@ -9,7 +9,7 @@ version: 2.1
 # or the latest version 1.x.x using "@1" syntax
 #  cypress: cypress-io/cypress@1
 jobs:
-  cypress/run:
+  cypress_run:
     docker:
       - image: cypress/base:10
     parallelism: 1
@@ -39,9 +39,10 @@ jobs:
           name: Run Cypress tests
           command: npm run cy:test
 workflows:
-  jobs:
-    - cypress/run
   version: 2
+  build_and_test:
+    jobs:
+      - cypress_run
 #  build:
 #    docker:
 #      # specify the version you desire here
