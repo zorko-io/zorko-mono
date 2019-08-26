@@ -53,16 +53,16 @@ export API_AUTH_ENABLED="true"
 startApiServerInBackground
 startWebServerInBackground
 
-echo "Start e2e ui tests"
-cd "${E2E_TEST_SUITE}" || exit
-npm run test
-cd "${DIR}" || exit
+#echo "Start e2e ui tests"
+#cd "${E2E_TEST_SUITE}" || exit
+#npm run test
+#cd "${DIR}" || exit
 
-echo "Stop Web Server"
-kill ${WEB_SERVER_PID}
-
-echo "Stop API Server"
-kill ${API_SERVER_PID}
+#echo "Stop Web Server"
+#kill ${WEB_SERVER_PID}
+#
+#echo "Stop API Server"
+#kill ${API_SERVER_PID}
 
 
 
