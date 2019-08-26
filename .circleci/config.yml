@@ -39,7 +39,7 @@ jobs:
 
       # run tests!
 #      - run: npm run ci:api
-      - run: ~/node_modules/.bin/cypress/cypress run --spec "~/packages/e2e-test-suite/cypress/integration/basic/login.spec.js"
+      - run: npm run cy
 #workflows:
 #  build:
 #    jobs:
