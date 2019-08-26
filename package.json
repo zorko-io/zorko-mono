@@ -13,7 +13,8 @@
     "ci:api": "./scripts/run-e2e-api.sh",
     "ci:ui": "./scripts/run-e2e-ui.sh",
     "ci": "npm run ci:api && npm run ci:ui",
-    "cy": "cd ./packages/e2e-test-suite/ && npm run test",
+    "cy:verify": "cd ./packages/e2e-test-suite/ && npm run verify",
+    "cy:test": "cd ./packages/e2e-test-suite/ && npm run test",
     "watch": "lerna run watch --stream"
   },
   "author": "nesterone <igornester@gmail.com>",
