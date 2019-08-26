@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "open" : "npx cypress open",
+    "ci:ui" : "../../scripts/run-e2e-ui.sh",
     "test": "cypress run --spec \"cypress/integration/basic/login.spec.js\""
   },
   "author": "",

@@ -3,16 +3,21 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2.1
-orbs:
+#orbs:
   # https://github.com/cypress-io/circleci-orb
   # import Cypress orb by specifying an exact version x.y.z
   # or the latest version 1.x.x using "@1" syntax
-  cypress: cypress-io/cypress@1
+#  cypress: cypress-io/cypress@1
 jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:10.15.0
+      - image: circleci/node:10.13.0
+
+      - image: cypress/base:10
+          environment:
+            ## this enables colors in the output
+            TERM: xterm
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -30,7 +35,7 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
-      - run: npm run build
+#      - run: npm run build
 
       - save_cache:
           paths:
@@ -38,13 +43,14 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm run ci:api
-workflows:
-  build:
-    jobs:
-      - cypress/run:
-          working_directory: 'packages/e2e-test-suite'
-          start: npm run ci:ui
-          wait-on: 'http://localhost:8080'
-          spec: cypress/integration/basic/*
+#      - run: npm run ci:api
+      - run: ~/node_modules/.bin/cypress/cypress run --spec "~/packages/e2e-test-suite/cypress/integration/basic/login.spec.js"
+#workflows:
+#  build:
+#    jobs:
+#      - cypress/run:
+#          working_directory: 'packages/e2e-test-suite'
+#          start: npm run ci:ui
+#          wait-on: 'http://localhost:8080'
+#          spec: cypress/integration/basic/*
 
