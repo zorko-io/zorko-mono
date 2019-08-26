@@ -15,6 +15,7 @@ jobs:
       - restore_cache:
           keys:
             - cache-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run:
           name: Install Top Deps
           command: npm install
