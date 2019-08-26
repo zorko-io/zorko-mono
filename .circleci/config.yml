@@ -13,12 +13,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:10.13.0
-
       - image: cypress/base:10
-          environment:
-            ## this enables colors in the output
-            TERM: xterm
-
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
