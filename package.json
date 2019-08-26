@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "lerna run start --parallel",
-    "postinstall": "npm run bootstrap",
+    "postinstall1111": "npm run bootstrap",
     "bootstrap": "lerna bootstrap --hoist",
     "build": "lerna run build",
     "publish": "lerna publish",

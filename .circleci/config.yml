@@ -21,6 +21,9 @@ jobs:
       - run:
           name: Npm CI
           command: npm install
+     - run:
+          name: Npm Dependencies bootstrap
+          command: npm run bootstrap
       - run:
           command: npm run cy:verify
       - save_cache:
@@ -28,6 +31,7 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
+            - ~/.node_modules
       - persist_to_workspace:
           root: ~/
           paths:
