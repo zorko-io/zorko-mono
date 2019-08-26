@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Npm CI
           command: npm install
-     - run:
+      - run:
           name: Npm Dependencies bootstrap
           command: npm run bootstrap
       - run:
