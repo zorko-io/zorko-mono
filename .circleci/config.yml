@@ -8,8 +8,6 @@ jobs:
     docker:
       - image: circleci/node:10.13.0
       - image: cypress/base:10
-          environment:
-            CYPRESS_CACHE_FOLDER: ~/repo/.cache
       - image: circleci/mongo:3.6
     parallelism: 1
     working_directory: ~/repo
@@ -24,6 +22,8 @@ jobs:
       - run:
           name: Install Sub Packages Deps
           command: npm run bootstrap
+          environment:
+            CYPRESS_CACHE_FOLDER: .cache
       - run:
           name: Verify Cypress
           command: npm run cy:verify
