@@ -2,12 +2,15 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.8.0
 jobs:
   build:
     working_directory: ~/repo
     docker:
       - image: circleci/node:10.13.0
+      - image: circleci/mongo:3.6
     steps:
       - checkout
       - restore_cache:
@@ -46,3 +49,15 @@ workflows:
       - test_api:
           requires:
             - build
+      - cypress/install:
+          working_directory: ~/repo
+          cache-key: cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
+          requires:
+            - build
+      - cypress/run:
+          working_directory: ~/repo
+          cache-key: cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
+          requires:
+            - cypress/install
+          start: npm run ci:ui
+          wait-on: 'http://localhost:8080'
