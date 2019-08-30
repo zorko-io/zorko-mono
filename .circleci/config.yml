@@ -4,13 +4,10 @@
 #
 version: 2
 jobs:
-  do-everything:
+  build:
+    working_directory: ~/repo
     docker:
       - image: circleci/node:10.13.0
-#      - image: cypress/base:10
-      - image: circleci/mongo:3.6
-    parallelism: 1
-    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
@@ -22,29 +19,31 @@ jobs:
       - run:
           name: Install Sub Packages Deps
           command: npm run bootstrap
-#      - run:
-#          name: Verify Cypress
-#          command: npm run cy:verify
       - save_cache:
           key: cache-v3-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - ~/.npm
-            - ~/.cache
-            - node_modules
-#      - persist_to_workspace:
-#          root: ~/
-#          paths:
-#            - .cache/Cypress
-#      - attach_workspace:
-#          at: ~/
+            - .npm
+            - ./node_modules
+            - ./packages/*/node_modules
+            - ./packages/*/lib
+  test_api:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10.13.0
+      - image: circleci/mongo:3.6
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-v3-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Run API Integration
           command: npm run ci:api
-#      - run:
-#          name: Run UI Integration
-#          command: npm run ci:ui
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - do-everything
+      - build
+      - test_api:
+          requires:
+            - build
