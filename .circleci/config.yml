@@ -51,7 +51,6 @@ workflows:
             - build
       - cypress/install:
           working_directory: ~/repo
-          cache-key: cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
           requires:
             - build
       - cypress/run:
