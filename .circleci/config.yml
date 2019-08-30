@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Run API Integration
           command: npm run ci:api
-  cypress/install:
+  cypress_install:
     working_directory: ~/repo
     docker:
       - image: cypress/base:10
@@ -80,7 +80,7 @@ workflows:
       - test_api:
           requires:
             - build
-      - cypress/install:
+      - cypress_install:
           requires:
             - build
 
