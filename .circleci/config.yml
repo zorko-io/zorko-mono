@@ -12,7 +12,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-v3-{{ .Branch }}-{{ checksum "package.json" }}
+            - cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Install Top Deps
           command: npm install
@@ -20,9 +20,8 @@ jobs:
           name: Install Sub Packages Deps
           command: npm run bootstrap
       - save_cache:
-          key: cache-v3-{{ .Branch }}-{{ checksum "package.json" }}
+          key: cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - .npm
             - ./node_modules
             - ./packages/*/node_modules
             - ./packages/*/lib
@@ -35,7 +34,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-v3-{{ .Branch }}-{{ checksum "package.json" }}
+            - cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Run API Integration
           command: npm run ci:api
