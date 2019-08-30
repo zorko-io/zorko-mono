@@ -60,6 +60,12 @@ jobs:
               exit 1
             fi
       - run:
+          name: Install Top Deps
+          command: npm install
+      - run:
+          name: Install Sub Packages Deps
+          command: npm run bootstrap
+      - run:
           name: Verfy Cypress
           command: npm run cy:verify
       - save_cache:
