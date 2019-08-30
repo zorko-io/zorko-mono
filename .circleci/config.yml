@@ -42,6 +42,7 @@ jobs:
           name: Run API Integration
           command: npm run ci:api
   cypress/install:
+    working_directory: ~/repo
     docker:
       - image: cypress/base:10
     steps:
@@ -58,11 +59,9 @@ jobs:
               echo "and commit 'package-lock.json' to your repo."
               exit 1
             fi
-          working_directory: ~/repo
       - run:
           name: Verfy Cypress
           command: npm run cy:verify
-          working_directory: ~/repo
       - save_cache:
           key: cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
@@ -71,7 +70,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project
+            - repo
             - .cache/Cypress
 workflows:
   version: 2
