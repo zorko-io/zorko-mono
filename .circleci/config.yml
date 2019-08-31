@@ -7,7 +7,7 @@ version: 2.1
 #  cypress: cypress-io/cypress@1.8.0
 jobs:
   build:
-    working_directory: ~/repo
+    working_directory: /home/circleci/repo
     docker:
       - image: circleci/node:10.13.0
       - image: circleci/mongo:3.6
@@ -15,7 +15,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
+            - cache-v5-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Install Top Deps
           command: npm install
@@ -23,13 +23,13 @@ jobs:
           name: Install Sub Packages Deps
           command: npm run bootstrap
       - save_cache:
-          key: cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
+          key: cache-v5-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ./node_modules
             - ./packages/*/node_modules
             - ./packages/*/lib
   test_api:
-    working_directory: ~/repo
+    working_directory: /home/circleci/repo
     docker:
       - image: circleci/node:10.13.0
       - image: circleci/mongo:3.6
@@ -37,12 +37,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
+            - cache-v5-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Run API Integration
           command: npm run ci:api
   cypress_install:
-    working_directory: ~/repo
+    working_directory: /home/circleci/repo
     docker:
       - image: circleci/node:10.13.0
       - image: circleci/mongo:3.6
@@ -51,7 +51,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
+            - cache-v5-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Check if package-lock.json exists
           command: |
@@ -74,12 +74,12 @@ jobs:
           name: Run UI Integration
           command: npm run ci:ui
       - save_cache:
-          key: cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
+          key: cache-v5-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - ~/.npm
-            - ~/.cache
+            - /home/circleci/.npm
+            - /home/circleci/.cache
       - persist_to_workspace:
-          root: ~/
+          root: /home/circleci/
           paths:
             - repo
             - .cache/Cypress
