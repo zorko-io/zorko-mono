@@ -44,6 +44,8 @@ jobs:
   cypress_install:
     working_directory: ~/repo
     docker:
+      - image: circleci/node:10.13.0
+      - image: circleci/mongo:3.6
       - image: cypress/base:10
     steps:
       - checkout
@@ -68,6 +70,9 @@ jobs:
       - run:
           name: Verfy Cypress
           command: npm run cy:verify
+      - run:
+          name: Run UI Integration
+          command: npm run ci:ui
       - save_cache:
           key: cache-v4-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
