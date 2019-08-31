@@ -44,9 +44,8 @@ jobs:
   cypress_install:
     working_directory: /root/repo
     docker:
-#      - image: circleci/node:10.13.0
-      - image: circleci/mongo:3.6
       - image: cypress/base:10
+      - image: circleci/mongo:3.6
     steps:
       - checkout
       - restore_cache:
