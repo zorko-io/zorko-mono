@@ -11,8 +11,8 @@
     "clean": "rimraf build && rimraf node_modules"
   },
   "dependencies": {
-
     "@zorko/client-api": "latest",
+    "@zorko/ui-markers": "^1.0.0-alpha.6",
     "formik": "^1.5.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -22,11 +22,11 @@
     "typescript": "3.5.3"
   },
   "devDependencies": {
-    "@types/react-router-dom": "^4.3.5",
     "@types/jest": "24.0.15",
     "@types/node": "12.6.8",
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.5",
+    "@types/react-router-dom": "^4.3.5",
     "rimraf": "^2.6.3"
   },
   "eslintConfig": {

@@ -1,3 +1,5 @@
+import { LoginMarkers } from '@zorko/ui-markers'
+
 context('Login', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080')
@@ -6,7 +8,7 @@ context('Login', () => {
   it('Login Successfully', function() {
     cy.contains('Login')
 
-    cy.get('[data-test=email-input]')
+    cy.get(LoginMarkers.loginAsSelector())
       .type('admin@email.com')
       .should('have.value', 'admin@email.com')
 

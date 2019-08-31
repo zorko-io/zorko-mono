@@ -1,4 +1,5 @@
 import { TokenDto } from '@zorko/dto';
+import { LoginMarkers } from '@zorko/ui-markers'
 import { Field, Form, Formik, FormikActions, FormikBag } from 'formik';
 import React from 'react';
 import Api from '@zorko/client-api';
@@ -34,9 +35,9 @@ export function LoginForm (props: PropTypes){
   onSubmit={handleSubmit}>
     {(form: FormikBag<PropTypes, FormValues>) => (
       <Form autoComplete='off'>
-        <Field data-test="email-input" name="login" type="text" />
-        <Field data-test="password-input" name="password" type="text" />
-        <button data-test="submit" type="submit">Submit</button>
+        <Field name="login" type="text" {...LoginMarkers.login }/>
+        <Field name="password" type="text"  {...LoginMarkers.password } />
+        <button data-test="submit" type="submit" {...LoginMarkers.submit }>Submit</button>
         <button onClick={()=> {
           form.resetForm()
         }}>Cancel</button>

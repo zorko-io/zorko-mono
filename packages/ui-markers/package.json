@@ -1,0 +1,31 @@
+{
+  "name": "@zorko/ui-markers",
+  "version": "1.0.0-alpha.6",
+  "description": "UI marker for automated tests",
+  "author": "nesterone <igornester@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "clean": "rimraf lib && rimraf node_modules"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "typescript": "^3.5.3"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.3"
+  }
+}

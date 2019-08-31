@@ -4,8 +4,8 @@
   "description": "UI Integration Tests Suite",
   "main": "index.js",
   "scripts": {
-    "open" : "npx cypress open",
-    "ci:ui" : "../../scripts/run-e2e-ui.sh",
+    "open": "npx cypress open",
+    "ci:ui": "../../scripts/run-e2e-ui.sh",
     "test": "cypress run --spec \"cypress/integration/basic/login.spec.js\"",
     "verify": "cypress verify"
   },
@@ -13,5 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "cypress": "^3.4.1"
+  },
+  "dependencies": {
+    "@zorko/ui-markers": "^1.0.0-alpha.6"
   }
 }
