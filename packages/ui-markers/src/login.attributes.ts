@@ -1,21 +1,47 @@
+class MarkerAttribute {
+  private readonly name: string;
+  private readonly value:  string;
+
+  constructor(name: string, value: string){
+    this.name = name;
+    this.value = value;
+  }
+
+  toProp() {
+    return { [this.name]: this.value}
+  }
+
+  toSelector() {
+    return `[${this.name}=${this.value}]`;
+  }
+}
+
 export class LoginAttributes {
+  private readonly attrName: string;
 
-  get password() {
-    return { 'data-test': 'password-input' }
+  constructor(attrName: string){
+    this.attrName = attrName;
   }
 
-
-  loginAsSelector () {
-    return '[data-test=email-input]'
+  loginInput () {
+    return new MarkerAttribute(
+      this.attrName,
+      'email-input'
+    )
   }
 
-  get login () {
-     return { 'data-test': 'email-input' }
+  passwordInput () {
+    return new MarkerAttribute(
+      this.attrName,
+      'password-index'
+    )
   }
 
-  get submit () {
-    return { 'data-test': 'submit' }
+  submit() {
+    return new MarkerAttribute(
+      this.attrName,
+      'submit'
+    )
   }
-
 }
 

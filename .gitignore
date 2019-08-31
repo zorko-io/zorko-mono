@@ -3,5 +3,8 @@ lerna-debug.log
 npm-debug.log
 packages/*/lib/
 packages/*/node_modules/
+packages/*/videos/
+packages/*/screenshots/
 .idea
 dist/
+*.mp4

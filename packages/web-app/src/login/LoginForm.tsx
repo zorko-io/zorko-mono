@@ -35,12 +35,24 @@ export function LoginForm (props: PropTypes){
   onSubmit={handleSubmit}>
     {(form: FormikBag<PropTypes, FormValues>) => (
       <Form autoComplete='off'>
-        <Field name="login" type="text" {...LoginMarkers.login }/>
-        <Field name="password" type="text"  {...LoginMarkers.password } />
-        <button data-test="submit" type="submit" {...LoginMarkers.submit }>Submit</button>
-        <button onClick={()=> {
-          form.resetForm()
-        }}>Cancel</button>
+        <Field
+          name="login"
+          type="text"
+          {...LoginMarkers.loginInput().toProp()}
+        />
+        <Field
+          name="password"
+          type="text"
+          {...LoginMarkers.passwordInput().toProp()} />
+        <button
+          type="submit"
+          {...LoginMarkers.submit().toProp() }
+        >
+          Submit
+        </button>
+        <button onClick={()=> { form.resetForm() }}>
+          Cancel
+        </button>
       </Form>
     )}
   </Formik>

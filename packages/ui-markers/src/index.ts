@@ -1,5 +1,7 @@
 import { LoginAttributes } from './login.attributes';
 
 
-export const LoginMarkers = new LoginAttributes();
+const TEST_MARKER_ATTR = 'data-test';
+
+export const LoginMarkers = new LoginAttributes(TEST_MARKER_ATTR);
 

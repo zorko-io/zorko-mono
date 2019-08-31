@@ -8,15 +8,19 @@ context('Login', () => {
   it('Login Successfully', function() {
     cy.contains('Login')
 
-    cy.get(LoginMarkers.loginAsSelector())
+    let login = LoginMarkers.loginInput().toSelector();
+
+    cy.get(login)
       .type('admin@email.com')
       .should('have.value', 'admin@email.com')
 
-    cy.get('[data-test=password-input]')
+    let password = LoginMarkers.passwordInput().toSelector();
+    cy.get(password)
       .type('qwerty')
       .should('have.value', 'qwerty')
 
-    cy.get('[data-test=submit]').click()
+    let submit = LoginMarkers.submit().toSelector();
+    cy.get(submit).click()
 
     cy.url().should('include', '/admin')
   })
