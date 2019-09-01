@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { LoginPage } from './login/LoginPage';
+import LoginPage from './login/LoginPage';
 import { AdminPage } from './admin/AdminPage';
 
 export function App() {
