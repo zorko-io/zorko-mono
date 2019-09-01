@@ -16,5 +16,5 @@ const enhancer: StoreEnhancer<any> = composeEnhancers(applyMiddleware(...middlew
 
 
 export function createStore() {
-  return createReduxStore(rootReducer, {}, enhancer)
+  return createReduxStore(rootReducer, enhancer)
 }
