@@ -23,7 +23,6 @@ export function LoginPage(props: PropTypes) {
   );
 }
 
-
 const mapDispatchToProps = (dispatch: Dispatch<any>) =>
   bindActionCreators(
     {
