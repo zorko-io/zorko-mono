@@ -1,5 +1,5 @@
 import { TokenDto } from '@zorko/dto';
-import { LoginMarkers } from '@zorko/ui-markers'
+import { LoginMarkers } from '@zorko/ui-markers';
 import { Field, Form, Formik, FormikActions, FormikBag } from 'formik';
 import React from 'react';
 import Api from '@zorko/client-api';

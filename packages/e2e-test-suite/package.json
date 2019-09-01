@@ -1,6 +1,6 @@
 {
-  "name": "e2e-test-suite",
-  "version": "1.0.0-alplha.1",
+  "name": "@zorko/e2e-test-suite",
+  "version": "1.0.0-alplha.6",
   "description": "UI Integration Tests Suite",
   "main": "index.js",
   "scripts": {

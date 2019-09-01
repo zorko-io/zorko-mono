@@ -26,7 +26,7 @@ export class LoginAttributes {
   loginInput () {
     return new MarkerAttribute(
       this.attrName,
-      'email-input'
+      'email-inputttt'
     )
   }
 

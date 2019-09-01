@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "lerna run start --parallel",
-    "postinstall1111": "npm run bootstrap",
-    "bootstrap": "lerna bootstrap --hoist",
+    "postinstall": "npm run bootstrap --hoist",
+    "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "publish": "lerna publish",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +15,8 @@
     "ci": "npm run ci:api && npm run ci:ui",
     "cy:verify": "cd ./packages/e2e-test-suite/ && npm run verify",
     "cy:test": "cd ./packages/e2e-test-suite/ && npm run test",
-    "watch": "lerna run watch --stream"
+    "watch": "lerna run watch --stream",
+    "clean": "lerna run clean --parallel"
   },
   "author": "nesterone <igornester@gmail.com>",
   "license": "ISC",

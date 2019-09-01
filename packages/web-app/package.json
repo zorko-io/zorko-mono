@@ -1,6 +1,6 @@
 {
-  "name": "web-app",
-  "version": "0.1.0",
+  "name": "@zorko/web-app",
+  "version": "1.0.0-alplha.6",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -11,22 +11,28 @@
     "clean": "rimraf build && rimraf node_modules"
   },
   "dependencies": {
-    "@zorko/client-api": "latest",
+    "@zorko/client-api": "^1.0.0-alpha.6",
+    "@zorko/dto": "^1.0.0-alpha.7",
     "@zorko/ui-markers": "^1.0.0-alpha.6",
     "formik": "^1.5.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "redux": "^4.0.4",
+    "redux-logger": "latest",
     "source-map-explorer": "^2.0.1",
     "typescript": "3.5.3"
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.2",
     "@types/jest": "24.0.15",
     "@types/node": "12.6.8",
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.5",
     "@types/react-router-dom": "^4.3.5",
+    "@types/redux-logger": "^3.0.7",
     "rimraf": "^2.6.3"
   },
   "eslintConfig": {
