@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthPresenter creates presenter with defaults 1`] = `
+Object {
+  "request": Object {
+    "error": null,
+    "isPending": false,
+    "isSucceed": false,
+  },
+  "token": null,
+}
+`;
+
+exports[`AuthPresenter starts refresh token 1`] = `
+Object {
+  "request": Object {
+    "error": null,
+    "isPending": true,
+    "isSucceed": false,
+  },
+  "token": null,
+}
+`;
+
+exports[`AuthPresenter updates token 1`] = `
+Object {
+  "request": Object {
+    "error": null,
+    "isPending": false,
+    "isSucceed": true,
+  },
+  "token": Object {
+    "accessKey": "zzzzzz",
+    "userId": "dfdfdf",
+  },
+}
+`;

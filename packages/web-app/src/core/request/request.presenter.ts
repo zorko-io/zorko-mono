@@ -10,8 +10,12 @@ export class RequestPresenter {
 
   private immutable: Map<string, any>;
 
-  static create(state?: RequestState) {
+  static fromJS(state?: RequestState) {
     return new RequestPresenter(state ? fromJS(state) : state)
+  }
+
+  static create(state?: Map<string, any>) {
+    return new RequestPresenter(state)
   }
 
   constructor(state?: Map<string, any>){
