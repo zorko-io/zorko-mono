@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RequestPresenter creates presenter with defaults 1`] = `
+Object {
+  "error": null,
+  "isPending": false,
+  "isSucceed": false,
+}
+`;
+
+exports[`RequestPresenter marks as succeed request 1`] = `
+Object {
+  "error": null,
+  "isPending": false,
+  "isSucceed": true,
+}
+`;
+
+exports[`RequestPresenter starts request 1`] = `
+Object {
+  "error": null,
+  "isPending": true,
+  "isSucceed": false,
+}
+`;
