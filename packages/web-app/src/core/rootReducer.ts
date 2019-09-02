@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { authReducer } from './authReducer';
+import { authReducer } from './auth';
 
 export function rootReducer(state: Map<string, any> = Map(), action: any) {
 

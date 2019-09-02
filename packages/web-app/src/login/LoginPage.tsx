@@ -4,7 +4,7 @@ import { LoginForm } from './LoginForm';
 import { RouterProps } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { authTokenSet } from '../core/auth.actions';
+import { authTokenSet } from '../core/auth';
 import { TokenDto } from '@zorko/dto';
 
 export interface PropTypes extends RouterProps{

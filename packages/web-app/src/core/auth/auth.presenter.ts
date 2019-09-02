@@ -10,8 +10,8 @@ export interface AuthState {
 export class AuthPresenter {
   private immutable: Map<string, any>;
 
-  static create(state?: RequestState) {
-    return new AuthPresenter(state ? fromJS(state) : state)
+  static create(state?: Map<string, any>) {
+    return new AuthPresenter(state)
   }
 
   constructor(state?: Map<string, any>){
