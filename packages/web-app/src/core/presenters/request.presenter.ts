@@ -41,6 +41,24 @@ export class RequestPresenter {
     return this;
   }
 
+  markFailure(error: Error) {
+    this.immutable = this.immutable
+      .set('isPending', false)
+      .set('isSucceed', false)
+      .set('error', fromJS(error));
+
+    return this;
+  }
+
+  reset() {
+    this.immutable = this.immutable
+      .set('isPending', false)
+      .set('isSucceed', false)
+      .set('error', null);
+
+    return this;
+  }
+
   toJS(): RequestState {
     return this.immutable.toJS() as RequestState;
   }

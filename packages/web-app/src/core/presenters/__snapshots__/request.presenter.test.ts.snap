@@ -8,11 +8,27 @@ Object {
 }
 `;
 
+exports[`RequestPresenter marks as error request 1`] = `
+Object {
+  "error": [Error: Boom!],
+  "isPending": false,
+  "isSucceed": false,
+}
+`;
+
 exports[`RequestPresenter marks as succeed request 1`] = `
 Object {
   "error": null,
   "isPending": false,
   "isSucceed": true,
+}
+`;
+
+exports[`RequestPresenter resets to default 1`] = `
+Object {
+  "error": null,
+  "isPending": false,
+  "isSucceed": false,
 }
 `;
 

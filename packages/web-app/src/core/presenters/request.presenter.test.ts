@@ -25,7 +25,30 @@ describe('RequestPresenter', () => {
   });
 
   it('marks as succeed request', () => {
-    let actual = presenter.markSucceed();
+    let actual = presenter.startRequest().markSucceed();
+
+    expect(presenter).toBe(actual);
+    let expected = actual.toJS();
+    expect(expected).toMatchSnapshot();
+    expect(actual.toImmutable().toJS()).toEqual(expected);
+  }) ;
+
+  it('marks as error request', () => {
+    let actual = presenter
+      .startRequest()
+      .markFailure(new Error('Boom!'));
+
+    expect(presenter).toBe(actual);
+    let expected = actual.toJS();
+    expect(expected).toMatchSnapshot();
+    expect(actual.toImmutable().toJS()).toEqual(expected);
+  });
+
+  it('resets to default', () => {
+    let actual = presenter
+      .startRequest()
+      .markFailure(new Error('Boom!'))
+      .reset();
 
     expect(presenter).toBe(actual);
     let expected = actual.toJS();
