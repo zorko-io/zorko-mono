@@ -52,6 +52,15 @@ export class AuthPresenter {
     return this;
   }
 
+  failRefresh(error: Error) {
+    this.request = RequestPresenter
+      .create(this.request)
+      .markFailure(error)
+      .toImmutable();
+
+    return this;
+  }
+
   updateToken(nextToken: TokenDto){
     this.request = RequestPresenter
       .create(this.request)

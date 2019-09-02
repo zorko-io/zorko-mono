@@ -11,6 +11,17 @@ Object {
 }
 `;
 
+exports[`AuthPresenter fail token refresh 1`] = `
+Object {
+  "request": Object {
+    "error": [Error: Boom!!!],
+    "isPending": false,
+    "isSucceed": false,
+  },
+  "token": null,
+}
+`;
+
 exports[`AuthPresenter starts refresh token 1`] = `
 Object {
   "request": Object {

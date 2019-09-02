@@ -30,4 +30,12 @@ describe('AuthPresenter', () => {
     expect(expected).toMatchSnapshot();
     expect(presenter.toImmutable().toJS()).toEqual(expected);
   })
+
+  it('fail token refresh', () => {
+    presenter = presenter.startRefresh().failRefresh(new Error('Boom!!!'));
+
+    let expected = presenter.toJS();
+    expect(expected).toMatchSnapshot();
+    expect(presenter.toImmutable().toJS()).toEqual(expected);
+  })
 });
