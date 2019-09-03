@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "lerna run start --parallel",
-    "postinstall": "npm run bootstrap --hoist",
-    "bootstrap": "lerna bootstrap",
+    "postinstall111": "npm run bootstrap --hoist",
+    "bootstrap": "lerna bootstrap --hoist",
     "build": "lerna run build",
     "publish": "lerna publish",
     "test": "echo \"Error: no test specified\" && exit 1",
