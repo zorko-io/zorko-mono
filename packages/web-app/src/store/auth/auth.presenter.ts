@@ -14,12 +14,30 @@ export class AuthPresenter {
     return new AuthPresenter(state)
   }
 
+  static getDefaults() {
+    return Map({
+      token: null,
+      request: RequestPresenter.create().toImmutable()
+    });
+  }
+
+  static hasToken(auth: Map<string, any>): boolean {
+
+    // todo check just token existence
+    return Boolean(auth.get('token'))
+  }
+
+  static getToken(auth: Map<string, any>){
+    return auth.get('token')
+  }
+
+  static getRequest(auth: Map<string, any>){
+    return auth.get('request')
+  }
+
   constructor(state?: Map<string, any>){
     if (!state){
-      state = Map({
-        token: null,
-        request: RequestPresenter.create().toImmutable()
-      })
+      state = AuthPresenter.getDefaults()
     }
 
     /// TODO: validation !!???
@@ -28,7 +46,7 @@ export class AuthPresenter {
   }
 
   get request() {
-    return this.immutable.get('request');
+    return AuthPresenter.getRequest(this.immutable);
   }
 
   set request (request){
@@ -36,7 +54,7 @@ export class AuthPresenter {
   }
 
   get token() {
-    return this.immutable.get('token');
+    return AuthPresenter.getToken(this.immutable);
   }
 
   set token (token){

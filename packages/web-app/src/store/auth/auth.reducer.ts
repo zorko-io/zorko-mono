@@ -7,7 +7,9 @@ import {
 } from './auth.actions';
 import { AuthPresenter } from './auth.presenter';
 
-export function authReducer(state: Map<string, any> | undefined, action: any) {
+const initialState = AuthPresenter.getDefaults();
+
+export function authReducer(state: Map<string, any> = initialState, action: any) {
   switch (action.type) {
     case getType(authTokenRefreshRequest): {
       return AuthPresenter

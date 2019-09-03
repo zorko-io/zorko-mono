@@ -1,10 +1,10 @@
 import React from 'react';
-import { Page } from '../ui/Page';
+import { Page } from '../../ui/Page';
 import { LoginForm } from './LoginForm';
 import { RouterProps } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { authTokenSet } from '../core/auth';
+import { authTokenSet } from '../../store/auth';
 import { TokenDto } from '@zorko/dto';
 
 export interface PropTypes extends RouterProps{

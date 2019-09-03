@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import Api from '@zorko/client-api';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from './core';
+import { createStore } from './store';
 
 Api.setConfig({
   baseURL: process.env.REACT_APP_SEVER_API_URL

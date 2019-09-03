@@ -20,7 +20,7 @@ describe('AuthPresenter', () => {
     let expected = presenter.toJS();
     expect(expected).toMatchSnapshot();
     expect(presenter.toImmutable().toJS()).toEqual(expected);
-  })
+  });
 
   it('updates token', () => {
     let nextToken = { accessKey: 'zzzzzz', userId:'dfdfdf' };
@@ -29,7 +29,7 @@ describe('AuthPresenter', () => {
     let expected = presenter.toJS();
     expect(expected).toMatchSnapshot();
     expect(presenter.toImmutable().toJS()).toEqual(expected);
-  })
+  });
 
   it('fail token refresh', () => {
     presenter = presenter.startRefresh().failRefresh(new Error('Boom!!!'));
