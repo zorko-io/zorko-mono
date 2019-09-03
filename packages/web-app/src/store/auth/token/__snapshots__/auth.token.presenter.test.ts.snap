@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthTokenPresenter creates presenter with defaults 1`] = `
+Object {
+  "token": null,
+}
+`;
+
+exports[`AuthTokenPresenter updates token 1`] = `
+Object {
+  "accessKey": "zzzzzz",
+  "userId": "dfdfdf",
+}
+`;
