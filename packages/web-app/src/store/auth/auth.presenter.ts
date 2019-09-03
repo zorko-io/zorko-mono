@@ -1,6 +1,7 @@
-import { fromJS, Map } from 'immutable';
+import { Map } from 'immutable';
 import { TokenDto } from '@zorko/dto';
 import { RequestPresenter, RequestState } from '../request';
+import { AuthTokenPresenter } from './token/auth.token.presenter';
 
 export interface AuthState {
   readonly token: TokenDto
@@ -8,22 +9,24 @@ export interface AuthState {
 }
 
 export class AuthPresenter {
-  private immutable: Map<string, any>;
-
   static create(state?: Map<string, any>) {
-    return new AuthPresenter(state)
+    const request = state ? AuthPresenter.getRequest(state): null;
+    const token = state ? AuthPresenter.getToken(state): null;
+
+    return new AuthPresenter(
+      RequestPresenter.create(request),
+      AuthTokenPresenter.create(token)
+    )
   }
 
   static getDefaults() {
     return Map({
-      token: null,
+      token: AuthTokenPresenter.getDefaults(),
       request: RequestPresenter.create().toImmutable()
     });
   }
 
   static hasToken(auth: Map<string, any>): boolean {
-
-    // todo check just token existence
     return Boolean(auth.get('token'))
   }
 
@@ -35,64 +38,40 @@ export class AuthPresenter {
     return auth.get('request')
   }
 
-  constructor(state?: Map<string, any>){
-    if (!state){
-      state = AuthPresenter.getDefaults()
-    }
+  private token: AuthTokenPresenter;
+  private request: RequestPresenter;
 
-    /// TODO: validation !!???
-
-    this.immutable = state;
-  }
-
-  get request() {
-    return AuthPresenter.getRequest(this.immutable);
-  }
-
-  set request (request){
-    this.immutable = this.immutable.set('request', request);
-  }
-
-  get token() {
-    return AuthPresenter.getToken(this.immutable);
-  }
-
-  set token (token){
-    this.immutable = this.immutable.set('token', token);
+  constructor(request: RequestPresenter, token: AuthTokenPresenter){
+   this.token = token;
+   this.request = request;
   }
 
   startRefresh() {
-    this.request = RequestPresenter
-      .create(this.request)
-      .startRequest()
-      .toImmutable();
-
+    this.request.startRequest();
     return this;
   }
 
   failRefresh(error: Error) {
-    this.request = RequestPresenter
-      .create(this.request)
-      .markFailure(error)
-      .toImmutable();
-
+    this.request.markFailure(error);
     return this;
   }
 
   updateToken(nextToken: TokenDto){
-    this.request = RequestPresenter
-      .create(this.request)
-      .markSucceed()
-      .toImmutable();
-    this.token = fromJS(nextToken);
+    this.request.markSucceed();
+    this.token.update(nextToken);
     return this;
   }
 
   toJS(): AuthState {
-    return this.immutable.toJS() as AuthState;
+    return {
+      token: this.token.toJS(),
+      request: this.request.toJS()
+    }
   }
 
-  toImmutable(){
-    return this.immutable;
+  toImmutable() : Map<string, any> {
+    return Map({token: Map(), request: Map()})
+      .set('token', this.token.toImmutable())
+      .set('request', this.request.toImmutable())
   }
 }

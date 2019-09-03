@@ -7,7 +7,10 @@ Object {
     "isPending": false,
     "isSucceed": false,
   },
-  "token": null,
+  "token": Object {
+    "accessKey": "",
+    "userId": "",
+  },
 }
 `;
 
@@ -18,7 +21,10 @@ Object {
     "isPending": false,
     "isSucceed": false,
   },
-  "token": null,
+  "token": Object {
+    "accessKey": "",
+    "userId": "",
+  },
 }
 `;
 
@@ -29,7 +35,10 @@ Object {
     "isPending": true,
     "isSucceed": false,
   },
-  "token": null,
+  "token": Object {
+    "accessKey": "",
+    "userId": "",
+  },
 }
 `;
 

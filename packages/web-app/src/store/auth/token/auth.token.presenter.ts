@@ -9,24 +9,25 @@ export class AuthTokenPresenter implements Presenter<AuthTokenState>{
 
   static getDefaults() {
     return fromJS({
-      token: null
+      accessKey: '',
+      userId: ''
     })
   }
 
   static hasToken(token: Map<string, any>){
-    return Boolean(token.get('token'));
+    return Boolean(token.get('accessKey'));
   }
 
   static create(state?: Map<string, any>) {
     return new AuthTokenPresenter(state || AuthTokenPresenter.getDefaults())
   }
 
-  constructor(state: Map<string, any>) {
-     this.immutable = state;
+  hasToken(){
+    return  AuthTokenPresenter.hasToken(this.immutable);
   }
 
-  hasToken():boolean{
-     return AuthTokenPresenter.hasToken(this.immutable);
+  constructor(state: Map<string, any>) {
+     this.immutable = state;
   }
 
   update(token: TokenDto){
@@ -38,7 +39,7 @@ export class AuthTokenPresenter implements Presenter<AuthTokenState>{
      return  this.immutable.toJS() as AuthTokenState
    }
 
-   toImmutable() {
+   toImmutable(): Map<string, any> {
      return this.immutable;
    }
 }

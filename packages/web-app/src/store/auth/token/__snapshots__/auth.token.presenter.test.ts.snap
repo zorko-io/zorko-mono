@@ -2,7 +2,8 @@
 
 exports[`AuthTokenPresenter creates presenter with defaults 1`] = `
 Object {
-  "token": null,
+  "accessKey": "",
+  "userId": "",
 }
 `;
 

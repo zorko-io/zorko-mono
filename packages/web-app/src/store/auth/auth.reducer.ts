@@ -1,4 +1,4 @@
-import { fromJS, Map } from 'immutable';
+import { Map } from 'immutable';
 import { getType } from 'typesafe-actions';
 import {
   authTokenRefreshRequest,

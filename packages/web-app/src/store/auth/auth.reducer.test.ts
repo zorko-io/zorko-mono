@@ -1,6 +1,10 @@
 import { AuthPresenter } from './auth.presenter';
 import { authReducer } from './auth.reducer';
-import { authTokenRefreshFailure, authTokenRefreshRequest, authTokenSet } from './auth.actions';
+import {
+  authTokenRefreshFailure,
+  authTokenRefreshRequest,
+  authTokenSet
+} from './auth.actions';
 
 describe('AuthReducer', () => {
 
@@ -8,7 +12,7 @@ describe('AuthReducer', () => {
     let actual = authReducer(undefined, authTokenRefreshRequest());
     let expected = AuthPresenter.create().startRefresh().toImmutable();
 
-    expect(actual).toEqual(expected)
+    expect(actual.toJS()).toEqual(expected.toJS())
   });
 
   it('updates token', () => {
@@ -19,7 +23,7 @@ describe('AuthReducer', () => {
     let actual = authReducer(AuthPresenter.create().toImmutable(), authTokenSet(nextToken));
     let expected = AuthPresenter.create().updateToken(nextToken).toImmutable();
 
-    expect(actual).toEqual(expected)
+    expect(actual.toJS()).toEqual(expected.toJS())
   });
 
   it('marks failure refresh', () => {
@@ -27,7 +31,7 @@ describe('AuthReducer', () => {
     let actual = authReducer(AuthPresenter.create().toImmutable(), authTokenRefreshFailure(error));
     let expected = AuthPresenter.create().failRefresh(error).toImmutable();
 
-    expect(actual).toEqual(expected);
+    expect(actual.toJS()).toEqual(expected.toJS());
   })
 
 
