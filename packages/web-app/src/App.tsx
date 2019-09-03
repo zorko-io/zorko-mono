@@ -4,6 +4,7 @@ import LoginPage from './features/login/LoginPage';
 import AdminPage from './features/admin/AdminPage';
 import HomePage from './features/home/HomePage';
 import PrivateRoute from './auth/PrivateRoute';
+import NotFoundPage from './ui/NotFoundPage';
 
 export function App() {
   return (
@@ -13,6 +14,7 @@ export function App() {
         <Route exact={true} path={'/login'} component={LoginPage} />
         <PrivateRoute exact={true} path={'/admin'} component={AdminPage} />
         <PrivateRoute exact={true} path={'/home'} component={HomePage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
   );
