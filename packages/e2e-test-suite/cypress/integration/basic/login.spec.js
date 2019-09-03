@@ -23,6 +23,12 @@ context('Login', () => {
     cy.get(submit).click()
 
     cy.url().should('include', '/home')
-  })
+  });
+
+  it('Redirect to login page without auth', () => {
+    cy.visit('http://localhost:8080/home');
+    cy.wait(1000);
+    cy.url().should('include', '/')
+  });
 
 });
