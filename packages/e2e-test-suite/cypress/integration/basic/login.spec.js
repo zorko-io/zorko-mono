@@ -22,7 +22,7 @@ context('Login', () => {
     let submit = LoginMarkers.submit().toSelector();
     cy.get(submit).click()
 
-    cy.url().should('include', '/admin')
+    cy.url().should('include', '/home')
   })
 
 });

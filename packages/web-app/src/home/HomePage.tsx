@@ -1,12 +1,12 @@
 import React from 'react';
 import { Page } from '../ui/Page';
 
-export function AdminPage() {
+export function HomePage() {
   return (
     <Page>
-      Admin Page
+      Home Page
     </Page>
   );
 }
 
-export default AdminPage;
+export default HomePage;

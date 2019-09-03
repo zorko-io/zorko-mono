@@ -17,7 +17,7 @@ export function LoginPage(props: PropTypes) {
       <span>Login</span>
       <LoginForm onSuccess={(token)=>{
         props.onLoginSuccess(token);
-        props.history.push('/admin');
+        props.history.push('/home');
       }}/>
     </Page>
   );
