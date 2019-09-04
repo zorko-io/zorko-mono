@@ -1,59 +1,60 @@
-import { RequestPresenter } from './request.presenter';
+import { RequestStateImmutable } from './request.presenter';
+import { Presenter } from '../presenter';
+
+function checkImmutableAndJS<T>(state: Presenter<T>) {
+  expect(state.toImmutable().toJS()).toEqual(state.toJS());
+}
 
 describe('RequestPresenter', () => {
-
-  let presenter: RequestPresenter;
+  let presenter: RequestStateImmutable;
 
   beforeEach(()=> {
-     presenter = RequestPresenter.create();
+     presenter = RequestStateImmutable.create();
   });
 
   it('creates presenter with defaults', () => {
-    let expected = presenter.toJS();
-    expect(expected).toMatchSnapshot();
-    expect(presenter.toImmutable().toJS()).toEqual(expected);
+    expect(presenter.toJS()).toMatchSnapshot();
+    checkImmutableAndJS(presenter)
   });
 
   it('starts request', () => {
-    let actual = presenter.startRequest();
+    presenter.isPending = true;
 
-    expect(presenter).toBe(actual);
-
-    let expected = actual.toJS();
-    expect(expected).toMatchSnapshot();
-    expect(actual.toImmutable().toJS()).toEqual(expected);
+    expect(presenter.toJS()).toMatchSnapshot();
+    checkImmutableAndJS(presenter);
   });
 
   it('marks as succeed request', () => {
-    let actual = presenter.startRequest().markSucceed();
+    presenter = RequestStateImmutable.fromJS({
+      isPending: true
+    });
 
-    expect(presenter).toBe(actual);
-    let expected = actual.toJS();
-    expect(expected).toMatchSnapshot();
-    expect(actual.toImmutable().toJS()).toEqual(expected);
+    presenter.isSucceed = true;
+
+    expect(presenter.toJS()).toMatchSnapshot();
+    checkImmutableAndJS(presenter);
   }) ;
 
   it('marks as error request', () => {
-    let actual = presenter
-      .startRequest()
-      .markFailure(new Error('Boom!'));
+    presenter = RequestStateImmutable.fromJS({
+      isPending: true
+    });
 
-    expect(presenter).toBe(actual);
-    let expected = actual.toJS();
-    expect(expected).toMatchSnapshot();
-    expect(actual.toImmutable().toJS()).toEqual(expected);
+    presenter.error = new Error('Boom!');
+
+    expect(presenter.toJS()).toMatchSnapshot();
+    checkImmutableAndJS(presenter);
   });
 
   it('resets to default', () => {
-    let actual = presenter
-      .startRequest()
-      .markFailure(new Error('Boom!'))
-      .reset();
+    presenter = RequestStateImmutable.fromJS({
+      error: new Error('Boom!')
+    });
 
-    expect(presenter).toBe(actual);
-    let expected = actual.toJS();
-    expect(expected).toMatchSnapshot();
-    expect(actual.toImmutable().toJS()).toEqual(expected);
+    presenter.reset();
+
+    expect(presenter.toJS()).toMatchSnapshot();
+    checkImmutableAndJS(presenter);
   })
 
 });
