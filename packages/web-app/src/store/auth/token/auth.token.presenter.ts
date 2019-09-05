@@ -12,7 +12,7 @@ export class AuthTokenPresenter extends AbstractImmutablePresenter<AuthTokenStat
     })
   }
 
-  static hasToken(token: Map<string, any>){
+  static hasAccessKey(token: Map<string, any>){
     return Boolean(token.get('accessKey'));
   }
 

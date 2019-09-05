@@ -1,19 +1,21 @@
 import { Map } from 'immutable';
 import { TokenDto } from '@zorko/dto';
-import { RequestPresenter, RequestState } from '../request';
-import { AuthTokenPresenter } from './token/auth.token.presenter';
+import { RequestPresenter } from '../request';
+import { AuthTokenPresenter } from './token';
+import { AuthState } from './auth.state';
+import { AbstractImmutablePresenter } from '../abstract.immutable.presenter';
 
-export interface AuthState {
-  readonly token: TokenDto
-  readonly request: RequestState
-}
-
-export class AuthPresenter {
+export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
   static create(state?: Map<string, any>) {
     const request = state ? AuthPresenter.getRequest(state): null;
     const token = state ? AuthPresenter.getToken(state): null;
 
+    if (!state) {
+      state = Map({token: Map(), request: Map()})
+    }
+
     return new AuthPresenter(
+      state,
       RequestPresenter.create(request),
       AuthTokenPresenter.create(token)
     )
@@ -24,10 +26,6 @@ export class AuthPresenter {
       token: AuthTokenPresenter.getDefaults(),
       request: RequestPresenter.create().toImmutable()
     });
-  }
-
-  static hasToken(auth: Map<string, any>): boolean {
-    return Boolean(auth.get('token'))
   }
 
   static getToken(auth: Map<string, any>){
@@ -41,7 +39,8 @@ export class AuthPresenter {
   private token: AuthTokenPresenter;
   private request: RequestPresenter;
 
-  constructor(request: RequestPresenter, token: AuthTokenPresenter){
+  constructor(state: Map<string, any>, request: RequestPresenter, token: AuthTokenPresenter){
+   super(state);
    this.token = token;
    this.request = request;
   }
@@ -56,7 +55,7 @@ export class AuthPresenter {
     return this;
   }
 
-  updateToken(nextToken: TokenDto){
+  refreshToken(nextToken: TokenDto){
     this.request.setSucceed(true);
     this.token
       .setAccessKey(nextToken.accessKey)
@@ -65,14 +64,14 @@ export class AuthPresenter {
     return this;
   }
 
-  toJS(): AuthState {
+  asJS(): AuthState {
     return {
       token: this.token.toJS(),
       request: this.request.toJS()
     }
   }
 
-  toImmutable() : Map<string, any> {
+  asImmutable() : Map<string, any> {
     return Map({token: Map(), request: Map()})
       .set('token', this.token.toImmutable())
       .set('request', this.request.toImmutable())

@@ -17,6 +17,7 @@
     "@zorko/ui-markers": "^1.0.0-alpha.6",
     "formik": "^1.5.8",
     "immutable": "^4.0.0-rc.12",
+    "lodash": "latest",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.1",
@@ -24,10 +25,10 @@
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
     "redux-logger": "latest",
+    "reselect": "^4.0.0",
     "source-map-explorer": "^2.0.1",
     "typesafe-actions": "^4.4.2",
-    "typescript": "3.5.3",
-    "lodash": "latest"
+    "typescript": "3.5.3"
   },
   "devDependencies": {
     "@types/jest": "24.0.15",

@@ -21,7 +21,7 @@ describe('AuthReducer', () => {
       userId: 'dsdsdsdsdsd'
     };
     let actual = authReducer(AuthPresenter.create().toImmutable(), authTokenSet(nextToken));
-    let expected = AuthPresenter.create().updateToken(nextToken).toImmutable();
+    let expected = AuthPresenter.create().refreshToken(nextToken).toImmutable();
 
     expect(actual.toJS()).toEqual(expected.toJS())
   });

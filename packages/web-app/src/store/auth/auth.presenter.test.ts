@@ -24,7 +24,7 @@ describe('AuthPresenter', () => {
 
   it('updates token', () => {
     let nextToken = { accessKey: 'zzzzzz', userId:'dfdfdf' };
-    presenter = presenter.updateToken(nextToken);
+    presenter = presenter.refreshToken(nextToken);
 
     let expected = presenter.toJS();
     expect(expected).toMatchSnapshot();

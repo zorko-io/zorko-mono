@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps, RouteProps, Route, Redirect } from 'react-router';
-import { AuthPresenter, AuthState } from '../store/auth';
+import * as Selector from '../selectors';
 import { connect } from 'react-redux';
 
 interface PropTypes extends RouteProps {
@@ -20,10 +20,9 @@ export function PrivateRoute({ component, ...rest }: PropTypes) {
   />
 }
 
-const mapStateToProps = (state: any, ownProps: PropTypes) => {
-  let auth = state.get('auth');
+const mapStateToProps = (state: Map<string, any>, ownProps: PropTypes) => {
   return {
-    isAuthenticated: AuthPresenter.hasToken(auth),
+    isAuthenticated: Selector.Auth.isAuthenticated(state),
     ...ownProps
   }
 };

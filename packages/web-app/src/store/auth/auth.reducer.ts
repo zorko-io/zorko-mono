@@ -20,7 +20,7 @@ export function authReducer(state: Map<string, any> = initialState, action: any)
     case getType(authTokenSet): {
       return AuthPresenter
         .create(state)
-        .updateToken(action.payload)
+        .refreshToken(action.payload)
         .toImmutable();
     }
     case getType(authTokenRefreshFailure): {
