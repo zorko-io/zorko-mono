@@ -18,9 +18,7 @@ describe('RequestPresenter', () => {
   });
 
   it('starts request', () => {
-    presenter.isPending = true;
-
-    expect(presenter.toJS()).toMatchSnapshot();
+    expect(presenter.setPending(true).toJS()).toMatchSnapshot();
     checkImmutableAndJS(presenter);
   });
 
@@ -29,9 +27,7 @@ describe('RequestPresenter', () => {
       isPending: true
     });
 
-    presenter.isSucceed = true;
-
-    expect(presenter.toJS()).toMatchSnapshot();
+    expect(presenter.setSucceed(true).toJS()).toMatchSnapshot();
     checkImmutableAndJS(presenter);
   }) ;
 
@@ -40,9 +36,7 @@ describe('RequestPresenter', () => {
       isPending: true
     });
 
-    presenter.error = new Error('Boom!');
-
-    expect(presenter.toJS()).toMatchSnapshot();
+    expect(presenter.setError(new Error('Boom!')).toJS()).toMatchSnapshot();
     checkImmutableAndJS(presenter);
   });
 
@@ -51,9 +45,8 @@ describe('RequestPresenter', () => {
       error: new Error('Boom!')
     });
 
-    presenter.reset();
 
-    expect(presenter.toJS()).toMatchSnapshot();
+    expect(presenter.reset().toJS()).toMatchSnapshot();
     checkImmutableAndJS(presenter);
   })
 

@@ -26,10 +26,12 @@
     "redux-logger": "latest",
     "source-map-explorer": "^2.0.1",
     "typesafe-actions": "^4.4.2",
-    "typescript": "3.5.3"
+    "typescript": "3.5.3",
+    "lodash": "latest"
   },
   "devDependencies": {
     "@types/jest": "24.0.15",
+    "@types/lodash": "^4.14.138",
     "@types/node": "12.6.8",
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.5",
