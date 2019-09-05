@@ -1,8 +1,10 @@
+import { Map } from 'immutable';
 import { RequestPresenter } from './request.presenter';
 import { Presenter } from '../presenter';
 
-function checkImmutableAndJS<T>(state: Presenter<T>) {
-  expect(state.toImmutable().toJS()).toEqual(state.toJS());
+function checkImmutableAndJS<T>(state: Presenter<T, Map<string, any>>) {
+  let map: Map<string, any> = state.toImmutable() as Map<string, any>;
+  expect(map.toJS()).toEqual(state.toJS());
 }
 
 describe('RequestPresenter', () => {

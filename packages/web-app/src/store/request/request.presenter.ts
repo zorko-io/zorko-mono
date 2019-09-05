@@ -1,7 +1,6 @@
-import _ from 'lodash';
 import { fromJS, Map } from 'immutable';
-import { Presenter } from '../presenter';
 import { RequestState } from './request.state';
+import { AbstractImmutablePresenter } from '../abstract.immutable.presenter';
 
 const DEFAULT_REQUEST_STATE: RequestState = {
   isPending: false,
@@ -9,10 +8,7 @@ const DEFAULT_REQUEST_STATE: RequestState = {
   error: null
 };
 
-export class RequestPresenter implements Presenter<RequestState> {
-  private state: Map<string, any>;
-  private mutations: Function[];
-
+export class RequestPresenter extends AbstractImmutablePresenter<RequestState> {
   static fromJS(state: Partial<RequestState>): RequestPresenter{
     return RequestPresenter.create(fromJS({
       ...DEFAULT_REQUEST_STATE,
@@ -24,79 +20,49 @@ export class RequestPresenter implements Presenter<RequestState> {
     return new RequestPresenter(state || fromJS(DEFAULT_REQUEST_STATE));
   }
 
-  constructor(state: Map<string, any>) {
-    this.state = state;
-    this.mutations = [];
-  }
-
   isPending(): boolean {
-    return this.state.get('isPending');
+    return this.immutable.get('isPending');
   }
 
   isSucceed(): boolean {
-    return this.state.get('isSucceed');
+    return this.immutable.get('isSucceed');
   }
 
   getError (): Error | null {
-    return this.state.get('error');
+    return this.immutable.get('error');
   }
 
   setPending(value: boolean) {
-    this.mutations.push((state: Map<string, any>) => state.set('isPending', value));
-    return this;
+    return this.addMutation(
+      (state: Map<string, any>) => state.set('isPending', value)
+    );
   }
 
   setSucceed(value: boolean) {
-    this.mutations.push(
+    return this.addMutation(
       (state: Map<string, any>) => state
         .set('isPending', false)
         .set('error', null)
         .set('isSucceed', value)
     );
-    return this;
-  }
-
-  runMutations () {
-    this.state = this.state.withMutations(state => {
-        this.mutations.forEach(mutation => {
-          mutation(state);
-        })
-    });
-    this.mutations = [];
-    return this;
   }
 
   setError(value: Error | null) {
-    this.mutations.push(
-      (state: Map<string, any>) => state
+    return this.addMutation(
+      (mutator: Map<string, any>) => mutator
         .set('isPending', false)
         .set('isSucceed', false)
         .set('error', fromJS(value))
     );
-
-    return this;
   }
 
   reset() {
-    this.state = fromJS(DEFAULT_REQUEST_STATE);
-    this.mutations = [];
-
+    this.immutable = fromJS(DEFAULT_REQUEST_STATE);
+    this.cleanMutations();
     return this;
   }
 
-  toImmutable(): Map<string, any> {
-    if (!_.isEmpty(this.mutations)){
-      this.runMutations();
-    }
-
-    return this.state;
-  }
-
-  toJS(): RequestState {
-    if (!_.isEmpty(this.mutations)){
-      this.runMutations();
-    }
-
+  asJS(): RequestState {
     return {
       isPending: this.isPending(),
       isSucceed: this.isSucceed(),

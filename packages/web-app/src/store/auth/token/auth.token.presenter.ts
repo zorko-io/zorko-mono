@@ -1,11 +1,10 @@
 import { TokenDto } from '@zorko/dto';
-import { Presenter } from '../../presenter';
 import { fromJS, Map } from 'immutable';
+import { AbstractImmutablePresenter } from '../../abstract.immutable.presenter';
 
 export interface AuthTokenState extends TokenDto{}
 
-export class AuthTokenPresenter implements Presenter<AuthTokenState>{
-  private immutable: Map<string, any>;
+export class AuthTokenPresenter extends AbstractImmutablePresenter<AuthTokenState>{
 
   static getDefaults() {
     return fromJS({
@@ -23,11 +22,19 @@ export class AuthTokenPresenter implements Presenter<AuthTokenState>{
   }
 
   hasToken(){
-    return  AuthTokenPresenter.hasToken(this.immutable);
+    return Boolean(this.immutable.get('accessKey'));
   }
 
-  constructor(state: Map<string, any>) {
-     this.immutable = state;
+  setAccessKey (value: string) {
+    return this.addMutation(
+      (mutation: Map<string, any>) => mutation.set('accessKey', value)
+    );
+  }
+
+  setUserId (value: string) {
+    return this.addMutation(
+      (mutation: Map<string, any>) => mutation.set('userId', value)
+    );
   }
 
   update(token: TokenDto){
@@ -35,11 +42,7 @@ export class AuthTokenPresenter implements Presenter<AuthTokenState>{
     return this;
   }
 
-  toJS(): AuthTokenState {
+  asJS(): AuthTokenState {
      return  this.immutable.toJS() as AuthTokenState
-   }
-
-   toImmutable(): Map<string, any> {
-     return this.immutable;
    }
 }

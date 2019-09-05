@@ -23,14 +23,17 @@ describe('AuthTokenPresenter', () => {
   });
 
   it('checks token existence', () => {
-    presenter = presenter.update(nextToken);
+    presenter = presenter.setAccessKey(nextToken.accessKey).runMutations();
 
     expect(presenter.hasToken()).toBeTruthy();
     expect(AuthTokenPresenter.hasToken(presenter.toImmutable())).toBeTruthy();
   });
 
   it('updates token', () => {
-    presenter = presenter.update(nextToken);
+    presenter = presenter
+      .setAccessKey(nextToken.accessKey)
+      .setUserId(nextToken.userId);
+
     let expected = presenter.toJS();
 
     expect(expected).toMatchSnapshot();

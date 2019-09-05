@@ -1,6 +1,5 @@
-
-
-export interface Presenter<S> {
+export interface Presenter<S, I> {
+    runMutations(): this
     toJS(): S
-    toImmutable(): any
+    toImmutable(): I
 }

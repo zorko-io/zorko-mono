@@ -58,7 +58,10 @@ export class AuthPresenter {
 
   updateToken(nextToken: TokenDto){
     this.request.setSucceed(true);
-    this.token.update(nextToken);
+    this.token
+      .setAccessKey(nextToken.accessKey)
+      .setUserId(nextToken.userId);
+
     return this;
   }
 
