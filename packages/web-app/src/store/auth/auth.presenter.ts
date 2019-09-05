@@ -47,17 +47,17 @@ export class AuthPresenter {
   }
 
   startRefresh() {
-    this.request.startRequest();
+    this.request.setPending(true);
     return this;
   }
 
   failRefresh(error: Error) {
-    this.request.markFailure(error);
+    this.request.setError(error);
     return this;
   }
 
   updateToken(nextToken: TokenDto){
-    this.request.markSucceed();
+    this.request.setSucceed(true);
     this.token.update(nextToken);
     return this;
   }

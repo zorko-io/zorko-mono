@@ -1,4 +1,4 @@
-import { RequestStateImmutable } from './request.presenter';
+import { RequestPresenter } from './request.presenter';
 import { Presenter } from '../presenter';
 
 function checkImmutableAndJS<T>(state: Presenter<T>) {
@@ -6,10 +6,10 @@ function checkImmutableAndJS<T>(state: Presenter<T>) {
 }
 
 describe('RequestPresenter', () => {
-  let presenter: RequestStateImmutable;
+  let presenter: RequestPresenter;
 
   beforeEach(()=> {
-     presenter = RequestStateImmutable.create();
+     presenter = RequestPresenter.create();
   });
 
   it('creates presenter with defaults', () => {
@@ -23,7 +23,7 @@ describe('RequestPresenter', () => {
   });
 
   it('marks as succeed request', () => {
-    presenter = RequestStateImmutable.fromJS({
+    presenter = RequestPresenter.fromJS({
       isPending: true
     });
 
@@ -32,7 +32,7 @@ describe('RequestPresenter', () => {
   }) ;
 
   it('marks as error request', () => {
-    presenter = RequestStateImmutable.fromJS({
+    presenter = RequestPresenter.fromJS({
       isPending: true
     });
 
@@ -41,7 +41,7 @@ describe('RequestPresenter', () => {
   });
 
   it('resets to default', () => {
-    presenter = RequestStateImmutable.fromJS({
+    presenter = RequestPresenter.fromJS({
       error: new Error('Boom!')
     });
 

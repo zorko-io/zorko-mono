@@ -1,12 +1,7 @@
 import _ from 'lodash';
-import { Map, fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import { Presenter } from '../presenter';
-
-export interface RequestState {
-  isPending: boolean
-  isSucceed: boolean
-  error: Error | null
-}
+import { RequestState } from './request.state';
 
 const DEFAULT_REQUEST_STATE: RequestState = {
   isPending: false,
@@ -14,19 +9,19 @@ const DEFAULT_REQUEST_STATE: RequestState = {
   error: null
 };
 
-export class RequestStateImmutable implements Presenter<RequestState> {
+export class RequestPresenter implements Presenter<RequestState> {
   private state: Map<string, any>;
   private mutations: Function[];
 
-  static fromJS(state: Partial<RequestState>): RequestStateImmutable{
-    return RequestStateImmutable.create(fromJS({
+  static fromJS(state: Partial<RequestState>): RequestPresenter{
+    return RequestPresenter.create(fromJS({
       ...DEFAULT_REQUEST_STATE,
       ...state,
     }));
   }
 
-  static create(state?: Map<string, any>): RequestStateImmutable {
-    return new RequestStateImmutable(state || fromJS(DEFAULT_REQUEST_STATE));
+  static create(state?: Map<string, any>): RequestPresenter {
+    return new RequestPresenter(state || fromJS(DEFAULT_REQUEST_STATE));
   }
 
   constructor(state: Map<string, any>) {
@@ -108,73 +103,5 @@ export class RequestStateImmutable implements Presenter<RequestState> {
       error: this.getError()
     }
   }
-
-}
-
-export class RequestPresenter {
-
-  private immutable: Map<string, any>;
-
-  static fromJS(state?: RequestState) {
-    return new RequestPresenter(state ? fromJS(state) : state)
-  }
-
-  static create(state?: Map<string, any>) {
-    return new RequestPresenter(state)
-  }
-
-  constructor(state?: Map<string, any>){
-    if (!state){
-      state = Map({
-        isPending: false,
-        isSucceed: false,
-        error: null
-      })
-    }
-
-    /// TODO: validation !!???
-
-    this.immutable = state;
-  }
-
-  startRequest(){
-    this.immutable = this.immutable.set('isPending', true);
-    return this;
-  }
-
-  markSucceed () {
-    this.immutable = this.immutable
-        .set('isPending', false)
-        .set('isSucceed', true);
-
-    return this;
-  }
-
-  markFailure(error: Error) {
-    this.immutable = this.immutable
-      .set('isPending', false)
-      .set('isSucceed', false)
-      .set('error', fromJS(error));
-
-    return this;
-  }
-
-  reset() {
-    this.immutable = this.immutable
-      .set('isPending', false)
-      .set('isSucceed', false)
-      .set('error', null);
-
-    return this;
-  }
-
-  toJS(): RequestState {
-    return this.immutable.toJS() as RequestState;
-  }
-
-  toImmutable(){
-    return this.immutable;
-  }
-
 
 }
