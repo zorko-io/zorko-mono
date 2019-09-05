@@ -1,11 +1,5 @@
-import { Map } from 'immutable';
 import { RequestPresenter } from './request.presenter';
-import { Presenter } from '../presenter';
-
-function checkImmutableAndJS<T>(state: Presenter<T, Map<string, any>>) {
-  let map: Map<string, any> = state.toImmutable() as Map<string, any>;
-  expect(map.toJS()).toEqual(state.toJS());
-}
+import { checkImmutableAndJS } from '../test.helper';
 
 describe('RequestPresenter', () => {
   let presenter: RequestPresenter;

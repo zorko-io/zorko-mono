@@ -1,8 +1,7 @@
 import { TokenDto } from '@zorko/dto';
 import { fromJS, Map } from 'immutable';
 import { AbstractImmutablePresenter } from '../../abstract.immutable.presenter';
-
-export interface AuthTokenState extends TokenDto{}
+import { AuthTokenState } from './auth.token.state';
 
 export class AuthTokenPresenter extends AbstractImmutablePresenter<AuthTokenState>{
 
@@ -21,7 +20,7 @@ export class AuthTokenPresenter extends AbstractImmutablePresenter<AuthTokenStat
     return new AuthTokenPresenter(state || AuthTokenPresenter.getDefaults())
   }
 
-  hasToken(){
+  hasAccessKey(){
     return Boolean(this.immutable.get('accessKey'));
   }
 
