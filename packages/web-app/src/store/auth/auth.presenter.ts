@@ -4,11 +4,13 @@ import { RequestPresenter } from '../request';
 import { AuthTokenPresenter } from './token';
 import { AuthState } from './auth.state';
 import { AbstractImmutablePresenter } from '../abstract.immutable.presenter';
+import { AuthGetters } from './auth.getters';
 
 export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
   static create(state?: Map<string, any>) {
-    const request = state ? AuthPresenter.getRequest(state): null;
-    const token = state ? AuthPresenter.getToken(state): null;
+    let authGetters = AuthGetters.create();
+    const request = state ? authGetters.getRequest(state): null;
+    const token = state ? authGetters.getToken(state): null;
 
     if (!state) {
       state = Map({token: Map(), request: Map()})
@@ -17,7 +19,8 @@ export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
     return new AuthPresenter(
       state,
       RequestPresenter.create(request),
-      AuthTokenPresenter.create(token)
+      AuthTokenPresenter.create(token),
+      AuthGetters.create()
     )
   }
 
@@ -28,21 +31,15 @@ export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
     });
   }
 
-  static getToken(auth: Map<string, any>){
-    return auth.get('token')
-  }
-
-  static getRequest(auth: Map<string, any>){
-    return auth.get('request')
-  }
-
   private token: AuthTokenPresenter;
   private request: RequestPresenter;
+  protected getters: AuthGetters;
 
-  constructor(state: Map<string, any>, request: RequestPresenter, token: AuthTokenPresenter){
+  constructor(state: Map<string, any>, request: RequestPresenter, token: AuthTokenPresenter, getters: AuthGetters){
    super(state);
    this.token = token;
    this.request = request;
+   this.getters = getters;
   }
 
   startRefresh() {
@@ -73,7 +70,7 @@ export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
 
   asImmutable() : Map<string, any> {
     return Map({token: Map(), request: Map()})
-      .set('token', this.token.toImmutable())
-      .set('request', this.request.toImmutable())
+      .set(this.getters.tokenPath, this.token.toImmutable())
+      .set(this.getters.requestPath, this.request.toImmutable())
   }
 }
