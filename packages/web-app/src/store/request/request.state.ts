@@ -3,3 +3,9 @@ export interface RequestState {
   isSucceed: boolean
   error: Error | null
 }
+
+export const DEFAULT_REQUEST_STATE: RequestState = {
+  isPending: false,
+  isSucceed: false,
+  error: null
+};

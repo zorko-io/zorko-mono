@@ -2,9 +2,9 @@ import { TokenDto } from '@zorko/dto';
 import { fromJS, Map } from 'immutable';
 import { AbstractImmutablePresenter } from '../../abstract.immutable.presenter';
 import { AuthTokenState } from './auth.token.state';
+import { AuthTokenGetter } from './auth.token.getter';
 
-export class AuthTokenPresenter extends AbstractImmutablePresenter<AuthTokenState>{
-
+export class AuthTokenPresenter extends AbstractImmutablePresenter<AuthTokenState, AuthTokenGetter>{
   static getDefaults() {
     return fromJS({
       accessKey: '',
@@ -12,27 +12,26 @@ export class AuthTokenPresenter extends AbstractImmutablePresenter<AuthTokenStat
     })
   }
 
-  static hasAccessKey(token: Map<string, any>){
-    return Boolean(token.get('accessKey'));
-  }
-
   static create(state?: Map<string, any>) {
-    return new AuthTokenPresenter(state || AuthTokenPresenter.getDefaults())
-  }
+    const getter = new AuthTokenGetter();
 
-  hasAccessKey(){
-    return Boolean(this.immutable.get('accessKey'));
+    return new AuthTokenPresenter(
+      state || AuthTokenPresenter.getDefaults(),
+      getter
+    )
   }
 
   setAccessKey (value: string) {
     return this.addMutation(
-      (mutation: Map<string, any>) => mutation.set('accessKey', value)
+      (mutation: Map<string, any>) =>
+        mutation.set(this.getter.accessKeyPath, value)
     );
   }
 
   setUserId (value: string) {
     return this.addMutation(
-      (mutation: Map<string, any>) => mutation.set('userId', value)
+      (mutation: Map<string, any>) =>
+        mutation.set(this.getter.userIdPath, value)
     );
   }
 
@@ -42,6 +41,6 @@ export class AuthTokenPresenter extends AbstractImmutablePresenter<AuthTokenStat
   }
 
   asJS(): AuthTokenState {
-     return  this.immutable.toJS() as AuthTokenState
+     return this.immutable.toJS() as AuthTokenState
    }
 }

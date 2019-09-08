@@ -1,14 +1,9 @@
 import { fromJS, Map } from 'immutable';
-import { RequestState } from './request.state';
+import { DEFAULT_REQUEST_STATE, RequestState } from './request.state';
 import { AbstractImmutablePresenter } from '../abstract.immutable.presenter';
+import { RequestGetter } from './request.getter';
 
-const DEFAULT_REQUEST_STATE: RequestState = {
-  isPending: false,
-  isSucceed: false,
-  error: null
-};
-
-export class RequestPresenter extends AbstractImmutablePresenter<RequestState> {
+export class RequestPresenter extends AbstractImmutablePresenter<RequestState, RequestGetter> {
   static fromJS(state: Partial<RequestState>): RequestPresenter{
     return RequestPresenter.create(fromJS({
       ...DEFAULT_REQUEST_STATE,
@@ -17,42 +12,35 @@ export class RequestPresenter extends AbstractImmutablePresenter<RequestState> {
   }
 
   static create(state?: Map<string, any>): RequestPresenter {
-    return new RequestPresenter(state || fromJS(DEFAULT_REQUEST_STATE));
-  }
-
-  isPending(): boolean {
-    return this.immutable.get('isPending');
-  }
-
-  isSucceed(): boolean {
-    return this.immutable.get('isSucceed');
-  }
-
-  getError (): Error | null {
-    return this.immutable.get('error');
+    const getter = RequestGetter.create();
+    return new RequestPresenter(state || fromJS(DEFAULT_REQUEST_STATE), getter);
   }
 
   setPending(value: boolean) {
     return this.addMutation(
-      (state: Map<string, any>) => state.set('isPending', value)
+      (state: Map<string, any>) =>
+        state.set(this.getter.isPendingPath, value)
     );
   }
 
   setSucceed(value: boolean) {
+    let getter = this.getter;
     return this.addMutation(
       (state: Map<string, any>) => state
-        .set('isPending', false)
-        .set('error', null)
-        .set('isSucceed', value)
+        .set(getter.isPendingPath, false)
+        .set(getter.errorPath, null)
+        .set(getter.isSucceedPath, value)
     );
   }
 
   setError(value: Error | null) {
+    let getter = this.getter;
+
     return this.addMutation(
       (mutator: Map<string, any>) => mutator
-        .set('isPending', false)
-        .set('isSucceed', false)
-        .set('error', fromJS(value))
+        .set(getter.isPendingPath, false)
+        .set(getter.isSucceedPath, false)
+        .set(getter.errorPath, fromJS(value))
     );
   }
 
@@ -61,13 +49,4 @@ export class RequestPresenter extends AbstractImmutablePresenter<RequestState> {
     this.cleanMutations();
     return this;
   }
-
-  asJS(): RequestState {
-    return {
-      isPending: this.isPending(),
-      isSucceed: this.isSucceed(),
-      error: this.getError()
-    }
-  }
-
 }

@@ -1,9 +1,9 @@
 import { Map } from 'immutable';
 
-export class AuthGetters  {
+export class AuthGetter  {
 
   static create() {
-    return new AuthGetters();
+    return new AuthGetter();
   }
 
   readonly tokenPath: string;
@@ -14,11 +14,11 @@ export class AuthGetters  {
     this.requestPath = 'request';
   }
 
-  getToken(state: Map<string, any>){
+  getToken = (state: Map<string, any>) => {
     return state.get(this.tokenPath);
-  }
+  };
 
-  getRequest(state: Map<string, any>){
+  getRequest =(state: Map<string, any>) => {
     return state.get(this.requestPath);
   }
 }

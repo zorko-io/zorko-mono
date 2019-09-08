@@ -3,3 +3,7 @@ export interface Presenter<S, I> {
     toJS(): S
     toImmutable(): I
 }
+
+
+export interface Getter {}
+

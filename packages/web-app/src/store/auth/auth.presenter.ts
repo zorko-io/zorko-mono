@@ -4,11 +4,11 @@ import { RequestPresenter } from '../request';
 import { AuthTokenPresenter } from './token';
 import { AuthState } from './auth.state';
 import { AbstractImmutablePresenter } from '../abstract.immutable.presenter';
-import { AuthGetters } from './auth.getters';
+import { AuthGetter } from './auth.getter';
 
-export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
+export class AuthPresenter extends AbstractImmutablePresenter<AuthState, AuthGetter> {
   static create(state?: Map<string, any>) {
-    let authGetters = AuthGetters.create();
+    let authGetters = AuthGetter.create();
     const request = state ? authGetters.getRequest(state): null;
     const token = state ? authGetters.getToken(state): null;
 
@@ -20,7 +20,7 @@ export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
       state,
       RequestPresenter.create(request),
       AuthTokenPresenter.create(token),
-      AuthGetters.create()
+      AuthGetter.create()
     )
   }
 
@@ -33,13 +33,11 @@ export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
 
   private token: AuthTokenPresenter;
   private request: RequestPresenter;
-  protected getters: AuthGetters;
 
-  constructor(state: Map<string, any>, request: RequestPresenter, token: AuthTokenPresenter, getters: AuthGetters){
-   super(state);
+  constructor(state: Map<string, any>, request: RequestPresenter, token: AuthTokenPresenter, getter: AuthGetter){
+   super(state, getter);
    this.token = token;
    this.request = request;
-   this.getters = getters;
   }
 
   startRefresh() {
@@ -70,7 +68,7 @@ export class AuthPresenter extends AbstractImmutablePresenter<AuthState> {
 
   asImmutable() : Map<string, any> {
     return Map({token: Map(), request: Map()})
-      .set(this.getters.tokenPath, this.token.toImmutable())
-      .set(this.getters.requestPath, this.request.toImmutable())
+      .set(this.getter.tokenPath, this.token.toImmutable())
+      .set(this.getter.requestPath, this.request.toImmutable())
   }
 }

@@ -1,12 +1,14 @@
 import { Map } from 'immutable';
-import { Presenter } from './presenter';
+import { Getter, Presenter } from './presenter';
 import _ from 'lodash';
 
-export abstract class AbstractImmutablePresenter<S> implements Presenter<S, Map<string, any>> {
+export abstract class AbstractImmutablePresenter<S, G extends Getter> implements Presenter<S, Map<string, any>> {
   protected immutable: Map<string, any>;
+  protected getter: G;
   private mutations: Function[];
 
-  protected constructor(state: Map<string, any>) {
+  protected constructor(state: Map<string, any>, getter: G) {
+    this.getter = getter;
     this.immutable = state;
     this.mutations = [];
   }

@@ -27,5 +27,4 @@ const mapStateToProps = (state: Map<string, any>, ownProps: PropTypes) => {
   }
 };
 
-// @ts-ignore
 export default connect(mapStateToProps)(PrivateRoute);

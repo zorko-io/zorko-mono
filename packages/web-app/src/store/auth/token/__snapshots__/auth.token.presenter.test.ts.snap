@@ -7,6 +7,20 @@ Object {
 }
 `;
 
+exports[`AuthTokenPresenter update access key 1`] = `
+Object {
+  "accessKey": "zzzzzz",
+  "userId": "",
+}
+`;
+
+exports[`AuthTokenPresenter update user id 1`] = `
+Object {
+  "accessKey": "",
+  "userId": "dfdfdf",
+}
+`;
+
 exports[`AuthTokenPresenter updates token 1`] = `
 Object {
   "accessKey": "zzzzzz",
