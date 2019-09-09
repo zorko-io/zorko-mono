@@ -4,10 +4,10 @@ import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './roles/roles.guard';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
+import { UserProfileController } from './user-profile/user.profile.controller';
+import { UserProfileModule } from './user-profile/user.profile.module';
 
 // TODO: find on how to reuse once created
 const configService = new ConfigService();
@@ -17,10 +17,12 @@ const configService = new ConfigService();
     ConfigModule,
     MongooseModule.forRoot(configService.get('MONGO_URL')),
     AuthModule,
-    UsersModule
+    UsersModule,
+    UserProfileModule
   ],
   controllers: [
-    UsersController
+    UsersController,
+    UserProfileController
   ],
   providers: [AppService],
 })

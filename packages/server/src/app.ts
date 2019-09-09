@@ -13,6 +13,7 @@ export async function bootstrap(port?: number | string) {
     .setDescription('The zorko REST API description')
     .setVersion('1.0')
     .addTag('users')
+    .addTag('user-profiles')
     .addBearerAuth()
     .build();
 
