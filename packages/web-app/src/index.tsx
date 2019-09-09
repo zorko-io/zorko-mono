@@ -10,6 +10,11 @@ Api.setConfig({
   baseURL: process.env.REACT_APP_SEVER_API_URL
 });
 
+if (process.env.NODE_ENV === 'development'){
+  // @ts-ignore
+  window.__ZORKO_API__ = Api;
+}
+
 const store = createStore();
 
 ReactDOM.render(

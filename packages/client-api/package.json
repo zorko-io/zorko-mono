@@ -1,6 +1,6 @@
 {
   "name": "@zorko/client-api",
-  "version": "1.0.0-alpha.6",
+  "version": "1.0.0-alpha.7",
   "description": "Client API to Zorko Server",
   "author": "nesterone <igornester@gmail.com>",
   "homepage": "",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@zorko/dto": "latest",
-    "@zorko/remote-api": "latest",
+    "@zorko/dto": "^1.0.0-alpha.7",
+    "@zorko/remote-api": "^1.0.0-alpha.7",
     "typescript": "^3.5.3"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
     "@types/jest": "^23.3.14",
     "faker": "^4.1.0",
     "jest": "^23.6.0",
-    "ts-jest": "^23.10.5",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "ts-jest": "^23.10.5"
   }
 }

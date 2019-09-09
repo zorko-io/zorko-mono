@@ -15,7 +15,7 @@
     "ci": "npm run ci:api && npm run ci:ui",
     "cy:verify": "cd ./packages/e2e-test-suite/ && npm run verify",
     "cy:test": "cd ./packages/e2e-test-suite/ && npm run test",
-    "watch": "lerna run watch --stream",
+    "watch": "lerna run watch --parallel",
     "clean": "lerna run clean --parallel"
   },
   "author": "nesterone <igornester@gmail.com>",
