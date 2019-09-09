@@ -1,12 +1,11 @@
 import { AxiosRequestConfig } from 'axios';
-import { AxiosApiClientFacade, createDefaultContext } from '../../src';
+import { AxiosApiClientFacade } from '../../src';
 import { Server } from '../config';
 
 export class ApiTestHelper {
   static create(config?: AxiosRequestConfig): AxiosApiClientFacade {
     const api = new AxiosApiClientFacade(
-      config ? config : {baseURL: Server.baseUrl},
-      createDefaultContext
+      config ? config : {baseURL: Server.baseUrl}
     );
 
     api.setResponseInterceptors(response => response, error => {
