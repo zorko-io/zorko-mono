@@ -1,5 +1,9 @@
 import { RemoteUserProfileApi } from '@zorko/remote-api';
-import { UserProfileDto, UserProfileSearchParamsDto, RepositoryPreviewCollection } from '@zorko/dto';
+import {
+  UserProfileDto,
+  UserProfileSearchParamsDto,
+  UserProfile
+} from '@zorko/dto';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -8,13 +12,14 @@ export class UserProfileService implements RemoteUserProfileApi {
 
     if (params.login === 'test') {
 
-      const pickedRepos = new RepositoryPreviewCollection().toDTO();
+      const userProfile = new UserProfile(
+        '321323123',
+        'test'
+      );
 
-      return {
-        id: '321323123',
-        login: 'test',
-        pickedRepositories: pickedRepos,
-      };
+      userProfile.getPickedRepositories().setItems([]);
+
+      return userProfile.toDTO();
     }
 
     return null;

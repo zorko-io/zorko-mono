@@ -1,2 +1,3 @@
+export * from './user.profile';
 export * from './user.profile.dto';
-export { UserProfileSearchParamsDto } from './user.profile.search.prams.dto';
+export * from './user.profile.search.prams.dto';

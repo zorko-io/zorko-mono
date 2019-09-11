@@ -2,7 +2,7 @@ import { BaseCollectionDto } from './base.collection.dto';
 
 export class BaseCollection<I> {
 
-  private items: Array<I> = [];
+  private items: any [];
   private total: number;
 
 
@@ -47,7 +47,7 @@ export class BaseCollection<I> {
 
   toDTO(): BaseCollectionDto<I> {
     return {
-      items: this.items,
+      items: this.items.map((item => item.toDTO())),
       total: this.total
     }
   }
