@@ -9,7 +9,7 @@ export interface RemoteEntity {
 export interface RemoteSearchEntityServiceApi<
   S extends SearchRemoteParams,
   E extends RemoteEntity> {
-  findOne(params: S): Promise<E>
+  findOne(params: S): Promise<E | null>
 }
 
 export interface RemoteOneServiceApi<

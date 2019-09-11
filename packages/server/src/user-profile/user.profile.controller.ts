@@ -7,9 +7,10 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  NotFoundException,
   Param,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserProfileService } from './user.profile.service';
@@ -20,13 +21,19 @@ import { UserProfileService } from './user.profile.service';
 export class UserProfileController {
   constructor(private readonly userProfileService: UserProfileService) {}
 
-  @Get(':id')
+  @Get(':login')
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
-  @ApiImplicitParam({name: 'id', required: true})
-  async findOneById(@Param('id') params){
-     return await this.userProfileService.findOne({
-       id: params.id
-     })
+  @ApiImplicitParam({name: 'login', required: true})
+  async findOneByLogin(@Param('login') login){
+    let userProfile = await this.userProfileService.findOne({
+      login: login
+    });
+
+    if (!userProfile){
+      throw new NotFoundException(`Can\`t find user profile with #login: ${login}`);
+    }
+
+    return userProfile
   }
 }

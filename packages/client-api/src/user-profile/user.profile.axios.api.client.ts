@@ -6,7 +6,7 @@ import { UserProfileApiClient } from './user.profile.api.client';
 export class UserProfileAxiosApiClient extends AuthAxiosApiClient implements UserProfileApiClient {
   async findOne(params: UserProfileSearchParamsDto): Promise<UserProfileDto> {
     let response: AxiosResponse<UserProfileDto> = await this.http.get(
-      `/user-profiles/${params.id}`
+      `/user-profiles/${params.login}`
     );
     return response.data;
   }

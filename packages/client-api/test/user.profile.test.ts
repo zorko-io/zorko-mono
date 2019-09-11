@@ -19,11 +19,11 @@ describe('User Profile', () => {
 
   it('gets user profile', async () => {
     userProfile = await Api.UserProfile.findOne({
-      id: token.userId
+      login: 'test'
     });
 
     expect(userProfile).toEqual({
-      id: 'bobobo'
+      login: 'test'
     });
   })
 

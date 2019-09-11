@@ -5,9 +5,16 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class UserProfileService implements RemoteUserProfileApi {
   async findOne(params: UserProfileSearchParamsDto): Promise<UserProfileDto> {
-    return {
-      id: 'bobobo'
-    };
+
+    if (params.login === 'test'){
+       return {
+         id: '321323123',
+         login: 'test'
+       }
+    }
+
+    return null;
+
   }
 
 }
