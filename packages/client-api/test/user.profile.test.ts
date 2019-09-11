@@ -23,6 +23,7 @@ describe('User Profile', () => {
     });
 
     expect(userProfile).toEqual({
+      id: '321323123',
       login: 'test'
     });
   })
