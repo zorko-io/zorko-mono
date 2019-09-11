@@ -15,5 +15,16 @@ const Users  = {
   }
 };
 
-export { Users, Server }
+const UserProfiles = {
+  JoeUserProfile: {
+    id: "321323123",
+    login: 'test',
+    pickedRepositories: {
+      items: [],
+      total: 0
+    }
+  },
+};
+
+export { Users, Server, UserProfiles }
 

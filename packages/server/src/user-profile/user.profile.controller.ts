@@ -14,6 +14,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserProfileService } from './user.profile.service';
+import { UserProfileDto } from '@zorko/dto';
 
 @ApiBearerAuth()
 @ApiUseTags('user-profiles')
@@ -25,7 +26,7 @@ export class UserProfileController {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiImplicitParam({name: 'login', required: true})
-  async findOneByLogin(@Param('login') login){
+  async findOneByLogin(@Param('login') login): Promise<UserProfileDto> {
     let userProfile = await this.userProfileService.findOne({
       login: login
     });

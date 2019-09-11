@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { ApiTestHelper } from './helper/api.test.helper';
-import { Users } from './config';
+import { UserProfiles, Users } from './config';
 import { TokenDto, UserProfileDto } from '@zorko/dto';
 
 describe('User Profile', () => {
@@ -22,10 +22,7 @@ describe('User Profile', () => {
       login: 'test'
     });
 
-    expect(userProfile).toEqual({
-      id: '321323123',
-      login: 'test'
-    });
+    expect(userProfile).toEqual(UserProfiles.JoeUserProfile);
   })
 
 });
