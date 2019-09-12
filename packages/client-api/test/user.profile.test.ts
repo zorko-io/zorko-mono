@@ -23,6 +23,23 @@ describe('User Profile', () => {
     });
 
     expect(userProfile).toEqual(UserProfiles.JoeUserProfile);
+  });
+
+  it('fails on create already existing profile', async () => {
+    expect.assertions(1);
+    const login = 'test';
+
+    try {
+      await Api.UserProfile.createOne({
+        login
+      })
+    } catch (error) {
+      expect(error.response.data).toEqual({
+        statusCode: 403,
+        error: 'Forbidden',
+        message: `Can't create user profile for #login ${login}, because it's already exists`
+      });
+    }
   })
 
 });

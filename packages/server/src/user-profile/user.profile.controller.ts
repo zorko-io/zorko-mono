@@ -4,17 +4,18 @@ import {
   ApiUseTags,
 } from '@nestjs/swagger';
 import {
+  Body,
   ClassSerializerInterceptor,
-  Controller,
+  Controller, ForbiddenException,
   Get,
   NotFoundException,
-  Param,
+  Param, Post,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserProfileService } from './user.profile.service';
-import { UserProfileDto } from '@zorko/dto';
+import { CreateUserProfileDto, UserProfileDto } from '@zorko/dto';
 
 @ApiBearerAuth()
 @ApiUseTags('user-profiles')
@@ -36,5 +37,19 @@ export class UserProfileController {
     }
 
     return userProfile
+  }
+
+  @Post()
+  @UseGuards(AuthGuard('jwt'))
+  async createOne(@Body() payload: CreateUserProfileDto){
+    let userProfileId;
+
+    try {
+      userProfileId = await this.userProfileService.createOne(payload);
+    } catch (e) {
+       throw new ForbiddenException(e.message);
+    }
+
+    return userProfileId;
   }
 }

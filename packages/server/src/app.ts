@@ -17,7 +17,9 @@ export async function bootstrap(port?: number | string) {
     .addBearerAuth()
     .build();
 
+  // @ts-ignore
   const document = SwaggerModule.createDocument(app, options);
+  // @ts-ignore
   SwaggerModule.setup('swagger', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
