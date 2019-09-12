@@ -22,7 +22,7 @@ describe('User Profile', () => {
       login: 'test'
     });
 
-    expect(userProfile).toEqual(UserProfiles.JoeUserProfile);
+    expect(userProfile).toMatchObject(UserProfiles.JoeUserProfile);
   });
 
   it('fails on create already existing profile', async () => {

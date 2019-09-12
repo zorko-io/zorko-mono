@@ -4,12 +4,12 @@ import {
 } from '../repository-preview';
 
 export class UserProfile {
-  private id: string;
+  private id?: string;
   private login: string;
   private pickedRepositories: RepositoryPreviewCollection;
 
-  constructor(id?: string, login?: string, pickedRepositories?: RepositoryPreviewCollection) {
-    this.id = id ? id : '';
+  constructor(login?: string, pickedRepositories?: RepositoryPreviewCollection, id?: string) {
+    this.id = id;
     this.login = login ? login : '';
 
     if (!pickedRepositories) {
@@ -17,6 +17,16 @@ export class UserProfile {
     } else {
       this.pickedRepositories = pickedRepositories;
     }
+  }
+
+  setLogin(login: string): this {
+    this.login = login;
+    return this;
+  }
+
+  setId(id: string): this {
+    this.id = id;
+    return this;
   }
 
   getPickedRepositories() : RepositoryPreviewCollection {

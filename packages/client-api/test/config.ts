@@ -17,7 +17,6 @@ const Users  = {
 
 const UserProfiles = {
   JoeUserProfile: {
-    id: "321323123",
     login: 'test',
     pickedRepositories: {
       items: [],
