@@ -4,7 +4,8 @@ import { Server } from '../config';
 
 export class ApiTestHelper {
   static create(config?: AxiosRequestConfig): AxiosApiClientFacade {
-    const api = new AxiosApiClientFacade(config ? config : {baseURL: Server.baseUrl});
+    // @ts-ignore
+    const api = new AxiosApiClientFacade(config ? config : { baseURL: Server.baseUrl });
 
     api.setResponseInterceptors(response => response, error => {
       if (error.response) {

@@ -40,7 +40,11 @@ export class User {
   }
 
   getRoles(): RolesEnum[] {
-    return this.dto.roles;
+    return this.hasRoles() ? this.dto.roles : [];
+  }
+
+  hasRoles () : boolean {
+    return this.dto.roles && this.dto.roles.length > 0
   }
 
   setRoles(roles: RolesEnum[]): this {

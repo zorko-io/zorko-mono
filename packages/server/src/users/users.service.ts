@@ -1,60 +1,92 @@
 import { Model } from 'mongoose';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { User } from './interfaces/user.interface';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateUserDto, RolesEnum, UserDto } from '@zorko/dto';
+import { CreateUserDto, RolesEnum, User, UserDto, UserDtoInterface } from '@zorko/dto';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from './schemas/user.schema';
+
+const DEFAULT_CRYPT_SALT = 10;
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('User') private readonly userModel: Model<UserEntity>) {}
 
-  async create(user: CreateUserDto): Promise<User> {
-    const existingUser = await this.findOneByEmail(user.email);
+  async createOne(user: CreateUserDto): Promise<string> {
+    const existingUser = await this.findOne({ email: user.email });
     if (existingUser) {
       throw new ConflictException('User already exists')
     }
 
     const hasRoles = user.roles ? user.roles : false;
+    let roles = user.roles;
 
-    // TODO: move to model layer, use mongoose plugin
-    const hashPassword = await bcrypt.hash(user.password, 10);
-    const createdUser = new this.userModel({
+    if (!hasRoles){
+      roles = [RolesEnum.User]
+    }
+
+    const hashPassword = await bcrypt.hash(user.password, DEFAULT_CRYPT_SALT);
+
+    const userModel = new this.userModel({
       ...user,
       password: hashPassword,
-      roles: hasRoles ? user.roles : [RolesEnum.User]
+      roles
     });
-    const result = await createdUser.save();
-    return result.toUser();
+
+    const result = await userModel.save();
+
+    return result._id.toString();
   }
 
-  async update(userUpdates: UserDto): Promise<User> {
+  async updateOne(nextUser: UserDtoInterface): Promise<UserDtoInterface> {
 
     let password;
+    let result;
 
-    // TODO: move to model layer, use mongoose plugin
-    if (userUpdates.password) {
-      password = await bcrypt.hash(userUpdates.password, 10);
+    if (nextUser.password) {
+      password = await bcrypt.hash(nextUser.password, DEFAULT_CRYPT_SALT);
     }
-    let nextUser = await this.userModel.findById(userUpdates.id);
+    let userModel = await this.userModel.findById(nextUser.id);
 
-    const response = await nextUser.updateOne(
-      {email: userUpdates.email},
-      {password: password ? password : nextUser.password}
+    const response = await userModel.updateOne(
+      { email: nextUser.email },
+      { password: password ? password : nextUser.password }
     );
 
     if (response.ok) {
-      nextUser = await this.userModel.findById(userUpdates.id);
+      result = await this.findOne({ id: nextUser.id });
     } else {
       throw Error(`Can't update user`)
     }
 
-    return nextUser.toUser();
+    if (!result) {
+      throw Error(`Can't find user after update`)
+    }
+
+    return result.toUser().toDTO();
+  }
+
+  async findOne(params: {email?: string, id?: string}): Promise<UserDtoInterface | undefined> {
+
+    let { email, id } = params;
+    let model;
+
+    if (email){
+      model = await this.userModel.findOne({
+        email: params.email
+      });
+    } else if(id){
+      model = await this.userModel.findById(id);
+    }
+
+    if (!model){
+      return;
+    }
+
+    return model.toUser().toDTO();
   }
 
   async remove(id: string): Promise<void> {
-    const user = await this.findOneById(id);
+    const user = await this.findOne({ id });
     if (!user) {
       throw new NotFoundException(`Can't find user by #id: ${id}`)
     }
@@ -66,22 +98,9 @@ export class UsersService {
      return result.n;
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserDtoInterface[]> {
     const models = await this.userModel.find();
-    return models.map(model => model.toUser());
-  }
-
-  async findOneById(id: string): Promise<User | undefined> {
-    const userModel = await this.userModel.findById(id);
-    return userModel && userModel.toUser()
-  }
-
-  async findOneByEmail(email: string): Promise<User | undefined> {
-    const userModel = await this.userModel.findOne({
-      email
-    });
-
-    return userModel &&  userModel.toUser();
+    return models.map(model => model.toUser().toDTO());
   }
 
 }

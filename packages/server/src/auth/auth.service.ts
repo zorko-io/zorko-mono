@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { CreateTokenDto } from '@zorko/dto';
+import { CreateTokenDto, UserDtoInterface } from '@zorko/dto';
 import * as bcrypt from 'bcrypt';
-import { User } from '../users/interfaces/user.interface';
 import { ConfigService } from '../config/config.service';
 
 @Injectable()
@@ -32,7 +31,7 @@ export class AuthService {
     }
   }
 
-  async validateUser(payload: JwtPayload): Promise<User | null> {
+  async validateUser(payload: JwtPayload): Promise<UserDtoInterface | null> {
 
     if (!this.configService.isAuthEnabled) {
       return {
@@ -43,7 +42,9 @@ export class AuthService {
       }
     }
 
-    const user = await this.usersService.findOneByEmail(payload.email);
+    const user = await this.usersService.findOne({
+      email: payload.email
+    });
 
     let match;
 

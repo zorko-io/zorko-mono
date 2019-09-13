@@ -1,3 +1,4 @@
+export * from './user.dto.interface'
 export * from './create.user.dto';
 export * from './list.user.query';
 export * from './user.dto';

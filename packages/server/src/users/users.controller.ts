@@ -13,17 +13,23 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiImplicitParam, ApiOperation, ApiUseTags } from '@nestjs/swagger';
-import { CreateUserDto, ListUserQuery, UserDto, RolesEnum} from '@zorko/dto';
-import { RemoteUserApi } from '@zorko/remote-api';
+import { CreateUserDto, ListUserQuery, RolesEnum, UserDto, UserDtoInterface } from '@zorko/dto';
 import { UsersService } from './users.service';
 import { Roles } from '../roles/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../roles/roles.guard';
 
+function cleanUpUserResponse (user: UserDtoInterface) {
+
+  delete user.password;
+
+  return user;
+}
+
 @ApiBearerAuth()
 @ApiUseTags('users')
 @Controller('users')
-export class UsersController implements RemoteUserApi {
+export class UsersController  {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
@@ -31,16 +37,14 @@ export class UsersController implements RemoteUserApi {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(RolesEnum.Admin)
   async createOne(@Body() createCatDto: CreateUserDto): Promise<string> {
-    const user = await this.usersService.create(createCatDto);
-    return user.id;
+    return await this.usersService.createOne(createCatDto);
   }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
-  async findMany(@Query() query: ListUserQuery): Promise<UserDto[]> {
-    const users = await this.usersService.findAll();
-    return users.map(user => new UserDto(user));
+  async findMany(@Query() query: ListUserQuery): Promise<UserDtoInterface[]> {
+    return await this.usersService.findAll();
   }
 
   @Get(':id')
@@ -48,19 +52,19 @@ export class UsersController implements RemoteUserApi {
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiImplicitParam({name: 'id', required: true})
   async findOne(@Param('id') id): Promise<UserDto> {
-    const user = await this.usersService.findOneById(id);
+    const user = await this.usersService.findOne({ id });
     if (!user) {
       throw new NotFoundException(`Can\`t find user with #id: ${id}`);
     }
-    return new UserDto(user);
+    return cleanUpUserResponse(user);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
   async updateOne(@Param('id') id: string, @Body() nextUser: UserDto): Promise<UserDto> {
-    const user = await this.usersService.update(nextUser);
-    return new UserDto(user)
+    const user = await this.usersService.updateOne(nextUser);
+    return cleanUpUserResponse(user)
   }
 
   @Delete(':id')

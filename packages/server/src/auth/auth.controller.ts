@@ -16,7 +16,9 @@ export class AuthController implements RemoteAuthApi {
     if (!accessKey) {
        throw new ForbiddenException('Access Denied.')
     }
-    const user = await this.userService.findOneByEmail(tokenPayloadDto.email);
+    const user = await this.userService.findOne({
+      email: tokenPayloadDto.email
+    });
     return {
        accessKey,
        userId: user ? user.id : ''
