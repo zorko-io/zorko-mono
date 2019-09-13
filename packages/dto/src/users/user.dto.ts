@@ -1,26 +1,23 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsArray, IsEmail, IsString } from 'class-validator';
-import { Exclude } from 'class-transformer';
+import { IsArray, IsEmail, IsOptional, IsString } from 'class-validator';
 import { RolesEnum } from '../index';
+import { UserDtoInterface } from './user.dto.interface';
 
-export class UserDto {
+export class UserDto implements UserDtoInterface {
   @ApiModelProperty()
-  @IsString()
-  id: string;
+  @IsOptional()
+  id?: any;
 
   @ApiModelProperty()
   @IsEmail()
   email: string;
 
-  @Exclude()
+  @IsString()
+  @IsOptional()
   password?: string;
 
   @ApiModelProperty({required: false})
   @IsArray()
-    // TODO: how to exclude it from user when it was requested by not an admin?
+  @IsOptional()
   roles?: RolesEnum[];
-
-  constructor(partial: Partial<UserDto>) {
-    Object.assign(this, partial);
-  }
 }

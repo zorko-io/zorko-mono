@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User creates user with defaults 1`] = `
+Object {
+  "email": "test@email.com",
+  "id": "fdsfsdfsdf",
+  "password": undefined,
+  "roles": undefined,
+}
+`;
+
+exports[`User fails on wrong email 1`] = `
+Object {
+  "code": "VALIDATION_ERROR",
+  "errors": Array [
+    ValidationError {
+      "children": Array [],
+      "constraints": Object {
+        "isEmail": "email must be an email",
+      },
+      "property": "email",
+      "target": UserDto {
+        "email": "fdfddf",
+      },
+      "value": "fdfddf",
+    },
+  ],
+}
+`;
+
+exports[`User updates email 1`] = `
+Object {
+  "email": "test@email.com",
+  "id": undefined,
+  "password": undefined,
+  "roles": undefined,
+}
+`;
+
+exports[`User updates id 1`] = `
+Object {
+  "email": "test@email.com",
+  "id": "fdsfsdfsdf",
+  "password": undefined,
+  "roles": undefined,
+}
+`;
+
+exports[`User updates password 1`] = `
+Object {
+  "email": "test@email.com",
+  "id": undefined,
+  "password": "39393kfkfkf",
+  "roles": undefined,
+}
+`;
+
+exports[`User updates roles 1`] = `
+Object {
+  "email": "test@email.com",
+  "id": undefined,
+  "password": undefined,
+  "roles": Array [
+    "user",
+    "admin",
+  ],
+}
+`;
+
+exports[`User validates wrong email 1`] = `
+Array [
+  ValidationError {
+    "children": Array [],
+    "constraints": Object {
+      "isEmail": "email must be an email",
+    },
+    "property": "email",
+    "target": UserDto {
+      "email": "fdfdf",
+    },
+    "value": "fdfdf",
+  },
+]
+`;
