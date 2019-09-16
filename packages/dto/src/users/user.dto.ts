@@ -12,6 +12,7 @@ export class UserDto implements UserDtoInterface {
   @IsEmail()
   email: string;
 
+
   @IsString()
   @IsOptional()
   password?: string;

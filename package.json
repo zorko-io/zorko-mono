@@ -25,5 +25,9 @@
     "concurrently": "^4.1.2",
     "lerna": "^3.15.0",
     "cross-env": "^5.2.0"
+  },
+  "dependencies": {
+    "validator": "^11.1.0",
+    "validator.js": "^2.0.3"
   }
 }
