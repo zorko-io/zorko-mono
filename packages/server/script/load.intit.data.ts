@@ -13,7 +13,7 @@ async function loadInitialData() {
   });
 
   try {
-    const deleteCount = await Api.User.removeMany();
+    const deleteCount = await Api.User.removeMany({items: []});
 
     // tslint:disable-next-line:no-console
     console.log(`Cleaned up all users: #deleteCount: ${deleteCount}`);

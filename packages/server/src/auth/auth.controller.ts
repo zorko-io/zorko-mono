@@ -2,13 +2,13 @@ import { Body, Controller, ForbiddenException, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateTokenDto, TokenDto } from '@zorko/dto';
 import { ApiUseTags } from '@nestjs/swagger';
-import { UsersService } from '../users/users.service';
+import { UserService } from '../users/user.service';
 import { RemoteAuthApi } from '@zorko/remote-api';
 
 @ApiUseTags('auth')
 @Controller('auth')
 export class AuthController implements RemoteAuthApi {
-  constructor(private authService: AuthService, private userService: UsersService) {}
+  constructor(private authService: AuthService, private userService: UserService) {}
 
   @Post('token')
   async createToken(@Body() tokenPayloadDto: CreateTokenDto): Promise<TokenDto> {

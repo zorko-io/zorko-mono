@@ -15,7 +15,10 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserProfileService } from './user.profile.service';
-import { CreateUserProfileDto, UserProfileDto } from '@zorko/dto';
+import {
+  CreateUserProfileParams,
+  UpdateUserProfileParams
+} from '@zorko/remote-api';
 
 @ApiBearerAuth()
 @ApiUseTags('user-profiles')
@@ -27,7 +30,7 @@ export class UserProfileController {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiImplicitParam({name: 'login', required: true})
-  async findOneByLogin(@Param('login') login): Promise<UserProfileDto> {
+  async findOneByLogin(@Param('login') login): Promise<UpdateUserProfileParams> {
     let userProfile = await this.userProfileService.findOne({
       login: login
     });
@@ -41,7 +44,7 @@ export class UserProfileController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  async createOne(@Body() payload: CreateUserProfileDto){
+  async createOne(@Body() payload: CreateUserProfileParams){
     let userProfileId;
 
     try {

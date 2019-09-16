@@ -24,7 +24,7 @@ describe('Users', () => {
     it('/GET users', async () => {
       const users = await Api.User.findMany();
 
-      expect(users && users.length > 0).toBeTruthy();
+      expect(users && users.items.length > 0).toBeTruthy();
     });
 
     it('CRUD - create, read by id and delete', async () => {
@@ -32,17 +32,23 @@ describe('Users', () => {
       userId = await Api.User.createOne(user);
       expect(userId && userId.length > 0).toBeTruthy();
 
-      const actualUser = await Api.User.findOne(userId);
+      const actualUser = await Api.User.findOne({
+        id: userId
+      });
       expect(actualUser).toEqual({
         id: userId,
         email: user.email,
         roles: [RolesEnum.User]
       });
 
-      await Api.User.removeOne(actualUser.id);
+      await Api.User.removeOne({
+        id: actualUser.id
+      });
 
       try {
-        await Api.User.findOne(actualUser.id);
+        await Api.User.findOne({
+          id: actualUser.id
+        });
       } catch (e) {
         expect(e.response.status).toEqual(404);
       }

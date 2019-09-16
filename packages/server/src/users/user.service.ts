@@ -1,17 +1,28 @@
 import { Model } from 'mongoose';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateUserDto, RolesEnum, User, UserDto, UserDtoInterface } from '@zorko/dto';
+import {
+  RolesEnum,
+  User,
+  UserDtoInterface
+} from '@zorko/dto';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from './schemas/user.schema';
+import {
+  CreateUserParams,
+  DeleteUserParams,
+  ReadUserParams,
+  RemoteOneUserApi,
+  UpdateUserParams,
+} from '@zorko/remote-api';
 
 const DEFAULT_CRYPT_SALT = 10;
 
 @Injectable()
-export class UsersService {
+export class UserService implements RemoteOneUserApi {
   constructor(@InjectModel('User') private readonly userModel: Model<UserEntity>) {}
 
-  async createOne(user: CreateUserDto): Promise<string> {
+  async createOne(user: CreateUserParams): Promise<string> {
     const existingUser = await this.findOne({ email: user.email });
     if (existingUser) {
       throw new ConflictException('User already exists')
@@ -37,7 +48,7 @@ export class UsersService {
     return result._id.toString();
   }
 
-  async updateOne(nextUser: UserDtoInterface): Promise<UserDtoInterface> {
+  async updateOne(nextUser: UpdateUserParams): Promise<UpdateUserParams> {
 
     let password;
     let result;
@@ -65,7 +76,7 @@ export class UsersService {
     return result.toUser().toDTO();
   }
 
-  async findOne(params: {email?: string, id?: string}): Promise<UserDtoInterface | undefined> {
+  async findOne(params: ReadUserParams): Promise<UpdateUserParams | undefined> {
 
     let { email, id } = params;
     let model;
@@ -85,22 +96,12 @@ export class UsersService {
     return model.toUser().toDTO();
   }
 
-  async remove(id: string): Promise<void> {
+  async removeOne(deleteParams: DeleteUserParams): Promise<void> {
+    const { id } = deleteParams;
     const user = await this.findOne({ id });
     if (!user) {
       throw new NotFoundException(`Can't find user by #id: ${id}`)
     }
     await this.userModel.remove({_id: id});
   }
-
-  async removeAll(): Promise<number> {
-     const result = await this.userModel.deleteMany({});
-     return result.n;
-  }
-
-  async findAll(): Promise<UserDtoInterface[]> {
-    const models = await this.userModel.find();
-    return models.map(model => model.toUser().toDTO());
-  }
-
 }

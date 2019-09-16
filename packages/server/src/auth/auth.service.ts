@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
+import { UserService } from '../users/user.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { CreateTokenDto, UserDtoInterface } from '@zorko/dto';
 import * as bcrypt from 'bcrypt';
@@ -10,7 +10,7 @@ import { ConfigService } from '../config/config.service';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
     private readonly configService: ConfigService
   ) {}
 

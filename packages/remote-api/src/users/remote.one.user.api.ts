@@ -1,7 +1,14 @@
-import { UserDto, CreateUserDto } from '@zorko/dto';
+import { RemoteOneServiceApi } from '../utils/remote.one.service.api';
+import { DeleteUserParams } from './delete.user.params';
+import { ReadUserParams } from './read.user.params';
+import { CreateUserParams } from './create.user.params';
+import { UpdateUserParams } from './update.user.params';
 
-export interface RemoteOneUserApi {
-  createOne(user: CreateUserDto): Promise<string>;
-  removeOne(id: string): Promise<void>;
-  findOne(userId: string): Promise<UserDto>;
-}
+export interface RemoteOneUserApi extends
+  RemoteOneServiceApi<
+    CreateUserParams,
+    ReadUserParams,
+    UpdateUserParams,
+    DeleteUserParams
+  >
+{}

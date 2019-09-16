@@ -14,10 +14,12 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiImplicitParam, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import { CreateUserDto, ListUserQuery, RolesEnum, UserDto, UserDtoInterface } from '@zorko/dto';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { Roles } from '../roles/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../roles/roles.guard';
+import { UserCollectionService } from './user.collection.service';
+import { UpdateUserCollectionParams } from '@zorko/remote-api';
 
 function cleanUpUserResponse (user: UserDtoInterface) {
 
@@ -30,21 +32,26 @@ function cleanUpUserResponse (user: UserDtoInterface) {
 @ApiUseTags('users')
 @Controller('users')
 export class UsersController  {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly userCollectionService: UserCollectionService
+  ) {}
 
   @Post()
   @ApiOperation({title: 'Create user'})
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(RolesEnum.Admin)
   async createOne(@Body() createCatDto: CreateUserDto): Promise<string> {
-    return await this.usersService.createOne(createCatDto);
+    return await this.userService.createOne(createCatDto);
   }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
-  async findMany(@Query() query: ListUserQuery): Promise<UserDtoInterface[]> {
-    return await this.usersService.findAll();
+  async findMany(@Query() query: ListUserQuery): Promise<UpdateUserCollectionParams> {
+    return await this.userCollectionService.findMany({
+      limit: Number.POSITIVE_INFINITY
+    });
   }
 
   @Get(':id')
@@ -52,7 +59,7 @@ export class UsersController  {
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiImplicitParam({name: 'id', required: true})
   async findOne(@Param('id') id): Promise<UserDto> {
-    const user = await this.usersService.findOne({ id });
+    const user = await this.userService.findOne({ id });
     if (!user) {
       throw new NotFoundException(`Can\`t find user with #id: ${id}`);
     }
@@ -63,7 +70,7 @@ export class UsersController  {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
   async updateOne(@Param('id') id: string, @Body() nextUser: UserDto): Promise<UserDto> {
-    const user = await this.usersService.updateOne(nextUser);
+    const user = await this.userService.updateOne(nextUser);
     return cleanUpUserResponse(user)
   }
 
@@ -71,19 +78,16 @@ export class UsersController  {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({title: 'Remove user'})
   async removeOne(@Param('id') id: string): Promise<void> {
-    await this.usersService.remove(id);
+    await this.userService.removeOne({ id });
   }
 
   @Delete()
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(RolesEnum.Admin)
   @ApiOperation({title: 'Bulk remove users'})
-  async removeMany(): Promise<number> {
-    return await this.usersService.removeAll();
-  }
-
-  // TODO: find on how to diff creation of one and many
-  createMany(users: CreateUserDto[] = []): Promise<string[]> {
-    throw new Error('Not Implemented');
+  async removeMany(): Promise<string> {
+    return await this.userCollectionService.removeMany({
+      items: []
+    });
   }
 }

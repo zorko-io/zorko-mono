@@ -1,21 +1,21 @@
-import { RemoteUserProfileApi } from '@zorko/remote-api';
 import {
-  UserProfileDto,
-  UserProfileSearchParamsDto,
-  UserProfile,
-  CreateUserProfileDto,
-} from '@zorko/dto';
+  CreateUserProfileParams,
+  RemoteUserProfileApi,
+  ReadUserProfileParams,
+  UpdateUserProfileParams,
+} from '@zorko/remote-api';
 import { Injectable } from '@nestjs/common';
 import { UserProfileDocument } from './user.profile.document';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { UserProfile } from '@zorko/dto';
 
 @Injectable()
 export class UserProfileService implements RemoteUserProfileApi {
 
   constructor(@InjectModel('UserProfile') private readonly userProfileModel: Model<UserProfileDocument>){}
 
-  async findOne(params: UserProfileSearchParamsDto): Promise<UserProfileDto> {
+  async findOne(params: ReadUserProfileParams): Promise<UpdateUserProfileParams> {
 
     const { login } = params;
 
@@ -36,7 +36,7 @@ export class UserProfileService implements RemoteUserProfileApi {
     return null;
   }
 
-  async createOne(params: CreateUserProfileDto): Promise<string> {
+  async createOne(params: CreateUserProfileParams): Promise<string> {
     // TODO: connect to mongo and store user profile here
     // TODO: create profile during user creation ()
 
@@ -58,5 +58,13 @@ export class UserProfileService implements RemoteUserProfileApi {
     });
 
     return userProfileDocument.id;
+  }
+
+  removeOne(deleteParams: unknown): Promise<void> {
+    return undefined;
+  }
+
+  updateOne(updateParams: unknown): Promise<unknown> {
+    return undefined;
   }
 }

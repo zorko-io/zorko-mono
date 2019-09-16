@@ -1,5 +1,6 @@
 export * from './user.dto.interface'
 export * from './create.user.dto';
+export * from './user.search.params.dto';
 export * from './list.user.query';
 export * from './user.dto';
 export * from './user'
