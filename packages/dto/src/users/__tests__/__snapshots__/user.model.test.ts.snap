@@ -19,7 +19,7 @@ Object {
         "isEmail": "email must be an email",
       },
       "property": "email",
-      "target": UserDto {
+      "target": UserValidationSchema {
         "email": "fdfddf",
       },
       "value": "fdfddf",
@@ -75,7 +75,7 @@ Array [
       "isEmail": "email must be an email",
     },
     "property": "email",
-    "target": UserDto {
+    "target": UserValidationSchema {
       "email": "fdfdf",
     },
     "value": "fdfdf",

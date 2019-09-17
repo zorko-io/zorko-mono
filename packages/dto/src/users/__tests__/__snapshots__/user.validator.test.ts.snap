@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserValidator fails on email 1`] = `
+Object {
+  "email": "WRONG_EMAIL",
+}
+`;

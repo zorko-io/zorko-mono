@@ -1,9 +1,9 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { IsArray, IsEmail, IsOptional, IsString } from 'class-validator';
 import { RolesEnum } from '../index';
-import { UserDtoInterface } from './user.dto.interface';
+import { User } from './user';
 
-export class UserDto implements UserDtoInterface {
+export class UserValidationSchema implements User {
   @ApiModelProperty()
   @IsOptional()
   id?: any;

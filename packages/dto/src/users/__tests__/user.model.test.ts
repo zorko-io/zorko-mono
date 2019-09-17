@@ -1,12 +1,12 @@
-import { User } from '../user';
+import { UserModel } from '../user.model';
 import { RolesEnum } from '../../roles';
 
 describe('User', () => {
 
-  let user: User;
+  let user: UserModel;
 
   beforeEach(() => {
-    user = new User('test@email.com');
+    user = new UserModel('test@email.com');
   });
 
   it('creates user with defaults', () => {
