@@ -1,15 +1,17 @@
-import { UserValidationSchema } from './user.validation.schema';
 import { User } from './user';
 import { RolesEnum } from '../roles';
 import { validateSync, ValidationError } from 'class-validator';
+import { ObjectSchema } from 'yup';
+import { userValidationSchema } from './user.validation.schema';
 
 export class UserModel {
 
-  private dto: UserValidationSchema;
+  private dto: User;
+  private schema: ObjectSchema;
 
   constructor(email: string) {
-    this.dto = new UserValidationSchema();
-    this.dto.email = email;
+    this.dto = { email };
+    this.schema = userValidationSchema;
   }
 
   getId(): string {
@@ -52,17 +54,8 @@ export class UserModel {
     return this;
   }
 
-  validate () : ValidationError[] {
-     return validateSync(this.dto);
-  }
-
   toDTO(): User {
-
-    const errors = this.validate();
-
-    if (errors.length){
-      throw { code: 'VALIDATION_ERROR', errors }
-    }
+    this.schema.validateSync(this.dto);
 
     return {
       id: this.dto.id,

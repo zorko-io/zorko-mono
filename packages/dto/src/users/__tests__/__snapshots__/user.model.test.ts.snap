@@ -9,24 +9,7 @@ Object {
 }
 `;
 
-exports[`User fails on wrong email 1`] = `
-Object {
-  "code": "VALIDATION_ERROR",
-  "errors": Array [
-    ValidationError {
-      "children": Array [],
-      "constraints": Object {
-        "isEmail": "email must be an email",
-      },
-      "property": "email",
-      "target": UserValidationSchema {
-        "email": "fdfddf",
-      },
-      "value": "fdfddf",
-    },
-  ],
-}
-`;
+exports[`User fails on wrong email 1`] = `[ValidationError: email must be a valid email]`;
 
 exports[`User updates email 1`] = `
 Object {
@@ -65,20 +48,4 @@ Object {
     "admin",
   ],
 }
-`;
-
-exports[`User validates wrong email 1`] = `
-Array [
-  ValidationError {
-    "children": Array [],
-    "constraints": Object {
-      "isEmail": "email must be an email",
-    },
-    "property": "email",
-    "target": UserValidationSchema {
-      "email": "fdfdf",
-    },
-    "value": "fdfdf",
-  },
-]
 `;

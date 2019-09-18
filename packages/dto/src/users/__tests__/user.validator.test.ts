@@ -1,22 +1,20 @@
-import { UserValidator } from '../user.validator';
 import { User } from '../user';
+import { userValidationSchema } from '../user.validation.schema';
 
 describe('UserValidator', () => {
-  let validator;
+  let schema;
   let data: User;
   let actual;
 
   beforeEach(() => {
-    validator = new UserValidator();
+    schema = userValidationSchema;
   });
 
   it('passes minimum validation', () => {
     data = { email: 'test@ffkfkf.com'};
-    actual = validator.validate({
-      email: 'test@ffkfkf.com'
-    });
+    actual = schema.isValidSync(data);
 
-    expect(actual).toEqual(data);
+    expect(actual).toBeTruthy();
   });
 
   it('passes max validation', () => {
@@ -26,20 +24,47 @@ describe('UserValidator', () => {
       roles: [],
       password: '234342423434'
     };
-    actual = validator.validate(data);
-    expect(actual).toEqual(data);
+    actual = schema.isValidSync(data);
+
+    expect(actual).toBeTruthy();
   });
 
   it('fails on email', () => {
-    actual = validator.validate({
+    let data = {
       id: '312123',
       email: 'test!ffkfkf_94949494',
       roles: [],
       password: '234342423434'
-    });
+    };
+    actual = schema.isValidSync(data);
 
     expect(actual).toBeFalsy();
-    expect(validator.getErrors()).toMatchSnapshot();
+
+    try {
+      schema.validateSync(data);
+    } catch (error) {
+      expect(error.path).toMatchSnapshot();
+      expect(error.message).toMatchSnapshot();
+    }
+  });
+
+  it('fails on all invalid', () => {
+    let data = {
+      id: 'fsdfd',
+      email: 'test!ffkfkf_94949494',
+      roles: {},
+      password: {}
+    };
+    actual = schema.isValidSync(data);
+
+    expect(actual).toBeFalsy();
+
+    try {
+      schema.validateSync(data, { abortEarly: false });
+    } catch (error) {
+      expect(error.inner).toMatchSnapshot();
+    }
+
   });
 
 });

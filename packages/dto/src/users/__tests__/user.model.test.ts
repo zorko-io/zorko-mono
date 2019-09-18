@@ -33,10 +33,6 @@ describe('User', () => {
     expect(user.getRoles()).toEqual([RolesEnum.User, RolesEnum.Admin]);
   });
 
-  it('validates wrong email', () => {
-     expect(user.setEmail('fdfdf').validate()).toMatchSnapshot();
-  });
-
   it('fails on wrong email', () => {
     user = user.setEmail('fdfddf');
 

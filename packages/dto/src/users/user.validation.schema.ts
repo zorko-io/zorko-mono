@@ -1,24 +1,10 @@
-import { ApiModelProperty } from '@nestjs/swagger';
-import { IsArray, IsEmail, IsOptional, IsString } from 'class-validator';
-import { RolesEnum } from '../index';
-import { User } from './user';
+import * as yup from 'yup';
 
-export class UserValidationSchema implements User {
-  @ApiModelProperty()
-  @IsOptional()
-  id?: any;
+export const userValidationSchema = yup.object({
+  id:  yup.string(),
+  password: yup.string(),
+  email: yup.string().email().required(),
+  roles: yup.array()
+});
 
-  @ApiModelProperty()
-  @IsEmail()
-  email: string;
-
-
-  @IsString()
-  @IsOptional()
-  password?: string;
-
-  @ApiModelProperty({required: false})
-  @IsArray()
-  @IsOptional()
-  roles?: RolesEnum[];
-}
+export type UserType = yup.InferType<typeof userValidationSchema>;
