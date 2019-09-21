@@ -1,10 +1,7 @@
 import {  IsNotEmpty, IsString  } from 'class-validator';
 
-export class RepositoryPreviewDto {
+export interface RepositoryPreviewDto {
   id: string;
-  @IsString()
-  @IsNotEmpty()
   name: string;
-  @IsString()
   description: string;
 }

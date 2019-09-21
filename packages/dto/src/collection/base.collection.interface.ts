@@ -1,9 +1,8 @@
 import { IsArray, IsInt, IsPositive } from 'class-validator';
 
-export class BaseCollectionDto<I> {
-  @IsArray()
+export interface BaseCollectionInterface<I> {
   items: Array<I>;
-  @IsPositive()
-  @IsInt()
   total: number;
+  offset?: number;
+  limit?: number;
 }

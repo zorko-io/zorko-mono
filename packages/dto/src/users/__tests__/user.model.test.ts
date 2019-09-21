@@ -1,12 +1,14 @@
 import { UserModel } from '../user.model';
 import { RolesEnum } from '../../roles';
+import { User } from '../user';
 
 describe('User', () => {
 
   let user: UserModel;
+  let actual: User;
 
   beforeEach(() => {
-    user = new UserModel('test@email.com');
+    user = new UserModel('test@email.com', 'bobobobo');
   });
 
   it('creates user with defaults', () => {
@@ -26,6 +28,13 @@ describe('User', () => {
   it('updates password', () => {
     expect(user.setPassword('39393kfkfkf').toDTO()).toMatchSnapshot();
     expect(user.getPassword()).toEqual('39393kfkfkf');
+  });
+
+  it('updates hashPassword', () => {
+   user.setHashPassword('bkbjf848484');
+
+    expect(user.getHashPassword()).toEqual('bkbjf848484');
+    expect(user.getPassword()).toBeUndefined();
   });
 
   it('updates roles', () => {

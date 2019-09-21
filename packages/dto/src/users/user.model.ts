@@ -1,67 +1,76 @@
 import { User } from './user';
 import { RolesEnum } from '../roles';
-import { validateSync, ValidationError } from 'class-validator';
 import { ObjectSchema } from 'yup';
 import { userValidationSchema } from './user.validation.schema';
 
 export class UserModel {
 
-  private dto: User;
+  private userStorage: User;
   private schema: ObjectSchema;
 
-  constructor(email: string) {
-    this.dto = { email };
+  constructor(email: string, password: string) {
+    this.userStorage = { email, password };
     this.schema = userValidationSchema;
   }
 
   getId(): string {
-    return this.dto.id;
+    return this.userStorage.id;
   }
 
   setId(id: string): this {
-    this.dto.id = id;
+    this.userStorage.id = id;
     return this;
   }
 
   getEmail(): string {
-    return this.dto.email;
+    return this.userStorage.email;
   }
 
   setEmail(email: string): this {
-    this.dto.email = email;
+    this.userStorage.email = email;
     return this;
   }
 
   getPassword(): string  {
-    return this.dto.password;
+    return this.userStorage.password;
   }
 
   setPassword(password: string): this {
-    this.dto.password = password;
+    this.userStorage.password = password;
     return this;
   }
 
   getRoles(): RolesEnum[] {
-    return this.hasRoles() ? this.dto.roles : [];
+    return this.hasRoles() ? this.userStorage.roles : [];
   }
 
   hasRoles () : boolean {
-    return this.dto.roles && this.dto.roles.length > 0
+    return this.userStorage.roles && this.userStorage.roles.length > 0
   }
 
   setRoles(roles: RolesEnum[]): this {
-    this.dto.roles = roles;
+    this.userStorage.roles = roles;
     return this;
   }
 
   toDTO(): User {
-    this.schema.validateSync(this.dto);
+    this.schema.validateSync(this.userStorage);
 
     return {
-      id: this.dto.id,
-      email: this.dto.email,
-      password: this.dto.password,
-      roles: this.dto.roles
+      id: this.userStorage.id,
+      email: this.userStorage.email,
+      password: this.userStorage.password,
+      roles: this.userStorage.roles
     }
+  }
+
+  setHashPassword(hashPassword: string) {
+    this.userStorage.hashPassword = hashPassword;
+    this.userStorage.password = undefined;
+    return this;
+  }
+
+  getHashPassword() {
+    return this.userStorage.hashPassword;
   }
 }

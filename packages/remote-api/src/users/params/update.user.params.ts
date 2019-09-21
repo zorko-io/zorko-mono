@@ -1,3 +1,6 @@
-import { UserDto } from '@zorko/dto';
+import { User } from '@zorko/dto';
 
-export class UpdateUserParams extends UserDto {}
+export class UpdateUserParams {
+  user: User
+}
+

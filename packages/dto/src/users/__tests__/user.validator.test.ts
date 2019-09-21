@@ -11,7 +11,7 @@ describe('UserValidator', () => {
   });
 
   it('passes minimum validation', () => {
-    data = { email: 'test@ffkfkf.com'};
+    data = { email: 'test@ffkfkf.com', password: '34324' };
     actual = schema.isValidSync(data);
 
     expect(actual).toBeTruthy();
@@ -25,6 +25,22 @@ describe('UserValidator', () => {
       password: '234342423434'
     };
     actual = schema.isValidSync(data);
+
+    expect(actual).toBeTruthy();
+  });
+
+  it('passes `hashPassword` instead of real password', () => {
+    data = {
+      id: '312123',
+      email: 'test@ffkfkf.com',
+      roles: [],
+      hashPassword: 'nfcjnd93024984930840'
+    };
+
+    actual = schema.isValidSync(data);
+
+    schema.validateSync(data);
+
 
     expect(actual).toBeTruthy();
   });

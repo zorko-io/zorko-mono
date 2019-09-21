@@ -5,12 +5,14 @@ import {
   CreateUserParams,
   UpdateUserParams
 } from './params';
+import { User } from '@zorko/dto';
 
 export interface RemoteOneUserApi extends
   RemoteOneServiceApi<
     CreateUserParams,
     ReadUserParams,
     UpdateUserParams,
-    DeleteUserParams
+    DeleteUserParams,
+    User
   >
 {}

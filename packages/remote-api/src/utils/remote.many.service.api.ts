@@ -1,6 +1,6 @@
-export interface RemoteManyServiceApi<C,R,U,D> {
-  findMany(searchParams?: R): Promise<U>
+export interface RemoteManyServiceApi<C,R,U,D,E> {
+  findMany(searchParams?: R): Promise<E>
   createMany(createParams: C): Promise<string>
-  updateMany(updateParams: U): Promise<R>
+  updateMany(updateParams: U): Promise<E>
   removeMany(deleteParams: D): Promise<string>
 }

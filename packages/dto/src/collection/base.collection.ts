@@ -1,12 +1,12 @@
-import { BaseCollectionDto } from './base.collection.dto';
+import { BaseCollectionInterface } from './base.collection.interface';
 
-export class BaseCollection<I> {
+export class BaseCollection<I> implements BaseCollectionInterface<I> {
+  items: I[];
+  total: number;
+  limit: number;
+  offset: number;
 
-  private items: any [];
-  private total: number;
-
-
-  constructor(context?: Partial<BaseCollectionDto<I>>){
+  constructor(context?: Partial<BaseCollectionInterface<I>>){
     let total = 0;
     let items = [];
 
@@ -45,9 +45,12 @@ export class BaseCollection<I> {
     return this;
   }
 
-  toDTO(): BaseCollectionDto<I> {
+  toDTO(): BaseCollectionInterface<I> {
     return {
-      items: this.items.map((item => item.toDTO())),
+      items: this.items.map((item => {
+        // @ts-ignore
+        return item.toDTO()
+      })),
       total: this.total
     }
   }

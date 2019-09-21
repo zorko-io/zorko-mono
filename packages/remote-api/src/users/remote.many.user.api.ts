@@ -5,12 +5,16 @@ import {
   UpdateUserCollectionParams,
   DeleteUserCollectionParams
 } from './params';
+import {
+  UserCollection
+} from '@zorko/dto';
 
 export interface RemoteManyUserApi extends
   RemoteManyServiceApi<
     CreateUserCollectionParams,
     ReadUserCollectionParams,
     UpdateUserCollectionParams,
-    DeleteUserCollectionParams
+    DeleteUserCollectionParams,
+    UserCollection
   >
 {}

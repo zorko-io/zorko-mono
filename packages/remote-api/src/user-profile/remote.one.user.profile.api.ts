@@ -17,6 +17,7 @@ export interface RemoteOneUserProfileApi extends
     CreateUserProfileParams,
     ReadUserProfileParams,
     UpdateUserProfileParams,
-    DeleteUserCollectionParams
+    DeleteUserCollectionParams,
+    UserCollection
     >
 {}

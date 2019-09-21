@@ -4,7 +4,7 @@ exports[`User creates user with defaults 1`] = `
 Object {
   "email": "test@email.com",
   "id": "fdsfsdfsdf",
-  "password": undefined,
+  "password": "bobobobo",
   "roles": undefined,
 }
 `;
@@ -15,7 +15,7 @@ exports[`User updates email 1`] = `
 Object {
   "email": "test@email.com",
   "id": undefined,
-  "password": undefined,
+  "password": "bobobobo",
   "roles": undefined,
 }
 `;
@@ -24,7 +24,7 @@ exports[`User updates id 1`] = `
 Object {
   "email": "test@email.com",
   "id": "fdsfsdfsdf",
-  "password": undefined,
+  "password": "bobobobo",
   "roles": undefined,
 }
 `;
@@ -42,7 +42,7 @@ exports[`User updates roles 1`] = `
 Object {
   "email": "test@email.com",
   "id": undefined,
-  "password": undefined,
+  "password": "bobobobo",
   "roles": Array [
     "user",
     "admin",
