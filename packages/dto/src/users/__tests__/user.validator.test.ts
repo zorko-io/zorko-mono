@@ -1,13 +1,15 @@
 import { User } from '../user';
-import { userValidationSchema } from '../user.validation.schema';
+import { UserValidationSchemaFactory } from '../user.validation.schema.factory';
 
 describe('UserValidator', () => {
   let schema;
   let data: User;
   let actual;
+  let schemaFactory;
 
   beforeEach(() => {
-    schema = userValidationSchema;
+    schemaFactory = new UserValidationSchemaFactory();
+    schema = schemaFactory.create();
   });
 
   it('passes minimum validation', () => {
@@ -80,7 +82,6 @@ describe('UserValidator', () => {
     } catch (error) {
       expect(error.inner).toMatchSnapshot();
     }
-
   });
 
 });

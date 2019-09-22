@@ -1,14 +1,18 @@
 import { UserModel } from '../user.model';
 import { RolesEnum } from '../../roles';
 import { User } from '../user';
+import { UserValidationSchemaFactory } from '../user.validation.schema.factory';
+import { ObjectSchema } from 'yup';
 
 describe('User', () => {
-
   let user: UserModel;
-  let actual: User;
+  let userStorage: User;
+  let schema: ObjectSchema;
 
   beforeEach(() => {
-    user = new UserModel('test@email.com', 'bobobobo');
+    userStorage = {email: 'test@email.com', password: '32322332dffsd'};
+    schema = new UserValidationSchemaFactory().create();
+    user = new UserModel(userStorage, schema);
   });
 
   it('creates user with defaults', () => {
@@ -50,7 +54,6 @@ describe('User', () => {
     } catch (e) {
       expect(e).toMatchSnapshot();
     }
-
   })
 
 });
