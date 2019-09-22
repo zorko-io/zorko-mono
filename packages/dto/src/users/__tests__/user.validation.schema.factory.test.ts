@@ -1,7 +1,7 @@
 import { User } from '../user';
 import { UserValidationSchemaFactory } from '../user.validation.schema.factory';
 
-describe('UserValidator', () => {
+describe('UserValidationSchemaFactory', () => {
   let schema;
   let data: User;
   let actual;

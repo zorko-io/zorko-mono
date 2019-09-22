@@ -21,4 +21,6 @@ export class UserValidationSchemaFactory {
   }
 }
 
-export default new UserValidationSchemaFactory();
+const defaultUserValidationSchemaFactory = new UserValidationSchemaFactory();
+
+export default defaultUserValidationSchemaFactory;

@@ -13,7 +13,7 @@ export class UserProfile {
     this.login = login ? login : '';
 
     if (!pickedRepositories) {
-      this.pickedRepositories = new RepositoryPreviewCollection();
+      this.pickedRepositories =  {items: [], limit: 0, offset: 0, total: 0 };
     } else {
       this.pickedRepositories = pickedRepositories;
     }
@@ -37,7 +37,6 @@ export class UserProfile {
     return {
       id: this.id,
       login: this.login,
-      pickedRepositories: this.pickedRepositories.toDTO(),
     };
   }
 

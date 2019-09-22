@@ -7,5 +7,5 @@ export class UserProfileDto implements UserProfileInterface{
   @IsString()
   @IsNotEmpty()
   login: string;
-  pickedRepositories: RepositoryPreviewCollectionDto;
+  pickedRepositories?: RepositoryPreviewCollectionDto;
 }
