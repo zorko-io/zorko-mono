@@ -3,6 +3,10 @@ import { ObjectSchema } from 'yup';
 
 export class UserValidationSchemaFactory {
 
+  constructor() {
+    this.create = this.create.bind(this);
+  }
+
   create(): ObjectSchema {
     return  yup.object({
       id: yup.string(),

@@ -1,2 +1,2 @@
-export * from './base.collection.interface'
-export * from './base.collection'
+export * from './collection'
+export * from './collection.model'

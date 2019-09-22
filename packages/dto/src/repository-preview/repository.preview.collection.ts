@@ -1,6 +1,6 @@
-import { BaseCollection } from '../collection';
+import { CollectionModel } from '../collection';
 import { RepositoryPreviewDto } from './repositoy.preview.dto';
-import { BaseCollectionInterface } from '../collection/base.collection.interface';
+import { Collection } from '../collection/collection';
 
-export interface RepositoryPreviewCollection extends BaseCollectionInterface<RepositoryPreviewDto> {}
+export interface RepositoryPreviewCollection extends Collection<RepositoryPreviewDto> {}
 

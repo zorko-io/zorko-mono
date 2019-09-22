@@ -1,12 +1,12 @@
-import { BaseCollectionInterface } from './base.collection.interface';
+import { Collection } from './collection';
 
-export class BaseCollection<I> implements BaseCollectionInterface<I> {
+export abstract class CollectionModel<I> implements Collection<I> {
   items: I[];
   total: number;
   limit: number;
   offset: number;
 
-  constructor(context?: Partial<BaseCollectionInterface<I>>){
+  constructor(context?: Partial<Collection<I>>){
     let total = 0;
     let items = [];
 
@@ -45,7 +45,7 @@ export class BaseCollection<I> implements BaseCollectionInterface<I> {
     return this;
   }
 
-  toDTO(): BaseCollectionInterface<I> {
+  toDTO(): Collection<I> {
     return {
       items: this.items.map((item => {
         // @ts-ignore

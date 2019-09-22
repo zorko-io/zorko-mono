@@ -1,6 +1,6 @@
 import { User } from './user';
 import { UserModel } from './user.model';
-import userValidationSchemaFactory, {
+import defaultUserValidationSchemaFactory , {
   UserValidationSchemaFactory
 } from './user.validation.schema.factory';
 
@@ -9,6 +9,7 @@ export class UserModelFactory {
 
   constructor(schemaFactory: UserValidationSchemaFactory){
     this.schemaFactory = schemaFactory;
+    this.create = this.create.bind(this);
   }
 
   create (user: User) {
@@ -20,4 +21,8 @@ export class UserModelFactory {
   }
 }
 
-export default new UserModelFactory(userValidationSchemaFactory)
+const defaultUserModelFactory = new UserModelFactory(
+  defaultUserValidationSchemaFactory
+);
+
+export default defaultUserModelFactory;

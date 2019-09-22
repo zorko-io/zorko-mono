@@ -1,4 +1,4 @@
-import { BaseCollectionInterface } from '../collection';
+import { Collection } from '../collection';
 import { User } from './user';
 
-export interface UserCollection extends BaseCollectionInterface<User>{}
+export interface UserCollection extends Collection<User>{}
