@@ -23,4 +23,5 @@ const defaultUserCollectionFactory = new UserCollectionFactory(
   defaultUserModelFactory
 );
 
+
 export default defaultUserCollectionFactory;

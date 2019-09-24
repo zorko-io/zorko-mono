@@ -1,3 +1,4 @@
 export class ReadUserCollectionParams {
-  limit: number;
+  limit?: number;
+  offset?: number;
 }

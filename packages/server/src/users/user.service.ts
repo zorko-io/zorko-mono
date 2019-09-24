@@ -3,8 +3,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { InjectModel } from '@nestjs/mongoose';
 import {
   RolesEnum,
-  User,
-  UserDtoInterface
+  User
 } from '@zorko/dto';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from './schemas/user.schema';
@@ -48,10 +47,11 @@ export class UserService implements RemoteOneUserApi {
     return result._id.toString();
   }
 
-  async updateOne(nextUser: UpdateUserParams): Promise<UpdateUserParams> {
+  async updateOne(params: UpdateUserParams): Promise<User> {
 
     let password;
     let result;
+    let nextUser = params.user;
 
     if (nextUser.password) {
       password = await bcrypt.hash(nextUser.password, DEFAULT_CRYPT_SALT);
@@ -76,7 +76,7 @@ export class UserService implements RemoteOneUserApi {
     return result.toUser().toDTO();
   }
 
-  async findOne(params: ReadUserParams): Promise<UpdateUserParams | undefined> {
+  async findOne(params: ReadUserParams): Promise<User> {
 
     let { email, id } = params;
     let model;
@@ -93,7 +93,7 @@ export class UserService implements RemoteOneUserApi {
       return;
     }
 
-    return model.toUser().toDTO();
+    return model.toUser();
   }
 
   async removeOne(deleteParams: DeleteUserParams): Promise<void> {

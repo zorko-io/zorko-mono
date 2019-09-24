@@ -17,11 +17,7 @@ const Users  = {
 
 const UserProfiles = {
   JoeUserProfile: {
-    login: 'test',
-    pickedRepositories: {
-      items: [],
-      total: 0
-    }
+    login: 'test'
   },
 };
 

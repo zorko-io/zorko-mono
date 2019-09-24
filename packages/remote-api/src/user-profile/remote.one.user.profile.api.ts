@@ -1,6 +1,3 @@
-import {
-  UserProfileDto,
-} from '@zorko/dto';
 
 import {
   RemoteOneServiceApi
@@ -18,6 +15,6 @@ export interface RemoteOneUserProfileApi extends
     ReadUserProfileParams,
     UpdateUserProfileParams,
     DeleteUserCollectionParams,
-    UserCollection
+    any
     >
 {}

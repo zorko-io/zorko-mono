@@ -13,15 +13,15 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiImplicitParam, ApiOperation, ApiUseTags } from '@nestjs/swagger';
-import { CreateUserDto, ListUserQuery, RolesEnum, UserDto, UserDtoInterface } from '@zorko/dto';
+import { CreateUserDto, RolesEnum, User, UserCollection } from '@zorko/dto';
 import { UserService } from './user.service';
 import { Roles } from '../roles/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../roles/roles.guard';
 import { UserCollectionService } from './user.collection.service';
-import { UpdateUserCollectionParams } from '@zorko/remote-api';
+import { ReadUserCollectionParams, UpdateUserCollectionParams } from '@zorko/remote-api';
 
-function cleanUpUserResponse (user: UserDtoInterface) {
+function cleanUpUserResponse (user: User) {
 
   delete user.password;
 
@@ -48,7 +48,7 @@ export class UsersController  {
   @Get()
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
-  async findMany(@Query() query: ListUserQuery): Promise<UpdateUserCollectionParams> {
+  async findMany(@Query() query: ReadUserCollectionParams): Promise<UserCollection> {
     return await this.userCollectionService.findMany({
       limit: Number.POSITIVE_INFINITY
     });
@@ -58,7 +58,7 @@ export class UsersController  {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiImplicitParam({name: 'id', required: true})
-  async findOne(@Param('id') id): Promise<UserDto> {
+  async findOne(@Param('id') id): Promise<User> {
     const user = await this.userService.findOne({ id });
     if (!user) {
       throw new NotFoundException(`Can\`t find user with #id: ${id}`);
@@ -69,8 +69,8 @@ export class UsersController  {
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
-  async updateOne(@Param('id') id: string, @Body() nextUser: UserDto): Promise<UserDto> {
-    const user = await this.userService.updateOne(nextUser);
+  async updateOne(@Param('id') id: string, @Body() nextUser: User): Promise<User> {
+    const user = await this.userService.updateOne({ user: nextUser });
     return cleanUpUserResponse(user)
   }
 
@@ -85,7 +85,7 @@ export class UsersController  {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(RolesEnum.Admin)
   @ApiOperation({title: 'Bulk remove users'})
-  async removeMany(): Promise<string> {
+  async removeMany(): Promise<number> {
     return await this.userCollectionService.removeMany({
       items: []
     });

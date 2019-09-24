@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../users/user.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { CreateTokenDto, UserDtoInterface } from '@zorko/dto';
+import { CreateTokenDto, User } from '@zorko/dto';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '../config/config.service';
 
@@ -31,7 +31,7 @@ export class AuthService {
     }
   }
 
-  async validateUser(payload: JwtPayload): Promise<UserDtoInterface | null> {
+  async validateUser(payload: JwtPayload): Promise<User | null> {
 
     if (!this.configService.isAuthEnabled) {
       return {

@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
-import { User, UserDtoInterface } from '@zorko/dto';
+import { User } from '@zorko/dto';
 
-export interface UserEntity extends UserDtoInterface, Document {
+export interface UserEntity extends User, Document {
   id: any;
   toUser (): User
 }
@@ -16,8 +16,10 @@ export const UserSchema = new mongoose.Schema<UserEntity>({
 UserSchema.methods.toUser = function() {
    const result = this.toJSON();
 
-   return new User(result.email)
-     .setId(result._id.toString())
-     .setRoles(result.roles)
-     .setPassword(result.password);
+   return {
+     id: result._id.toString(),
+     email: result.email,
+     password: result.password,
+     roles: result.roles
+   }
 };
