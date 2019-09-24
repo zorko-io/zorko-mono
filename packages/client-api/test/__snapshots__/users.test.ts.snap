@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Users Admin fails user creation with wrong email 1`] = `
+Object {
+  "errors": Array [
+    "email must be a valid email",
+  ],
+  "inner": Array [],
+  "message": "email must be a valid email",
+  "name": "ValidationError",
+  "params": Object {
+    "originalValue": "fdfdfdff",
+    "path": "email",
+    "regex": Object {},
+    "value": "fdfdfdff",
+  },
+  "path": "email",
+  "value": Object {
+    "email": "fdfdfdff",
+    "password": "",
+  },
+}
+`;
+
+exports[`Users Admin fails user creation with wrong password 1`] = `
+Object {
+  "errors": Array [
+    "password is a required field",
+  ],
+  "inner": Array [],
+  "message": "password is a required field",
+  "name": "ValidationError",
+  "params": Object {
+    "originalValue": "",
+    "path": "password",
+    "value": "",
+  },
+  "path": "password",
+  "type": "required",
+  "value": Object {
+    "email": "test@email.com",
+    "password": "",
+  },
+}
+`;

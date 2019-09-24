@@ -4,16 +4,16 @@ import { RolesEnum } from '../index';
 
 export class CreateUserDto {
   @ApiModelProperty()
-  @IsEmail()
+  // @IsEmail()
   readonly email: string;
 
   @ApiModelProperty()
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   readonly password: string;
 
   @ApiModelProperty()
-  @IsOptional()
-  @IsArray()
+  // @IsOptional()
+  // @IsArray()
   readonly roles?: RolesEnum[];
 }

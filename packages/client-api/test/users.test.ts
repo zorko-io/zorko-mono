@@ -53,7 +53,29 @@ describe('Users', () => {
         expect(e.response.status).toEqual(404);
       }
     });
-  });
 
-  // TODO: add tests for not admin
+    it('fails user creation with wrong email', async () => {
+      expect.assertions(1);
+      try {
+        await Api.User.createOne({
+          email: 'fdfdfdff',
+          password: ''
+        });
+      } catch (e) {
+        expect(e.response.data).toMatchSnapshot();
+      }
+    });
+
+    it('fails user creation with wrong password', async () => {
+      expect.assertions(1);
+      try {
+        await Api.User.createOne({
+          email: 'test@email.com',
+          password: ''
+        });
+      } catch (e) {
+        expect(e.response.data).toMatchSnapshot();
+      }
+    });
+  });
 });

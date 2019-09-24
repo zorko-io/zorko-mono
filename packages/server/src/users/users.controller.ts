@@ -10,16 +10,17 @@ import {
   Put,
   Query,
   UseGuards,
-  UseInterceptors,
+  UseInterceptors, UsePipes,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiImplicitParam, ApiOperation, ApiUseTags } from '@nestjs/swagger';
-import { CreateUserDto, RolesEnum, User, UserCollection } from '@zorko/dto';
+import {  defaultUserValidationSchemaFactory, RolesEnum, User, UserCollection } from '@zorko/dto';
 import { UserService } from './user.service';
 import { Roles } from '../roles/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../roles/roles.guard';
 import { UserCollectionService } from './user.collection.service';
-import { ReadUserCollectionParams, UpdateUserCollectionParams } from '@zorko/remote-api';
+import { CreateUserParams, ReadUserCollectionParams } from '@zorko/remote-api';
+import { YupValidationPipe } from '../core/YupValidationPipe';
 
 function cleanUpUserResponse (user: User) {
 
@@ -40,9 +41,10 @@ export class UsersController  {
   @Post()
   @ApiOperation({title: 'Create user'})
   @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UsePipes(new YupValidationPipe(defaultUserValidationSchemaFactory.create()))
   @Roles(RolesEnum.Admin)
-  async createOne(@Body() createCatDto: CreateUserDto): Promise<string> {
-    return await this.userService.createOne(createCatDto);
+  async createOne(@Body() user: CreateUserParams): Promise<string> {
+    return await this.userService.createOne(user);
   }
 
   @Get()
