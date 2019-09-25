@@ -4,7 +4,7 @@ import * as path from 'path';
 
 async function loadInitialData() {
 
-  Api.setConfig({ baseURL: 'http://localhost:3000' });
+  Api.setConfig({ baseURL: 'http://localhost:6000' });
 
   // Auth should be turned off on the server, so any login/pw would work
   await Api.loginAs({

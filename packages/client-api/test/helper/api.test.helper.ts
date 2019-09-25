@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import { AxiosApiClientFacade } from '../../src';
-import { Server } from '../config';
+import { Server, Users } from '../config';
+import { User } from '@zorko/dto';
 
 export class ApiTestHelper {
   static create(config?: AxiosRequestConfig): AxiosApiClientFacade {
@@ -22,6 +23,15 @@ export class ApiTestHelper {
     });
 
     return api;
+  }
+
+  static async loginAs(user: any) {
+    let Api = ApiTestHelper.create();
+    Api = await Api.loginAs({
+      email: user.email,
+      password: user.password
+    });
+    return Api;
   }
 }
 

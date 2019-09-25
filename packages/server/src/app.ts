@@ -23,7 +23,8 @@ export async function bootstrap(port?: number | string) {
   SwaggerModule.setup('swagger', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(port ? config.get('PORT') : 3000);
+  debugger;
+  await app.listen(config.get('PORT') ||  3000);
   return {
     async close() {
       return  await app.close();
