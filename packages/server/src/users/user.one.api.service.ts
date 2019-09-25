@@ -6,7 +6,6 @@ import {
   User
 } from '@zorko/dto';
 import * as bcrypt from 'bcrypt';
-import { UserEntity } from './schemas/user.schema';
 import {
   CreateUserParams,
   DeleteUserParams,
@@ -14,12 +13,13 @@ import {
   RemoteOneUserApi,
   UpdateUserParams,
 } from '@zorko/remote-api';
+import { UserMongoDocument } from './user.mongo.schema';
 
 const DEFAULT_CRYPT_SALT = 10;
 
 @Injectable()
-export class UserService implements RemoteOneUserApi {
-  constructor(@InjectModel('User') private readonly userModel: Model<UserEntity>) {}
+export class UserOneApiService implements RemoteOneUserApi {
+  constructor(@InjectModel('User') private readonly userModel: Model<UserMongoDocument>) {}
 
   async createOne(user: CreateUserParams): Promise<string> {
     const existingUser = await this.findOne({ email: user.email });

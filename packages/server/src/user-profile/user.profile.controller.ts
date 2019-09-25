@@ -14,7 +14,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UserProfileService } from './user.profile.service';
+import { UserProfileOneApiService } from './user.profile.one.api.service';
 import {
   CreateUserProfileParams,
   UpdateUserProfileParams
@@ -24,7 +24,7 @@ import {
 @ApiUseTags('user-profiles')
 @Controller('user-profiles')
 export class UserProfileController {
-  constructor(private readonly userProfileService: UserProfileService) {}
+  constructor(private readonly userProfileService: UserProfileOneApiService) {}
 
   @Get(':login')
   @UseGuards(AuthGuard('jwt'))

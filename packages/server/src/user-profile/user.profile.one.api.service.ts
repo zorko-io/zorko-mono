@@ -1,18 +1,18 @@
 import {
   CreateUserProfileParams,
-  RemoteUserProfileApi,
+  RemoteOneUserProfileApi,
   ReadUserProfileParams
 } from '@zorko/remote-api';
 import { Injectable } from '@nestjs/common';
-import { UserProfileDocument } from './user.profile.document';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserProfile, UserProfileDto } from '@zorko/dto';
+import { UserProfileMongoDocument } from './user.profile.mongo.schema';
 
 @Injectable()
-export class UserProfileService implements RemoteUserProfileApi {
+export class UserProfileOneApiService implements RemoteOneUserProfileApi {
 
-  constructor(@InjectModel('UserProfile') private readonly userProfileModel: Model<UserProfileDocument>){}
+  constructor(@InjectModel('UserProfile') private readonly userProfileModel: Model<UserProfileMongoDocument>){}
 
   async findOne(params: ReadUserProfileParams): Promise<UserProfileDto> {
 

@@ -2,7 +2,7 @@ import { AuthApiClient, AuthAxiosApiClient } from '../auth';
 import { UserAxiosManyApiClient, UserAxiosOneApiClient } from '../user';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { ApiClientFacade } from './api.client.facade';
-import { UserProfileApiClient, UserProfileAxiosApiClient } from '../user-profile';
+import { UserProfileAxiosOneApiClient } from '../user-profile';
 import { RepositoryAxiosOneApiClient } from '../repository/one';
 import { RepositoryAxiosManyApiClient } from '../repository/many';
 
@@ -11,7 +11,7 @@ export class AxiosApiClientFacade extends AuthAxiosApiClient implements ApiClien
   public User: UserAxiosOneApiClient;
   public Users: UserAxiosManyApiClient;
   public Auth: AuthApiClient;
-  public UserProfile: UserProfileApiClient;
+  public UserProfile: UserProfileAxiosOneApiClient;
   public Repository: RepositoryAxiosOneApiClient;
   public Repositories: RepositoryAxiosManyApiClient;
 
@@ -23,7 +23,7 @@ export class AxiosApiClientFacade extends AuthAxiosApiClient implements ApiClien
     this.User = new UserAxiosOneApiClient(this.instance);
     this.Users = new UserAxiosManyApiClient(this.instance);
     this.Auth = new AuthAxiosApiClient(this.instance);
-    this.UserProfile = new UserProfileAxiosApiClient(this.instance);
+    this.UserProfile = new UserProfileAxiosOneApiClient(this.instance);
     this.Repository = new RepositoryAxiosOneApiClient(this.instance);
     this.Repositories = new RepositoryAxiosManyApiClient(this.instance);
   }

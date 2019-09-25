@@ -1,6 +1,1 @@
-export * from './create.user.profile.params'
-export * from './read.user.profile.params'
-export * from './update.user.profile.params'
-export * from './delete.user.profile.params'
-export * from './remote.one.user.profile.api'
-export * from './remote.user.profile.api'
+export * from './one'

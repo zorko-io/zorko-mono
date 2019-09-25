@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { UserProfileController } from './user.profile.controller';
-import { UserProfileService } from './user.profile.service';
+import { UserProfileOneApiService } from './user.profile.one.api.service';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigModule } from '../config/config.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserProfileSchema } from './user.profile.schema';
+import { UserProfileMongoSchema } from './user.profile.mongo.schema';
 
 @Module({
   imports: [
     ConfigModule,
     PassportModule,
-    MongooseModule.forFeature([{name: 'UserProfile', schema: UserProfileSchema}])
+    MongooseModule.forFeature([{name: 'UserProfile', schema: UserProfileMongoSchema}])
   ],
   controllers: [UserProfileController],
-  providers: [UserProfileService],
-  exports: [UserProfileService]
+  providers: [UserProfileOneApiService],
+  exports: [UserProfileOneApiService]
 })
 export class UserProfileModule {}

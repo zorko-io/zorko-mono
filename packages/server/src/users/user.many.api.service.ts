@@ -6,7 +6,6 @@ import {
   UserCollection,
   defaultUserCollectionFactory
 } from '@zorko/dto';
-import { UserEntity } from './schemas/user.schema';
 import {
   CreateUserCollectionParams,
   DeleteUserCollectionParams,
@@ -14,10 +13,11 @@ import {
   RemoteManyUserApi,
   UpdateUserCollectionParams,
 } from '@zorko/remote-api';
+import { UserMongoDocument } from './user.mongo.schema';
 
 @Injectable()
-export class UserCollectionService implements RemoteManyUserApi {
-  constructor(@InjectModel('User') private readonly userModel: Model<UserEntity>) {}
+export class UserManyApiService implements RemoteManyUserApi {
+  constructor(@InjectModel('User') private readonly userModel: Model<UserMongoDocument>) {}
 
   async removeMany(deleteParams: DeleteUserCollectionParams): Promise<number> {
      let deleteCount = 0;

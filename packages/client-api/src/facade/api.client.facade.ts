@@ -3,7 +3,7 @@ import {
   UserOneApiClient,
   UserManyApiClient
 } from '../user';
-import { UserProfileApiClient } from '../user-profile';
+import { UserProfileOneApiClient } from '../user-profile';
 import {
   RepositoryManyApiClient,
   RepositoryOneApiClient
@@ -13,7 +13,7 @@ export interface ApiClientFacade<C> extends AuthApiClient {
    Auth: AuthApiClient,
    User: UserOneApiClient,
    Users: UserManyApiClient,
-   UserProfile: UserProfileApiClient,
+   UserProfile: UserProfileOneApiClient,
    Repositories: RepositoryManyApiClient,
    Repository: RepositoryOneApiClient
    setConfig(C): this;

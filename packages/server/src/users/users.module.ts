@@ -1,23 +1,23 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
-import { UserService } from './user.service';
+import { UserOneApiService } from './user.one.api.service';
 import { PassportModule } from '@nestjs/passport';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './schemas/user.schema';
+import { UserMongoSchema } from './user.mongo.schema';
 import { ConfigModule } from '../config/config.module';
-import { UserCollectionService } from './user.collection.service';
+import { UserManyApiService } from './user.many.api.service';
 
 @Module({
   imports: [
     ConfigModule,
     PassportModule,
-    MongooseModule.forFeature([{name: 'User', schema: UserSchema}])
+    MongooseModule.forFeature([{name: 'User', schema: UserMongoSchema}])
   ],
   controllers: [UsersController],
   providers: [
-    UserService,
-    UserCollectionService
+    UserOneApiService,
+    UserManyApiService
   ],
-  exports: [UserService, UserCollectionService]
+  exports: [UserOneApiService, UserManyApiService]
 })
 export class UsersModule {}

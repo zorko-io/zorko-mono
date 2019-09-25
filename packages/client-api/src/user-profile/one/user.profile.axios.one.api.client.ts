@@ -2,8 +2,8 @@ import { AxiosResponse } from 'axios';
 import {
   UserProfileDto,
 } from '@zorko/dto';
-import { AuthAxiosApiClient } from '../auth';
-import { UserProfileApiClient } from './user.profile.api.client';
+import { AuthAxiosApiClient } from '../../auth';
+import { UserProfileOneApiClient } from './user.profile.one.api.client';
 import {
   CreateUserProfileParams,
   DeleteUserCollectionParams,
@@ -11,7 +11,7 @@ import {
   UpdateUserProfileParams,
 } from '@zorko/remote-api';
 
-export class UserProfileAxiosApiClient extends AuthAxiosApiClient implements UserProfileApiClient {
+export class UserProfileAxiosOneApiClient extends AuthAxiosApiClient implements UserProfileOneApiClient {
 
   async findOne(params: ReadUserProfileParams): Promise<UserProfileDto> {
     let response: AxiosResponse<UserProfileDto> = await this.http.get(

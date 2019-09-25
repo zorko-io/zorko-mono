@@ -14,13 +14,13 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiImplicitParam, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import {  defaultUserValidationSchemaFactory, RolesEnum, User, UserCollection } from '@zorko/dto';
-import { UserService } from './user.service';
+import { UserOneApiService } from './user.one.api.service';
 import { Roles } from '../roles/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../roles/roles.guard';
-import { UserCollectionService } from './user.collection.service';
+import { UserManyApiService } from './user.many.api.service';
 import { CreateUserParams, ReadUserCollectionParams } from '@zorko/remote-api';
-import { YupValidationPipe } from '../core/YupValidationPipe';
+import { YupValidationPipe } from '../utils/YupValidationPipe';
 
 function cleanUpUserResponse (user: User) {
 
@@ -34,8 +34,8 @@ function cleanUpUserResponse (user: User) {
 @Controller('users')
 export class UsersController  {
   constructor(
-    private readonly userService: UserService,
-    private readonly userCollectionService: UserCollectionService
+    private readonly userService: UserOneApiService,
+    private readonly userCollectionService: UserManyApiService
   ) {}
 
   @Post()
