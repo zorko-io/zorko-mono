@@ -1,4 +1,4 @@
-import { UpdateUserParams } from './update.user.params';
+import { UpdateUserParams } from '../../one';
 
 export class UpdateUserCollectionParams {
   items: Array<UpdateUserParams>

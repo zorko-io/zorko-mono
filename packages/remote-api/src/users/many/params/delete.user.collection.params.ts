@@ -1,4 +1,4 @@
-import { DeleteUserParams } from './delete.user.params';
+import { DeleteUserParams } from '../../one';
 
 export class DeleteUserCollectionParams {
   items: Array<DeleteUserParams>

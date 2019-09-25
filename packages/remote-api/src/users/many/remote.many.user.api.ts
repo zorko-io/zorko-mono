@@ -4,7 +4,7 @@ import {
   CreateUserCollectionParams,
   UpdateUserCollectionParams,
   DeleteUserCollectionParams
-} from '../params';
+} from './params';
 import {
   UserCollection
 } from '@zorko/dto';

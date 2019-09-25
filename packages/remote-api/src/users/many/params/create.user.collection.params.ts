@@ -1,4 +1,4 @@
-import { CreateUserParams } from './create.user.params';
+import { CreateUserParams } from '../../one';
 
 export class CreateUserCollectionParams {
   items: Array<CreateUserParams>
