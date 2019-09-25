@@ -1,5 +1,8 @@
 import { AuthApiClient } from '../auth';
-import { UserApiClient } from '../user';
+import {
+  UserOneApiClient,
+  UserManyApiClient
+} from '../user';
 import { UserProfileApiClient } from '../user-profile';
 import {
   RepositoryManyApiClient,
@@ -8,7 +11,8 @@ import {
 
 export interface ApiClientFacade<C> extends AuthApiClient {
    Auth: AuthApiClient,
-   User: UserApiClient,
+   User: UserOneApiClient,
+   Users: UserManyApiClient,
    UserProfile: UserProfileApiClient,
    Repositories: RepositoryManyApiClient,
    Repository: RepositoryOneApiClient

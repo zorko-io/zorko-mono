@@ -1,10 +1,10 @@
 import 'reflect-metadata';
-import { Users } from './config';
+import { Users } from '../config';
 import * as faker from 'faker';
 import { RolesEnum } from '@zorko/dto';
-import { ApiTestHelper } from './helper/api.test.helper';
+import { ApiTestHelper } from '../helper/api.test.helper';
 
-describe('Users', () => {
+describe('UserOneApi', () => {
 
   describe('Admin', () => {
     let user;
@@ -19,12 +19,6 @@ describe('Users', () => {
          email: faker.internet.email(),
          password: faker.internet.password()
       };
-    });
-
-    it('/GET users', async () => {
-      const users = await Api.User.findMany();
-
-      expect(users && users.items.length > 0).toBeTruthy();
     });
 
     it('CRUD - create, read by id and delete', async () => {

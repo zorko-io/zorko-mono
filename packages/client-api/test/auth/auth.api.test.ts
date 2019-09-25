@@ -1,7 +1,7 @@
-import { Users } from './config';
-import { ApiTestHelper } from './helper/api.test.helper';
+import { Users } from '../config';
+import { ApiTestHelper } from '../helper/api.test.helper';
 
-describe('Auth', () => {
+describe('AuthApi', () => {
   let Api;
 
   beforeAll(async () => {

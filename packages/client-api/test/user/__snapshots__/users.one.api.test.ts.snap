@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Users Admin fails user creation with wrong email 1`] = `
+exports[`UserOneApi Admin fails user creation with wrong email 1`] = `
 Object {
   "errors": Array [
     "email must be a valid email",
@@ -22,7 +22,7 @@ Object {
 }
 `;
 
-exports[`Users Admin fails user creation with wrong password 1`] = `
+exports[`UserOneApi Admin fails user creation with wrong password 1`] = `
 Object {
   "errors": Array [
     "password is a required field",

@@ -1,10 +1,10 @@
-import { RemoteOneServiceApi } from '../utils/remote.one.service.api';
+import { RemoteOneServiceApi } from '../../utils/remote.one.service.api';
 import {
   DeleteUserParams,
   ReadUserParams,
   CreateUserParams,
   UpdateUserParams
-} from './params';
+} from '../params';
 import { User } from '@zorko/dto';
 
 export interface RemoteOneUserApi extends

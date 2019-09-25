@@ -1,4 +1,4 @@
-import { RemoteManyUserApi } from './remote.many.user.api';
-import { RemoteOneUserApi } from './remote.one.user.api';
+import { RemoteManyUserApi } from './many/remote.many.user.api';
+import { RemoteOneUserApi } from './one/remote.one.user.api';
 
 export interface RemoteUserApi extends RemoteManyUserApi, RemoteOneUserApi {}

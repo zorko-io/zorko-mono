@@ -1,9 +1,9 @@
 import 'reflect-metadata';
-import { ApiTestHelper } from './helper/api.test.helper';
-import { UserProfiles, Users } from './config';
+import { ApiTestHelper } from '../helper/api.test.helper';
+import { UserProfiles, Users } from '../config';
 import { TokenDto, UserProfileDto } from '@zorko/dto';
 
-describe('User Profile', () => {
+describe('UserProfileOneApi', () => {
    let Api;
    let token: TokenDto;
    let userProfile: UserProfileDto;

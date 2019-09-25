@@ -1,10 +1,7 @@
-import { RemoteManyServiceApi } from '../../utils/remote.many.service.api';
+import { RemoteManyReadServiceApi } from '../../utils/remote.many.read.service.api';
 
 export interface RemoteManyRepositoryApi extends
-  RemoteManyServiceApi<
-    any,
-    any,
-    any,
+  RemoteManyReadServiceApi<
     any,
     any
     >

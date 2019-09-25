@@ -1,4 +1,4 @@
 export * from './params'
-export * from './remote.one.user.api';
-export * from './remote.many.user.api';
+export * from './one';
+export * from './many';
 export * from './remote.user.api';

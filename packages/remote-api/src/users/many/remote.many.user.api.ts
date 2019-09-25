@@ -1,10 +1,10 @@
-import { RemoteManyServiceApi } from '../utils/remote.many.service.api';
+import { RemoteManyServiceApi } from '../../utils/remote.many.service.api';
 import {
   ReadUserCollectionParams,
   CreateUserCollectionParams,
   UpdateUserCollectionParams,
   DeleteUserCollectionParams
-} from './params';
+} from '../params';
 import {
   UserCollection
 } from '@zorko/dto';

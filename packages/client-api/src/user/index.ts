@@ -1,2 +1,2 @@
-export * from './user.api.client';
-export * from './user.axios.api.client';
+export * from './one'
+export * from './many'
