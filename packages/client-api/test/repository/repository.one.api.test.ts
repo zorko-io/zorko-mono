@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { ApiTestHelper } from '../helper/api.test.helper';
 import { Users } from '../config';
+import { repositoryFakeGenerator } from '@zorko/dto';
 
 describe('RepositoryOneApi', () => {
    let Api;
@@ -10,8 +11,10 @@ describe('RepositoryOneApi', () => {
   });
 
   it('CRUD - repository (skeleton)', async () => {
-    const result = await Api.Repository.createOne(2434234);
-    expect(result).toBeUndefined();
+    const result = await Api.Repository.createOne(
+      repositoryFakeGenerator.getOneRandomValidRepository()
+    );
+    expect(result).toBeDefined();
   });
 
 });

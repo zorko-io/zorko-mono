@@ -1,9 +1,16 @@
 import { AuthAxiosApiClient } from '../../auth';
 import { RepositoryOneApiClient } from './repository.one.api.client';
+import { CreateRepositoryParams } from '@zorko/remote-api';
+import { AxiosResponse } from 'axios';
 
 export class RepositoryAxiosOneApiClient extends AuthAxiosApiClient implements RepositoryOneApiClient {
-  createOne(createParams: any): Promise<string> {
-    return undefined;
+
+  async createOne(createParams: CreateRepositoryParams): Promise<string> {
+    const response: AxiosResponse<string> = await this.http.post(
+      '/repositories',
+      createParams
+    );
+    return response.data;
   }
 
   findOne(searchParams: any): Promise<any> {

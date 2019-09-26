@@ -1,6 +1,6 @@
 import { RepositoryValidationSchemaFactory } from '../repository.validation.schema.factory';
 import { Repository } from '../repository';
-import * as repositoryFixtures from '../repository.fixtures';
+import { repositoryFakeGenerator } from '../repository.fake.generator';
 
 describe('RepositoryValidationSchemaFactory', () => {
 
@@ -14,26 +14,26 @@ describe('RepositoryValidationSchemaFactory', () => {
   });
 
   it('passes validation for random repo', () => {
-    data = repositoryFixtures.getOneRandomValidRepository();
+    data = repositoryFakeGenerator.getOneRandomValidRepository();
     expect(schema.isValidSync(data)).toBeTruthy();
   });
 
   it('fails validation for missed name', () => {
-    data = repositoryFixtures.getOneWrongName();
+    data = repositoryFakeGenerator.getOneWrongName();
     expect(()=> {
       schema.validateSync(data);
     }).toThrowErrorMatchingSnapshot();
   });
 
   it('fails validation for missed description', () => {
-    data = repositoryFixtures.getOneWrongDescription();
+    data = repositoryFakeGenerator.getOneWrongDescription();
     expect(()=> {
       schema.validateSync(data);
     }).toThrowErrorMatchingSnapshot();
   });
 
   it('fails validation for missed owner', () => {
-    data = repositoryFixtures.getOneMissedOwner();
+    data = repositoryFakeGenerator.getOneMissedOwner();
     expect(() => {
       schema.validateSync(data);
     }).toThrowErrorMatchingSnapshot();

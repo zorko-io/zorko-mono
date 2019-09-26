@@ -8,6 +8,7 @@ import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { UserProfileController } from './user-profile/user.profile.controller';
 import { UserProfileModule } from './user-profile/user.profile.module';
+import { RepositoryModule } from './repository/repository.module';
 
 // TODO: find on how to reuse once created
 const configService = new ConfigService();
@@ -18,7 +19,8 @@ const configService = new ConfigService();
     MongooseModule.forRoot(configService.get('MONGO_URL')),
     AuthModule,
     UsersModule,
-    UserProfileModule
+    UserProfileModule,
+    RepositoryModule
   ],
   controllers: [
     UsersController,
