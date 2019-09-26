@@ -14,7 +14,8 @@ describe('RepositoryOneApi', () => {
     const result = await Api.Repository.createOne(
       repositoryFakeGenerator.getOneRandomValidRepository()
     );
-    expect(result).toBeDefined();
+
+    expect(result).toBeTruthy();
   });
 
 });
