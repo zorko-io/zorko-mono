@@ -1,5 +1,5 @@
 const Server = {
-  baseUrl: 'http://localhost:6000'
+  baseUrl: 'http://localhost:7777'
 };
 
 const Users  = {

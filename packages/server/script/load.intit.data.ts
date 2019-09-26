@@ -4,7 +4,7 @@ import * as path from 'path';
 
 async function loadInitialData() {
 
-  Api.setConfig({ baseURL: 'http://localhost:6000' });
+  Api.setConfig({ baseURL: 'http://localhost:7777' });
 
   // Auth should be turned off on the server, so any login/pw would work
   await Api.loginAs({
@@ -13,7 +13,7 @@ async function loadInitialData() {
   });
 
   try {
-    const deleteCount = await Api.User.removeMany({items: []});
+    const deleteCount = await Api.Users.removeMany({items: []});
 
     // tslint:disable-next-line:no-console
     console.log(`Cleaned up all users: #deleteCount: ${deleteCount}`);

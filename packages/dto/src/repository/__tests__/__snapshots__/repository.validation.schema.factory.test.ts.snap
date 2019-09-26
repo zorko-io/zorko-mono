@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepositoryValidationSchemaFactory fails validation for missed description 1`] = `"description is a required field"`;
+
+exports[`RepositoryValidationSchemaFactory fails validation for missed name 1`] = `"name is a required field"`;
+
+exports[`RepositoryValidationSchemaFactory fails validation for missed owner 1`] = `"owner is a required field"`;
