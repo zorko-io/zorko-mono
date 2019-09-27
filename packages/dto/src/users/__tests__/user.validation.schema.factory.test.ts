@@ -1,15 +1,13 @@
 import { User } from '../user';
-import { UserValidationSchemaFactory } from '../user.validation.schema.factory';
+import { userValidationSchema } from '../user.validation.schema';
 
-describe('UserValidationSchemaFactory', () => {
+describe('userValidationSchema', () => {
   let schema;
   let data: User;
   let actual;
-  let schemaFactory;
 
   beforeEach(() => {
-    schemaFactory = new UserValidationSchemaFactory();
-    schema = schemaFactory.create();
+    schema = userValidationSchema();
   });
 
   it('passes minimum validation', () => {

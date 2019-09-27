@@ -1,8 +1,8 @@
 import { UserModel } from '../user.model';
 import { RolesEnum } from '../../roles';
 import { User } from '../user';
-import { UserValidationSchemaFactory } from '../user.validation.schema.factory';
 import { ObjectSchema } from 'yup';
+import { userValidationSchema } from '../user.validation.schema';
 
 describe('User', () => {
   let user: UserModel;
@@ -11,7 +11,7 @@ describe('User', () => {
 
   beforeEach(() => {
     userStorage = {email: 'test@email.com', password: '32322332dffsd'};
-    schema = new UserValidationSchemaFactory().create();
+    schema = userValidationSchema();
     user = new UserModel(userStorage, schema);
   });
 

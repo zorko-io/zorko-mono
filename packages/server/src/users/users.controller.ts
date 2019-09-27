@@ -13,7 +13,7 @@ import {
   UseInterceptors, UsePipes,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiImplicitParam, ApiOperation, ApiUseTags } from '@nestjs/swagger';
-import {  defaultUserValidationSchemaFactory, RolesEnum, User, UserCollection } from '@zorko/dto';
+import { RolesEnum, User, UserCollection, userValidationSchema } from '@zorko/dto';
 import { UserOneApiService } from './user.one.api.service';
 import { Roles } from '../roles/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
@@ -41,7 +41,7 @@ export class UsersController  {
   @Post()
   @ApiOperation({title: 'Create user'})
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @UsePipes(new YupValidationPipe(defaultUserValidationSchemaFactory.create()))
+  @UsePipes(new YupValidationPipe(userValidationSchema())) // TODO: add validation options here
   @Roles(RolesEnum.Admin)
   async createOne(@Body() user: CreateUserParams): Promise<string> {
     return await this.userService.createOne(user);

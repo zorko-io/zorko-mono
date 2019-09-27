@@ -11,3 +11,15 @@ Array [
 exports[`UserValidationSchemaFactory fails on email 1`] = `"email"`;
 
 exports[`UserValidationSchemaFactory fails on email 2`] = `"email must be a valid email"`;
+
+exports[`userValidationSchema fails on all invalid 1`] = `
+Array [
+  [ValidationError: email must be a valid email],
+  [ValidationError: roles must be a \`array\` type, but the final value was: \`null\` (cast from the value \`{}\`).
+ If "null" is intended as an empty value be sure to mark the schema as \`.nullable()\`],
+]
+`;
+
+exports[`userValidationSchema fails on email 1`] = `"email"`;
+
+exports[`userValidationSchema fails on email 2`] = `"email must be a valid email"`;

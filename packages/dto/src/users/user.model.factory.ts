@@ -1,28 +1,23 @@
 import { User } from './user';
 import { UserModel } from './user.model';
-import defaultUserValidationSchemaFactory , {
-  UserValidationSchemaFactory
-} from './user.validation.schema.factory';
+import { userValidationSchema } from './user.validation.schema';
 
 export class UserModelFactory {
-  private schemaFactory: UserValidationSchemaFactory;
 
-  constructor(schemaFactory: UserValidationSchemaFactory){
-    this.schemaFactory = schemaFactory;
+  constructor(){
     this.create = this.create.bind(this);
   }
+
 
   create (user: User) {
     return new UserModel(
       user,
-      this.schemaFactory.create()
+      userValidationSchema()
     );
 
   }
 }
 
-const defaultUserModelFactory = new UserModelFactory(
-  defaultUserValidationSchemaFactory
-);
+const defaultUserModelFactory = new UserModelFactory();
 
 export default defaultUserModelFactory;
