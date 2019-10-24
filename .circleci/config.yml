@@ -12,7 +12,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-v6-{{ .Branch }}-{{ checksum "package.json" }}
+            - cache-v7-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Install Top Deps
           command: npm install
@@ -23,7 +23,7 @@ jobs:
           name: Build
           command: npm run build
       - save_cache:
-          key: cache-v6-{{ .Branch }}-{{ checksum "package.json" }}
+          key: cache-v7-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ./node_modules
             - ./packages/*/node_modules
@@ -37,7 +37,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-v6-{{ .Branch }}-{{ checksum "package.json" }}
+            - cache-v7-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Run API Integration
           command: npm run ci:api
@@ -50,7 +50,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-cy1-{{ .Branch }}-{{ checksum "package.json" }}
+            - cache-cy2-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Check if package-lock.json exists
           command: |
@@ -76,7 +76,7 @@ jobs:
           name: Run UI Integration
           command: npm run ci:ui
       - save_cache:
-          key: cache-cy1-{{ .Branch }}-{{ checksum "package.json" }}
+          key: cache-cy2-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - /root/.npm
             - /root/.cache
