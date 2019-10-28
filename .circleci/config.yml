@@ -39,6 +39,9 @@ jobs:
           keys:
             - cache-v7-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
+          name: Build
+          command: npm run build
+      - run:
           name: Run API Integration
           command: npm run ci:api
   test_ui_integration:
