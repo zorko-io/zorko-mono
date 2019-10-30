@@ -1,8 +1,9 @@
-import { CreateRepositoryParams, RemoteOneRepositoryApi } from '@zorko/remote-api';
+import { CreateRepositoryParams, ReadRepositoryParams, RemoteOneRepositoryApi } from '@zorko/remote-api';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RepositoryMongoDocument } from './repository.mongo.schema';
 import { Model } from 'mongoose';
+import { Repository } from '@zorko/dto';
 
 @Injectable()
 export class RepositoryOneApiService implements RemoteOneRepositoryApi{
@@ -12,21 +13,22 @@ export class RepositoryOneApiService implements RemoteOneRepositoryApi{
     private readonly repositoryModel: Model<RepositoryMongoDocument>
   ) {}
 
-  async createOne(createParams: CreateRepositoryParams): Promise<string> {
+  async createOne(params: CreateRepositoryParams): Promise<string> {
 
     const existingRepo = await this.repositoryModel.findOne({
-      name: createParams.name,
-      owner: createParams.owner
+      name: params.name,
+      owner: params.owner
     });
 
     if (existingRepo){
+      // TODO: use common approach for such errors
       throw Error('Repository with given name and owner already exists');
     }
 
     let newModel = new this.repositoryModel({
-      name: createParams.name,
-      description: createParams.description,
-      owner: createParams.owner
+      name: params.name,
+      description: params.description,
+      owner: params.owner
     });
 
     newModel = await newModel.save();
@@ -34,8 +36,13 @@ export class RepositoryOneApiService implements RemoteOneRepositoryApi{
     return newModel.serialize().id;
   }
 
-  findOne(searchParams: any): Promise<any> {
-    return undefined;
+  async findOne(params: ReadRepositoryParams): Promise<Repository> {
+
+    const repo = await this.repositoryModel.findOne({
+      _id: params.id
+    });
+
+    return repo.serialize();
   }
 
   removeOne(deleteParams: any): Promise<void> {

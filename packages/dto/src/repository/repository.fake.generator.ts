@@ -3,9 +3,10 @@ import { Repository } from './repository';
 
 export class RepositoryFakeGenerator {
 
-  getOneRandomValidRepository(): Repository {
+  getOneRandomValidRepository(options?: any): Repository {
+    options = options || {};
     return {
-      id: faker.random.uuid(),
+      id: !options.skipId ? faker.random.uuid() : undefined,
       name: faker.lorem.text(5),
       description: faker.lorem.sentence(20),
       owner: faker.random.uuid()

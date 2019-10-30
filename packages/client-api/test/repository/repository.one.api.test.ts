@@ -18,7 +18,9 @@ describe('RepositoryOneApi', () => {
   });
 
   it('CRUD - repository (skeleton)', async () => {
-    let initResource = repositoryFakeGenerator.getOneRandomValidRepository();
+    let initResource = repositoryFakeGenerator.getOneRandomValidRepository({
+      skipId: true
+    });
     let resourceId = await Api.Repository.createOne(initResource);
 
     expect(resourceId).toBeTruthy();
@@ -27,7 +29,10 @@ describe('RepositoryOneApi', () => {
       id: resourceId
     });
 
-    expect(actual).toEqual(initResource);
+    expect(actual).toEqual({
+      ...initResource,
+      id: resourceId
+    });
   });
 
 });

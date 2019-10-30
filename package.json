@@ -8,7 +8,7 @@
     "start:dev": "lerna run start:dev --parallel",
     "postinstall111": "npm run bootstrap --hoist",
     "bootstrap": "lerna bootstrap --hoist",
-    "build": "lerna run build",
+    "build": "./scripts/run-build-in-sequence.sh && lerna run build",
     "publish": "lerna publish",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ci:api": "./scripts/run-e2e-api.sh",

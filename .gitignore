@@ -7,4 +7,5 @@ packages/*/videos/
 packages/*/screenshots/
 .idea
 dist/
+
 *.mp4
