@@ -5,17 +5,29 @@ import { repositoryFakeGenerator } from '@zorko/dto';
 
 describe('RepositoryOneApi', () => {
    let Api;
+   let actual;
 
   beforeEach(async () => {
     Api = await ApiTestHelper.loginAs(Users.JoeUser);
   });
 
-  it('CRUD - repository (skeleton)', async () => {
-    const result = await Api.Repository.createOne(
-      repositoryFakeGenerator.getOneRandomValidRepository()
-    );
+  it('fails on read with wrong parameters', async () => {
+      expect(() => {
+          Api.Repository.findOne({ zzz: 'fddfdf'})
+      }).toThrowErrorMatchingSnapshot()
+  });
 
-    expect(result).toBeTruthy();
+  it('CRUD - repository (skeleton)', async () => {
+    let initResource = repositoryFakeGenerator.getOneRandomValidRepository();
+    let resourceId = await Api.Repository.createOne(initResource);
+
+    expect(resourceId).toBeTruthy();
+
+    actual = await Api.Repository.findOne({
+      id: resourceId
+    });
+
+    expect(actual).toEqual(initResource);
   });
 
 });

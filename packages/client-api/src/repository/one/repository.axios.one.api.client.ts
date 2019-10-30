@@ -1,7 +1,8 @@
 import { AuthAxiosApiClient } from '../../auth';
 import { RepositoryOneApiClient } from './repository.one.api.client';
-import { CreateRepositoryParams } from '@zorko/remote-api';
+import { CreateRepositoryParams, ReadRepositoryParams } from '@zorko/remote-api';
 import { AxiosResponse } from 'axios';
+import { Repository } from '@zorko/dto';
 
 export class RepositoryAxiosOneApiClient extends AuthAxiosApiClient implements RepositoryOneApiClient {
 
@@ -13,15 +14,26 @@ export class RepositoryAxiosOneApiClient extends AuthAxiosApiClient implements R
     return response.data;
   }
 
-  findOne(searchParams: any): Promise<any> {
+  // @InputValidation(readRepositoryParamsValidationSchema())
+  async findOne(readParams: ReadRepositoryParams): Promise<Repository> {
+    // TODO: add params validation here
+    let repoUuid;
+
+    if (readParams && readParams.id){
+      repoUuid = readParams.id;
+    }
+
+    const response: AxiosResponse<Repository> = await this.http.get(
+      `/repositories/${repoUuid}`
+    );
+    return response.data;
+  }
+
+  async removeOne(deleteParams: any): Promise<void> {
     return undefined;
   }
 
-  removeOne(deleteParams: any): Promise<void> {
-    return undefined;
-  }
-
-  updateOne(updateParams: any): Promise<any> {
+  async updateOne(updateParams: any): Promise<any> {
     return undefined;
   }
 }

@@ -1,16 +1,14 @@
-import { RepositoryValidationSchemaFactory } from '../repository.validation.schema.factory';
+import { repositoryValidationSchema } from '../repository.validation.schema';
 import { Repository } from '../repository';
 import { repositoryFakeGenerator } from '../repository.fake.generator';
 
-describe('RepositoryValidationSchemaFactory', () => {
+describe('repositoryValidationSchema', () => {
 
   let schema;
   let data: Repository;
-  let schemaFactory;
 
   beforeEach(() => {
-    schemaFactory = new RepositoryValidationSchemaFactory();
-    schema = schemaFactory.create();
+    schema = repositoryValidationSchema();
   });
 
   it('passes validation for random repo', () => {
