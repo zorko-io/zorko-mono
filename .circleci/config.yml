@@ -10,9 +10,9 @@ jobs:
       - image: circleci/node:10.13.0
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - cache-v9-{{ .Branch }}-{{ checksum "package.json" }}
+#      - restore_cache:
+#          keys:
+#            - cache-v9-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Install Top Deps
           command: npm install
@@ -22,12 +22,12 @@ jobs:
       - run:
           name: Build
           command: npm run build
-      - save_cache:
-          key: cache-v9-{{ .Branch }}-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-            - ./packages/*/node_modules
-            - ./packages/*/lib
+#      - save_cache:
+#          key: cache-v9-{{ .Branch }}-{{ checksum "package.json" }}
+#          paths:
+#            - ./node_modules
+#            - ./packages/*/node_modules
+#            - ./packages/*/lib
   test_api_integration:
     working_directory: /home/circleci/repo
     docker:
@@ -35,9 +35,9 @@ jobs:
       - image: circleci/mongo:3.6
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - cache-v9-{{ .Branch }}-{{ checksum "package.json" }}
+#      - restore_cache:
+#          keys:
+#            - cache-v9-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Install Top Deps
           command: npm install
