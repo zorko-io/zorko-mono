@@ -12,15 +12,10 @@
     "clean": "rimraf build && rimraf node_modules"
   },
   "dependencies": {
-    "@nestjs/common": "^6.8.5",
-    "@nestjs/swagger": "^3.1.0",
     "@zorko/client-api": "^1.0.0-alpha.6",
     "@zorko/dto": "^1.0.0-alpha.7",
     "@zorko/remote-api": "^1.0.0-alpha.7",
     "@zorko/ui-markers": "^1.0.0-alpha.6",
-    "cache-manager": "^2.10.0",
-    "console": "^0.7.2",
-    "fastify-swagger": "^2.4.0",
     "formik": "^1.5.8",
     "immutable": "^4.0.0-rc.12",
     "lodash": "latest",
@@ -32,7 +27,7 @@
     "redux": "^4.0.4",
     "redux-logger": "latest",
     "reselect": "^4.0.0",
-    "source-map-explorer": "^2.0.1",
+    "source-map-explorer": "^2.1.0",
     "typesafe-actions": "^4.4.2",
     "typescript": "3.4.5"
   },

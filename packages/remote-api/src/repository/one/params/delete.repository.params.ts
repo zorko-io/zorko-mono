@@ -1,7 +1,5 @@
-import { ApiModelProperty } from '@nestjs/swagger';
-import { IdentityParams } from '../../../utils/identity.params';
+import { IdentityParams } from '../../../utils';
 
 export class DeleteRepositoryParams implements IdentityParams {
-  @ApiModelProperty()
   id: string;
 }
