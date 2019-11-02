@@ -12,7 +12,7 @@ export class UserModelFactory {
     this.encrypter = encrypter ? encrypter : new DefaultUserPasswordEncrypter();
   }
 
-  create (user: User) {
+  create (user: User): UserModel {
     return new UserModel(
       user,
       userValidationSchema(),

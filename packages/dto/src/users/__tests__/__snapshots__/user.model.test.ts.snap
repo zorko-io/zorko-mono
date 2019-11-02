@@ -35,6 +35,17 @@ Object {
 }
 `;
 
+exports[`User updates login 1`] = `
+Object {
+  "email": "test@email.com",
+  "hashPassword": undefined,
+  "id": undefined,
+  "login": "joe",
+  "password": "32322332dffsd",
+  "roles": undefined,
+}
+`;
+
 exports[`User updates password 1`] = `
 Object {
   "email": "test@email.com",

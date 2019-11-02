@@ -1,12 +1,14 @@
 import * as mongoose from 'mongoose';
 import { Document } from "mongoose";
-import { User } from '@zorko/dto';
+import { RolesEnum, User } from '@zorko/dto';
 
 export interface UserMongoDocument extends Document {
   id: any;
   email: string;
   hashPassword: string;
-  toUser(): User
+  login: string;
+  roles: RolesEnum[];
+  serialize(): User
 }
 
 export const UserMongoSchema = new mongoose.Schema<UserMongoDocument>({
@@ -30,7 +32,7 @@ export const UserMongoSchema = new mongoose.Schema<UserMongoDocument>({
   },
 });
 
-UserMongoSchema.methods.toUser = function() {
+UserMongoSchema.methods.serialize = function() {
    const result = this.toJSON();
 
    return {

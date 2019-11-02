@@ -1,18 +1,17 @@
 import { Model } from 'mongoose';
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RolesEnum, User, UserModelFactory } from '@zorko/dto';
-import * as bcrypt from 'bcrypt';
 import {
   CreateUserParams,
   DeleteUserParams,
+  InputValidation,
   ReadUserParams,
   RemoteOneUserApi,
   UpdateUserParams,
+  updateUserParamsValidationSchema,
 } from '@zorko/remote-api';
 import { UserMongoDocument } from './user.mongo.schema';
-
-const DEFAULT_CRYPT_SALT = 10;
 
 @Injectable()
 export class UserOneApiService implements RemoteOneUserApi {
@@ -24,7 +23,7 @@ export class UserOneApiService implements RemoteOneUserApi {
   async createOne(user: CreateUserParams): Promise<string> {
     const existingUser = await this.findOne({ email: user.email });
     if (existingUser) {
-      throw new ConflictException('User already exists')
+      throw new ForbiddenException('User already exists')
     }
 
     let newUserModel = this.userDomainModelFactory.create(user);
@@ -49,33 +48,47 @@ export class UserOneApiService implements RemoteOneUserApi {
     return result._id.toString();
   }
 
+  @InputValidation(updateUserParamsValidationSchema())
   async updateOne(params: UpdateUserParams): Promise<User> {
-     // TODO: cover with unit tests and user domain model
-    let password;
-    let result;
-    let nextUser = params.user;
+    let nextUser: User = params;
+    let nextUserModel = this.userDomainModelFactory.create(nextUser);
 
-    if (nextUser.password) {
-      password = await bcrypt.hash(nextUser.password, DEFAULT_CRYPT_SALT);
-    }
-    let userModel = await this.userMongoModel.findById(nextUser.id);
+    const prevUser = await this.findOne({
+      id: nextUserModel.getId()
+    });
 
-    const response = await userModel.updateOne(
-      { email: nextUser.email },
-      { password: password ? password : nextUser.password }
-    );
-
-    if (response.ok) {
-      result = await this.findOne({ id: nextUser.id });
-    } else {
-      throw Error(`Can't update user`)
+    if (!prevUser){
+      throw new ForbiddenException('User was not created yet, create it first');
     }
 
-    if (!result) {
-      throw Error(`Can't find user after update`)
+    const prevUserModel = this.userDomainModelFactory.create(prevUser);
+
+    if (nextUserModel.shouldEncryptPassword()) {
+      await nextUserModel.encryptPassword();
     }
 
-    return result.toUser().toDTO();
+    nextUserModel = prevUserModel.merge(nextUserModel);
+
+    nextUser = nextUserModel.toDTO();
+
+    const userMongoDoc = await this.userMongoModel.findById(nextUser.id);
+
+    userMongoDoc.email = nextUser.email;
+    userMongoDoc.hashPassword = nextUser.hashPassword;
+    userMongoDoc.login = nextUser.login;
+    userMongoDoc.roles = nextUser.roles;
+
+    try{
+      await userMongoDoc.save();
+    } catch (error) {
+      if (error.code == 11000) {
+        throw new ForbiddenException(
+          `Can't update uniq field which is already exist, probably it's about #login`
+        )
+      }
+    }
+
+    return userMongoDoc.serialize();
   }
 
   async findOne(params: ReadUserParams): Promise<User | undefined> {
@@ -95,7 +108,7 @@ export class UserOneApiService implements RemoteOneUserApi {
       return;
     }
 
-    return model.toUser();
+    return model.serialize();
   }
 
   async removeOne(deleteParams: DeleteUserParams): Promise<void> {
@@ -104,6 +117,6 @@ export class UserOneApiService implements RemoteOneUserApi {
     if (!user) {
       throw new NotFoundException(`Can't find user by #id: ${id}`)
     }
-    await this.userMongoModel.remove({_id: id});
+    await this.userMongoModel.deleteOne({_id: id});
   }
 }

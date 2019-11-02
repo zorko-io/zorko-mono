@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfileOneApi fails on create already existing profile 1`] = `
+Object {
+  "message": "Can't create user profile for #login test, because it's already exists",
+  "name": "RemoteForbiddenError",
+}
+`;

@@ -19,12 +19,13 @@ import { Roles } from '../roles/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../roles/roles.guard';
 import { UserManyApiService } from './user.many.api.service';
-import { CreateUserParams, ReadUserCollectionParams } from '@zorko/remote-api';
+import { CreateUserParams, ReadUserCollectionParams, UpdateUserParams } from '@zorko/remote-api';
 import { YupValidationPipe } from '../utils/YupValidationPipe';
 
 function cleanUpUserResponse (user: User) {
 
   delete user.password;
+  delete user.hashPassword;
 
   return user;
 }
@@ -41,7 +42,7 @@ export class UsersController  {
   @Post()
   @ApiOperation({title: 'Create user'})
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @UsePipes(new YupValidationPipe(userValidationSchema())) // TODO: add validation options here
+  @UsePipes(new YupValidationPipe(userValidationSchema()))
   @Roles(RolesEnum.Admin)
   async createOne(@Body() user: CreateUserParams): Promise<string> {
     return await this.userService.createOne(user);
@@ -68,11 +69,14 @@ export class UsersController  {
     return cleanUpUserResponse(user);
   }
 
+  // TODO: add role check for admin
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({title: 'Update user'})
   @UseInterceptors(ClassSerializerInterceptor)
-  async updateOne(@Param('id') id: string, @Body() nextUser: User): Promise<User> {
-    const user = await this.userService.updateOne({ user: nextUser });
+  async updateOne(@Param('id') id: string, @Body() nextUser: UpdateUserParams): Promise<User> {
+    console.log(JSON.stringify(nextUser, null, 2));
+    const user = await this.userService.updateOne(nextUser);
     return cleanUpUserResponse(user)
   }
 

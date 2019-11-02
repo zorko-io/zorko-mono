@@ -11,24 +11,33 @@ import {
 
 export class UserAxiosOneApiClient extends AuthAxiosApiClient implements UserOneApiClient  {
 
-  async createOne(user: CreateUserParams): Promise<string> {
-    const response: AxiosResponse<string> = await this.http.post('/users', user);
+  async createOne(params: CreateUserParams): Promise<string> {
+    const response: AxiosResponse<string> = await this.http.post(
+      '/users',
+      params
+    );
     return response.data;
   }
 
-  async findOne(readParams: ReadUserParams): Promise<User> {
-    const { id }  = readParams;
-    const response: AxiosResponse<User> = await this.http.get(`/users/${id}`);
+  async findOne(params: ReadUserParams): Promise<User> {
+    const { id }  = params;
+    const response: AxiosResponse<User> = await this.http.get(
+      `/users/${id}`
+    );
+    return response.data;
+  }
+
+  async updateOne(params: UpdateUserParams): Promise<User> {
+    const response: AxiosResponse<User> = await this.http.put(
+      `/users/${params.id}`,
+      params
+    );
     return response.data;
   }
 
   async removeOne(deleteParams: DeleteUserParams): Promise<void> {
     const { id } = deleteParams;
     await this.http.delete(`/users/${id}`);
-  }
-
-  updateOne(updateParams: UpdateUserParams): Promise<User> {
-    return undefined;
   }
 }
 

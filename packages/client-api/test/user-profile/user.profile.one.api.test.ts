@@ -34,11 +34,7 @@ describe('UserProfileOneApi', () => {
         login
       })
     } catch (error) {
-      expect(error.response.data).toEqual({
-        statusCode: 403,
-        error: 'Forbidden',
-        message: `Can't create user profile for #login ${login}, because it's already exists`
-      });
+      expect(error).toMatchSnapshot();
     }
   })
 

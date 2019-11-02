@@ -1,5 +1,5 @@
 import { ObjectSchema } from 'yup';
-import { identityParamsValidationSchema } from '../../../utils/identity.params.validation.schema';
+import { identityParamsValidationSchema } from '../../../utils';
 
 export function readRepositoryParamsValidationSchema(): ObjectSchema {
   return identityParamsValidationSchema()

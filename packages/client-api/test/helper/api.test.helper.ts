@@ -9,18 +9,20 @@ export class ApiTestHelper {
       config ? config : {baseURL: Server.baseUrl}
     );
 
-    api.setResponseInterceptors(response => response, error => {
-      if (error.response) {
-        if (error.response.status === 500) {
-          // tslint:disable-next-line:no-console
-          console.error(`Unexpected Error, #message: '${error.message}'`);
-        } else if (error.response.status === 400) {
-          // tslint:disable-next-line:no-console
-          console.error(`Invalid Arguments, #message ${error.message}`);
-        }
-      }
-      throw error;
-    });
+    // TODO: provide other way to plug in logger
+    //  (for example file logger for integration tests and browser/logrocks for UI)
+    // api.setResponseInterceptors(response => response, error => {
+    //   if (error.response) {
+    //     if (error.response.status === 500) {
+    //       // tslint:disable-next-line:no-console
+    //       console.error(`Unexpected Error, #message: '${error.message}'`);
+    //     } else if (error.response.status === 400) {
+    //       // tslint:disable-next-line:no-console
+    //       console.error(`Invalid Arguments, #message ${error.message}`);
+    //     }
+    //   }
+    //   throw error;
+    // });
 
     return api;
   }

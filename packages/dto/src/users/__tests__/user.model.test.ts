@@ -5,6 +5,7 @@ import { ObjectSchema } from 'yup';
 import { userValidationSchema } from '../user.validation.schema';
 import { DefaultUserPasswordEncrypter } from '../default.user.password.encrypter';
 import { UserPasswordEncrypter } from '../user.password.encrypter';
+import defaultUserModelFactory from '../user.model.factory';
 
 describe('User', () => {
   let userModel: UserModel;
@@ -43,11 +44,15 @@ describe('User', () => {
     expect(userModel.getPassword()).toEqual('39393kfkfkf');
   });
 
+  it('updates login', () => {
+    expect(userModel.setLogin('joe').toDTO()).toMatchSnapshot();
+    expect(userModel.getLogin()).toEqual('joe');
+  });
+
   it('updates hashPassword', () => {
    userModel.setHashPassword('bkbjf848484');
 
-    expect(userModel.getHashPassword()).toEqual('bkbjf848484');
-    expect(userModel.getPassword()).toBeUndefined();
+   expect(userModel.getHashPassword()).toEqual('bkbjf848484');
   });
 
   it('updates roles', () => {
@@ -73,6 +78,39 @@ describe('User', () => {
     const samePasswords = await userModel.comparePassword(password);
 
     expect(samePasswords).toBeTruthy();
+  });
+
+  it('merges two users', () => {
+    const prevUser: User = {
+      id: '423ffsdfdsf',
+      login: 'prevUserLogin',
+      email: 'prev@user.com',
+      password: '3484fkfjf',
+      hashPassword: '$mfslkmfdfmksdfsdfdf',
+      roles: [RolesEnum.Admin]
+    };
+    const nextUser: User = {
+      id: '4848jklfl',
+      login: 'nextUserLogin',
+      email: 'next@user.com',
+      password: '4040kjfkffl',
+      hashPassword: '$mfdjnfjkdndjkfndfn949304i3408',
+      roles: [RolesEnum.User]
+    };
+
+    const prevUserModel = defaultUserModelFactory.create(prevUser);
+    const nextUserModel = defaultUserModelFactory.create(nextUser);
+
+    prevUserModel.merge(nextUserModel);
+
+    expect(prevUserModel.toDTO()).toEqual({
+      id: '423ffsdfdsf',
+      login: 'nextUserLogin',
+      email: 'next@user.com',
+      password: '4040kjfkffl',
+      hashPassword: '$mfdjnfjkdndjkfndfn949304i3408',
+      roles: [RolesEnum.User]
+    });
   });
 
   it('fails on wrong email', () => {

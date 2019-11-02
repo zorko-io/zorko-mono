@@ -16,7 +16,10 @@ const configService = new ConfigService();
 @Module({
   imports: [
     ConfigModule,
-    MongooseModule.forRoot(configService.get('MONGO_URL')),
+    MongooseModule.forRoot(configService.get('MONGO_URL'), {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }),
     AuthModule,
     UsersModule,
     UserProfileModule,

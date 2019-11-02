@@ -31,7 +31,7 @@ export class UserManyApiService implements RemoteManyUserApi {
 
   async findMany(readParams: ReadUserCollectionParams): Promise<UserCollection> {
     const models = await this.userModel.find();
-    const collection = defaultUserCollectionFactory.create(models.map(model => model.toUser()), {
+    const collection = defaultUserCollectionFactory.create(models.map(model => model.serialize()), {
       limit: readParams.limit,
       offset: readParams.offset,
       total: models.length

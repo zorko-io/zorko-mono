@@ -62,22 +62,60 @@ export class UserModel {
     return this;
   }
 
+  getLogin(): string {
+    return this.storage.login;
+  }
+
+  setLogin(login: string): this {
+    this.storage.login = login;
+    return this;
+  }
+
   async encryptPassword(): Promise<this> {
     const encryptedPassword = await this.encrypter.hash(
       this.getPassword()
     );
     this.setHashPassword(encryptedPassword);
+    this.setPassword(undefined);
     return this;
   }
 
   setHashPassword(hashPassword: string) {
     this.storage.hashPassword = hashPassword;
-    this.storage.password = undefined;
     return this;
+  }
+
+  shouldEncryptPassword (): boolean {
+    return this.getPassword() && !this.getHashPassword();
   }
 
   async comparePassword(originalPassword: string): Promise<boolean> {
     return await this.encrypter.compare(originalPassword, this.getHashPassword());
+  }
+
+  merge(nextUser: UserModel){
+
+    if (this.getLogin() !== nextUser.getLogin()){
+      this.setLogin(nextUser.getLogin());
+    }
+
+    if (this.getEmail() !== nextUser.getEmail()){
+      this.setEmail(nextUser.getEmail());
+    }
+
+    if (this.getPassword() !== nextUser.getPassword()){
+      this.setPassword(nextUser.getPassword());
+    }
+
+    if (this.getHashPassword() !== nextUser.getHashPassword()){
+      this.setHashPassword(nextUser.getHashPassword());
+    }
+
+    if (this.getRoles() !== nextUser.getRoles()){
+      this.setRoles(nextUser.getRoles());
+    }
+
+    return this;
   }
 
   toDTO(): User {

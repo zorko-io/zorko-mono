@@ -62,7 +62,7 @@ export class RepositoryOneApiService implements RemoteOneRepositoryApi{
 
     await this.findOne({ id });
 
-    await this.repositoryModel.remove({ _id: id });
+    await this.repositoryModel.deleteOne({ _id: id });
   }
 
   updateOne(updateParams: any): Promise<any> {

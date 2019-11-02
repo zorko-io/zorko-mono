@@ -22,11 +22,11 @@ describe('UserOneApi', () => {
     });
 
     it('CRUD - create, read by id and delete', async () => {
-      expect.assertions(4);
+      expect.assertions(5);
       userId = await Api.User.createOne(user);
       expect(userId && userId.length > 0).toBeTruthy();
 
-      const actualUser = await Api.User.findOne({
+      let actualUser = await Api.User.findOne({
         id: userId
       });
 
@@ -37,6 +37,35 @@ describe('UserOneApi', () => {
       });
 
       expect(actualUser.login.length).toBeTruthy();
+
+      const nextUserEmail = faker.internet.email();
+      const nextRoles = [RolesEnum.Admin];
+      const nextPassword = faker.internet.password();
+      const nextLogin = faker.random.words(1);
+
+      const nextUserPayload = {
+        ...actualUser,
+        email: nextUserEmail,
+        roles: nextRoles,
+        password: nextPassword,
+        login: nextLogin
+      };
+
+
+      // TODO: issue with taking login from email if 'login' not sent...need to review
+      // maybe it make sense to fix it or establish strict validation of update
+      const nextUser = await Api.User.updateOne({
+        id: actualUser.id,
+        login: nextLogin,
+        email: nextUserEmail,
+        roles: nextRoles,
+        password: nextPassword
+      });
+
+      delete nextUserPayload.password;
+
+      expect(nextUser).toMatchObject(nextUserPayload);
+
 
       await Api.User.removeOne({
         id: actualUser.id
@@ -58,8 +87,8 @@ describe('UserOneApi', () => {
           email: 'fdfdfdff',
           password: ''
         });
-      } catch (e) {
-        expect(e.response.data).toMatchSnapshot();
+      } catch (error) {
+        expect(error).toMatchSnapshot();
       }
     });
 
@@ -70,8 +99,8 @@ describe('UserOneApi', () => {
           email: 'test@email.com',
           password: ''
         });
-      } catch (e) {
-        expect(e.response.data).toMatchSnapshot();
+      } catch (error) {
+        expect(error).toMatchSnapshot();
       }
     });
   });

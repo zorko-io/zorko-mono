@@ -1,6 +1,9 @@
-import { User } from '@zorko/dto';
+import { RolesEnum, User } from '@zorko/dto';
 
-export class UpdateUserParams {
-  user: User
+export class UpdateUserParams implements User{
+  id?: any;
+  email: string;
+  password: string;
+  roles: RolesEnum[];
 }
 
