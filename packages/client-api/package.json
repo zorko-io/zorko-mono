@@ -24,6 +24,7 @@
     "access": "public"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "@zorko/dto": "^1.0.7-alpha.0",
     "@zorko/remote-api": "^1.0.7-alpha.0",
     "typescript": "3.4.5",
