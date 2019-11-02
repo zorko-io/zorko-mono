@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepositoryOneApi fails on read with wrong parameters 1`] = `"id is a required field"`;

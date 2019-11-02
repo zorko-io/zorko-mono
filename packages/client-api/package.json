@@ -26,7 +26,7 @@
   "dependencies": {
     "@zorko/dto": "^1.0.0-alpha.7",
     "@zorko/remote-api": "^1.0.0-alpha.7",
-    "typescript": "^3.5.3",
+    "typescript": "3.4.5",
     "yup": "^0.27.0"
   },
   "devDependencies": {

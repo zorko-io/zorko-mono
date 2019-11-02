@@ -1,9 +1,14 @@
-import { CreateRepositoryParams, ReadRepositoryParams, RemoteOneRepositoryApi } from '@zorko/remote-api';
-import { Injectable } from '@nestjs/common';
+import {
+  CreateRepositoryParams, DeleteRepositoryParams, deleteRepositoryParamsValidationSchema,
+  InputValidation,
+  ReadRepositoryParams, readRepositoryParamsValidationSchema,
+  RemoteOneRepositoryApi,
+} from '@zorko/remote-api';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RepositoryMongoDocument } from './repository.mongo.schema';
 import { Model } from 'mongoose';
-import { Repository } from '@zorko/dto';
+import { Repository, repositoryValidationSchema } from '@zorko/dto';
 
 @Injectable()
 export class RepositoryOneApiService implements RemoteOneRepositoryApi{
@@ -13,6 +18,7 @@ export class RepositoryOneApiService implements RemoteOneRepositoryApi{
     private readonly repositoryModel: Model<RepositoryMongoDocument>
   ) {}
 
+  @InputValidation(repositoryValidationSchema())
   async createOne(params: CreateRepositoryParams): Promise<string> {
 
     const existingRepo = await this.repositoryModel.findOne({
@@ -36,17 +42,27 @@ export class RepositoryOneApiService implements RemoteOneRepositoryApi{
     return newModel.serialize().id;
   }
 
+  @InputValidation(readRepositoryParamsValidationSchema())
   async findOne(params: ReadRepositoryParams): Promise<Repository> {
 
     const repo = await this.repositoryModel.findOne({
       _id: params.id
     });
 
+    if (!repo) {
+      throw new NotFoundException(`Can't find repository by #id: ${params.id}`);
+    }
+
     return repo.serialize();
   }
 
-  removeOne(deleteParams: any): Promise<void> {
-    return undefined;
+  @InputValidation(deleteRepositoryParamsValidationSchema())
+  async removeOne(params: DeleteRepositoryParams): Promise<void> {
+    const { id } = params;
+
+    await this.findOne({ id });
+
+    await this.repositoryModel.remove({ _id: id });
   }
 
   updateOne(updateParams: any): Promise<any> {

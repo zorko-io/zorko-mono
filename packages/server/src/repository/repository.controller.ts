@@ -1,6 +1,6 @@
 import {
   Body,
-  Controller,
+  Controller, Delete,
   Get, Param,
   Post,
   UseGuards,
@@ -35,10 +35,18 @@ export class RepositoryController {
   @UseGuards(AuthGuard('jwt'))
   @ApiImplicitParam({name: 'id', required: true})
   async findOne(@Param('id') id) {
-     // TODO: common read params validation schema doesn't map one-to-one to controller
      return await this.repositoryOneApiService.findOne({
        id
      });
+  }
+
+  @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiImplicitParam({name: 'id', required: true})
+  async removeOne(@Param('id') id) {
+    return await this.repositoryOneApiService.removeOne({
+      id
+    });
   }
 
 }

@@ -1,8 +1,6 @@
-import * as yup from 'yup';
 import { ObjectSchema } from 'yup';
+import { identityParamsValidationSchema } from '../../../utils/identity.params.validation.schema';
 
 export function readRepositoryParamsValidationSchema(): ObjectSchema {
-  return yup.object({
-    id: yup.string().required()
-  });
+  return identityParamsValidationSchema()
 }

@@ -13,11 +13,14 @@ describe('RepositoryOneApi', () => {
 
   it('fails on read with wrong parameters', async () => {
       expect(() => {
+        // TODO: why ts doesnt show error here ?
           Api.Repository.findOne({ zzz: 'fddfdf'})
       }).toThrowErrorMatchingSnapshot()
   });
 
   it('CRUD - repository (skeleton)', async () => {
+    expect.assertions(3);
+
     let initResource = repositoryFakeGenerator.getOneRandomValidRepository({
       skipId: true
     });
@@ -33,6 +36,16 @@ describe('RepositoryOneApi', () => {
       ...initResource,
       id: resourceId
     });
+
+    await Api.Repository.removeOne({ id: resourceId });
+
+    try {
+      await Api.Repository.findOne({
+        id: resourceId
+      });
+    } catch (e) {
+      expect(e.response.status).toEqual(404);
+    }
   });
 
 });

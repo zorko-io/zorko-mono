@@ -24,11 +24,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@nestjs/common": "^6.5.3",
-    "@nestjs/swagger": "^3.1.0",
     "@types/node": "^12.6.8",
-    "class-transformer": "^0.2.3",
-    "class-validator": "^0.10.0",
     "faker": "^4.1.0",
     "livr": "^2.3.0",
     "reflect-metadata": "^0.1.13",
