@@ -71,6 +71,9 @@
     "typescript": "3.4.5",
     "yup": "^0.27.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
@@ -85,5 +88,5 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
-  "gitHead": "38fa6f5e48edb8aad259111393d1cd4818aa60c6"
+  "gitHead": "edea0f018fd9bdf34c6037f3b0b9b8747cb1445c"
 }

@@ -3,7 +3,6 @@
   "version": "1.0.6-alpha.0",
   "description": "Client API to Zorko Server",
   "author": "nesterone <igornester@gmail.com>",
-  "private": false,
   "homepage": "",
   "license": "ISC",
   "main": "lib/index.js",
@@ -38,5 +37,5 @@
     "rimraf": "^2.6.3",
     "ts-jest": "^23.10.5"
   },
-  "gitHead": "38fa6f5e48edb8aad259111393d1cd4818aa60c6"
+  "gitHead": "edea0f018fd9bdf34c6037f3b0b9b8747cb1445c"
 }

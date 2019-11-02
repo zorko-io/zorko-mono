@@ -4,7 +4,6 @@
   "description": "Data Transfer Objects for Zorko API",
   "author": "nesterone <igornester@gmail.com>",
   "homepage": "",
-  "private": false,
   "license": "ISC",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -37,5 +36,5 @@
     "jest": "^24.9.0",
     "rimraf": "^2.6.3"
   },
-  "gitHead": "38fa6f5e48edb8aad259111393d1cd4818aa60c6"
+  "gitHead": "edea0f018fd9bdf34c6037f3b0b9b8747cb1445c"
 }
