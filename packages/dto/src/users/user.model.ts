@@ -63,7 +63,7 @@ export class UserModel {
   }
 
   async encryptPassword(): Promise<this> {
-    const encryptedPassword = await this.encrypter(
+    const encryptedPassword = await this.encrypter.hash(
       this.getPassword()
     );
     this.setHashPassword(encryptedPassword);
@@ -76,6 +76,10 @@ export class UserModel {
     return this;
   }
 
+  async comparePassword(originalPassword: string): Promise<boolean> {
+    return await this.encrypter.compare(originalPassword, this.getHashPassword());
+  }
+
   toDTO(): User {
     this.schema.validateSync(this.storage);
 
@@ -83,6 +87,7 @@ export class UserModel {
       id: this.storage.id,
       email: this.storage.email,
       password: this.storage.password,
+      hashPassword: this.storage.hashPassword,
       roles: this.storage.roles,
       login: this.storage.login
     }

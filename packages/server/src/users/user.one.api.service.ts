@@ -33,25 +33,24 @@ export class UserOneApiService implements RemoteOneUserApi {
       newUserModel.setRoles([RolesEnum.User]);
     }
 
-    // TODO: delegate it down to domain model
-    const hashPassword = await bcrypt.hash(user.password, DEFAULT_CRYPT_SALT);
+    await newUserModel.encryptPassword();
 
     const newUser: User = newUserModel.toDTO();
 
-    const userModel = new this.userMongoModel({
+    const userMongoModel = new this.userMongoModel({
       email: newUser.email,
       login: newUser.login,
-      password: hashPassword,
+      hashPassword: newUser.hashPassword,
       roles: newUser.roles
     });
 
-    const result = await userModel.save();
+    const result = await userMongoModel.save();
 
     return result._id.toString();
   }
 
   async updateOne(params: UpdateUserParams): Promise<User> {
-
+     // TODO: cover with unit tests and user domain model
     let password;
     let result;
     let nextUser = params.user;

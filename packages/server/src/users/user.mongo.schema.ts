@@ -5,7 +5,7 @@ import { User } from '@zorko/dto';
 export interface UserMongoDocument extends Document {
   id: any;
   email: string;
-  password: string;
+  hashPassword: string;
   toUser(): User
 }
 
@@ -20,7 +20,7 @@ export const UserMongoSchema = new mongoose.Schema<UserMongoDocument>({
     unique: true,
     required: true
   },
-  password: {
+  hashPassword: {
     type: String,
     required: true
   },
@@ -37,7 +37,7 @@ UserMongoSchema.methods.toUser = function() {
      id: result._id.toString(),
      email: result.email,
      login: result.login,
-     password: result.password,
+     hashPassword: result.hashPassword,
      roles: result.roles
    }
 };

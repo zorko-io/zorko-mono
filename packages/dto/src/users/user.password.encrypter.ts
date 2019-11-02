@@ -1,3 +1,4 @@
 export interface UserPasswordEncrypter {
-  (data: string, options?: object): Promise<string>;
+  hash(data: string): Promise<string>;
+  compare(originalPassword: string, hashPassword: string): Promise<boolean>;
 }

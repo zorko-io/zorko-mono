@@ -3,6 +3,7 @@
 exports[`User creates user with defaults 1`] = `
 Object {
   "email": "test@email.com",
+  "hashPassword": undefined,
   "id": "fdsfsdfsdf",
   "login": "test",
   "password": "32322332dffsd",
@@ -15,6 +16,7 @@ exports[`User fails on wrong email 1`] = `[ValidationError: email must be a vali
 exports[`User updates email 1`] = `
 Object {
   "email": "test@email.com",
+  "hashPassword": undefined,
   "id": undefined,
   "login": "test",
   "password": "32322332dffsd",
@@ -25,6 +27,7 @@ Object {
 exports[`User updates id 1`] = `
 Object {
   "email": "test@email.com",
+  "hashPassword": undefined,
   "id": "fdsfsdfsdf",
   "login": "test",
   "password": "32322332dffsd",
@@ -35,6 +38,7 @@ Object {
 exports[`User updates password 1`] = `
 Object {
   "email": "test@email.com",
+  "hashPassword": undefined,
   "id": undefined,
   "login": "test",
   "password": "39393kfkfkf",
@@ -45,6 +49,7 @@ Object {
 exports[`User updates roles 1`] = `
 Object {
   "email": "test@email.com",
+  "hashPassword": undefined,
   "id": undefined,
   "login": "test",
   "password": "32322332dffsd",

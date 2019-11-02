@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserOneApiService } from '../users/user.one.api.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { CreateTokenDto, User } from '@zorko/dto';
-import * as bcrypt from 'bcrypt';
+import { CreateTokenDto, User, UserModelFactory } from '@zorko/dto';
 import { ConfigService } from '../config/config.service';
 
 @Injectable()
@@ -11,7 +10,8 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly usersService: UserOneApiService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly userFactory: UserModelFactory
   ) {}
 
   async createTokenKey(token: CreateTokenDto): Promise<string> {
@@ -49,7 +49,8 @@ export class AuthService {
     let match;
 
     if (user && payload && payload.password) {
-     match = await bcrypt.compare(payload.password, user.password);
+      const userDomainModel = this.userFactory.create(user);
+      match = await userDomainModel.comparePassword(payload.password);
     }
 
     return match ? user : null;
