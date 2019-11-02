@@ -4,6 +4,8 @@
   "description": "Remote API Interfaces/Typings to share between frontend and backend",
   "author": "nesterone <igornester@gmail.com>",
   "homepage": "",
+  "private": false,
+
   "license": "ISC",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -28,5 +30,5 @@
   "devDependencies": {
     "rimraf": "^2.6.3"
   },
-  "gitHead": "d4d95876b722b779104a263a395430f843b492d5"
+  "gitHead": "6d67667468be8bc801fa02b0a515463a315bf9b5"
 }

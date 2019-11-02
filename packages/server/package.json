@@ -3,6 +3,7 @@
   "version": "1.0.4-alpha.0",
   "description": "",
   "author": "",
+  "private": false,
   "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -84,5 +85,5 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
-  "gitHead": "d4d95876b722b779104a263a395430f843b492d5"
+  "gitHead": "6d67667468be8bc801fa02b0a515463a315bf9b5"
 }
