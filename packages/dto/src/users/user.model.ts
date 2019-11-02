@@ -1,15 +1,22 @@
 import { User } from './user';
 import { RolesEnum } from '../roles';
 import { ObjectSchema } from 'yup';
+import { UserPasswordEncrypter } from './user.password.encrypter';
 
 export class UserModel {
 
+  private encrypter: UserPasswordEncrypter;
   private storage: User;
   private schema: ObjectSchema;
 
-  constructor(storage: User, schema: ObjectSchema) {
+  constructor(
+    storage: User,
+    schema: ObjectSchema,
+    encrypter: UserPasswordEncrypter
+  ) {
     this.storage = storage;
     this.schema = schema;
+    this.encrypter = encrypter;
     if (!storage.login) {
       storage.login = storage.email.split('@')[0];
     }
@@ -55,13 +62,21 @@ export class UserModel {
     return this;
   }
 
-  async hashPassword(): Promise<this> {
-    // TODO: hash password here
+  async encryptPassword(): Promise<this> {
+    const encryptedPassword = await this.encrypter(
+      this.getPassword()
+    );
+    this.setHashPassword(encryptedPassword);
+    return this;
+  }
+
+  setHashPassword(hashPassword: string) {
+    this.storage.hashPassword = hashPassword;
+    this.storage.password = undefined;
     return this;
   }
 
   toDTO(): User {
-
     this.schema.validateSync(this.storage);
 
     return {
@@ -71,12 +86,6 @@ export class UserModel {
       roles: this.storage.roles,
       login: this.storage.login
     }
-  }
-
-  setHashPassword(hashPassword: string) {
-    this.storage.hashPassword = hashPassword;
-    this.storage.password = undefined;
-    return this;
   }
 
   getHashPassword() {

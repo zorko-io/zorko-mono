@@ -3,16 +3,22 @@ import { RolesEnum } from '../../roles';
 import { User } from '../user';
 import { ObjectSchema } from 'yup';
 import { userValidationSchema } from '../user.validation.schema';
+import * as faker from 'faker';
 
 describe('User', () => {
   let user: UserModel;
   let userStorage: User;
   let schema: ObjectSchema;
+  let fakeHashPassword = faker.random.word();
 
   beforeEach(() => {
     userStorage = {email: 'test@email.com', password: '32322332dffsd'};
     schema = userValidationSchema();
-    user = new UserModel(userStorage, schema);
+    user = new UserModel(
+      userStorage,
+      schema,
+      async () => (fakeHashPassword)
+    );
   });
 
   it('creates user with defaults', () => {
@@ -45,6 +51,13 @@ describe('User', () => {
     expect(user.setRoles([RolesEnum.User, RolesEnum.Admin]).toDTO()).toMatchSnapshot();
     expect(user.getRoles()).toEqual([RolesEnum.User, RolesEnum.Admin]);
     expect(user.hasRoles()).toBeTruthy();
+  });
+
+  it('encrypts password', async () => {
+     await user.encryptPassword();
+
+     expect(user.getHashPassword()).toEqual(fakeHashPassword);
+     expect(user.getPassword()).toBeUndefined();
   });
 
   it('fails on wrong email', () => {
