@@ -44,6 +44,7 @@ describe('User', () => {
   it('updates roles', () => {
     expect(user.setRoles([RolesEnum.User, RolesEnum.Admin]).toDTO()).toMatchSnapshot();
     expect(user.getRoles()).toEqual([RolesEnum.User, RolesEnum.Admin]);
+    expect(user.hasRoles()).toBeTruthy();
   });
 
   it('fails on wrong email', () => {

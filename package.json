@@ -8,7 +8,7 @@
     "start:dev": "lerna run start:dev --parallel",
     "postinstall111": "npm run bootstrap --hoist",
     "bootstrap": "lerna bootstrap --hoist",
-    "build": "./scripts/run-build-in-sequence.sh && lerna run build",
+    "build": "npm run clean:server:dist && ./scripts/run-build-in-sequence.sh && lerna run build",
     "publish": "lerna publish",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ci:api": "./scripts/run-e2e-api.sh",
@@ -19,6 +19,7 @@
     "watch": "lerna run watch --parallel",
     "clean:root": "rimraf node_modules",
     "clean:packages": "lerna run clean --parallel",
+    "clean:server:dist": "cd ./packages/server && npm run clean:dist",
     "clean": "npm run clean:root && npm run clean:packages"
   },
   "author": "nesterone <igornester@gmail.com>",

@@ -10,6 +10,9 @@ export class UserModel {
   constructor(storage: User, schema: ObjectSchema) {
     this.storage = storage;
     this.schema = schema;
+    if (!storage.login) {
+      storage.login = storage.email.split('@')[0];
+    }
   }
 
   getId(): string {
@@ -53,13 +56,15 @@ export class UserModel {
   }
 
   toDTO(): User {
+
     this.schema.validateSync(this.storage);
 
     return {
       id: this.storage.id,
       email: this.storage.email,
       password: this.storage.password,
-      roles: this.storage.roles
+      roles: this.storage.roles,
+      login: this.storage.login
     }
   }
 

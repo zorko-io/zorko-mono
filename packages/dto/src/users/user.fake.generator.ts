@@ -10,13 +10,16 @@ export class UserFakeGenerator {
     }
   }
 
-  getRandomValidUser (): User {
+  getRandomValidUser (fields?: any): User {
+    fields = fields || {};
+
     return {
       id: faker.random.uuid(),
       email: faker.internet.email(),
       roles: [],
       password: faker.internet.password(),
-      login: faker.random.word()
+      login: faker.random.alphaNumeric(),
+      ...fields
     }
   }
 
@@ -26,7 +29,7 @@ export class UserFakeGenerator {
       email: faker.internet.email(),
       roles: [],
       hashPassword: faker.internet.password(),
-      login: faker.random.word()
+      login: faker.random.alphaNumeric()
     }
   }
 
@@ -45,7 +48,7 @@ export class UserFakeGenerator {
       email: 'fdf###ffsdfe43444.fdfdfd',
       roles: [],
       password: faker.internet.password(),
-      login: faker.random.word()
+      login: faker.random.alphaNumeric()
     }
   }
 }

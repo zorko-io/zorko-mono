@@ -39,4 +39,20 @@ describe('userValidationSchema', () => {
     }).toThrowErrorMatchingSnapshot();
   });
 
+  it('fails on login with spaces ', () => {
+    data = userFakeGenerator.getRandomValidUser({
+      login: 'ddd ddd sdsd'
+    });
+    expect(() => {
+      schema.validateSync(data);
+    }).toThrowErrorMatchingSnapshot();
+  });
+
+  it('passes login with dots', () => {
+    data = userFakeGenerator.getRandomValidUser({
+      login: 'Bfsd.Adsfdf'
+    });
+    expect(schema.isValidSync(data)).toBeTruthy();
+  });
+
 });
