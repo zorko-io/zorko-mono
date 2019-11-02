@@ -14,6 +14,14 @@ export function userValidationSchema(): ObjectSchema {
       }),
     hashPassword: yup.string(),
     email: yup.string().email().required(),
+    login: yup.string()
+      .when('hashPassword', {
+        is: (val) => {
+          return val && val.length
+        },
+        then: yup.string().required(),
+        otherwise: yup.string().notRequired()
+      }),
     roles: yup.array()
   })
 }

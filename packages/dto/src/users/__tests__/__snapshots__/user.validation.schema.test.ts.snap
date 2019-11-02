@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`userValidationSchema fails with wrong email 1`] = `"email must be a valid email"`;
+
+exports[`userValidationSchema fails without login but with \`hashPassword\` 1`] = `"login is a required field"`;

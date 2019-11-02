@@ -18,7 +18,8 @@
     "cy:test": "cd ./packages/e2e-test-suite/ && npm run test",
     "watch": "lerna run watch --parallel",
     "clean:root": "rimraf node_modules",
-    "clean": "npm run clean:root && lerna run clean --parallel"
+    "clean:packages": "lerna run clean --parallel",
+    "clean": "npm run clean:root && npm run clean:packages"
   },
   "author": "nesterone <igornester@gmail.com>",
   "license": "ISC",
