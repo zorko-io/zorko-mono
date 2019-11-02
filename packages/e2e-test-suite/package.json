@@ -1,6 +1,6 @@
 {
   "name": "@zorko/e2e-test-suite",
-  "version": "1.0.0-alplha.6",
+  "version": "1.0.1-alpha.0",
   "description": "UI Integration Tests Suite",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,6 @@
     "cypress": "^3.4.1"
   },
   "dependencies": {
-    "@zorko/ui-markers": "^1.0.0-alpha.6"
+    "@zorko/ui-markers": "^1.0.1-alpha.0"
   }
 }
