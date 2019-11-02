@@ -1,6 +1,6 @@
 {
   "name": "@zorko/client-api",
-  "version": "1.0.5-alpha.0",
+  "version": "1.0.6-alpha.0",
   "description": "Client API to Zorko Server",
   "author": "nesterone <igornester@gmail.com>",
   "private": false,
@@ -25,8 +25,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@zorko/dto": "^1.0.5-alpha.0",
-    "@zorko/remote-api": "^1.0.5-alpha.0",
+    "@zorko/dto": "^1.0.6-alpha.0",
+    "@zorko/remote-api": "^1.0.6-alpha.0",
     "typescript": "3.4.5",
     "yup": "^0.27.0"
   },
