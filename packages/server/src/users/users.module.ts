@@ -6,15 +6,23 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserMongoSchema } from './user.mongo.schema';
 import { ConfigModule } from '../config/config.module';
 import { UserManyApiService } from './user.many.api.service';
+import { UserModelFactory } from '@zorko/dto';
 
 @Module({
   imports: [
     ConfigModule,
     PassportModule,
-    MongooseModule.forFeature([{name: 'User', schema: UserMongoSchema}])
+    MongooseModule.forFeature([{
+      name: 'User', schema: UserMongoSchema
+    }])
   ],
   controllers: [UsersController],
   providers: [
+    {
+      provide: UserModelFactory,
+      // TODO: wire with encrption settings here
+      useValue: new UserModelFactory()
+    },
     UserOneApiService,
     UserManyApiService
   ],

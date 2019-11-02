@@ -1,10 +1,7 @@
 import { Model } from 'mongoose';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import {
-  RolesEnum,
-  User
-} from '@zorko/dto';
+import { RolesEnum, User, UserModelFactory } from '@zorko/dto';
 import * as bcrypt from 'bcrypt';
 import {
   CreateUserParams,
@@ -19,7 +16,10 @@ const DEFAULT_CRYPT_SALT = 10;
 
 @Injectable()
 export class UserOneApiService implements RemoteOneUserApi {
-  constructor(@InjectModel('User') private readonly userModel: Model<UserMongoDocument>) {}
+  constructor(
+    private readonly userDomainModelFactory: UserModelFactory,
+    @InjectModel('User') private readonly userMongoModel: Model<UserMongoDocument>)
+  {}
 
   async createOne(user: CreateUserParams): Promise<string> {
     const existingUser = await this.findOne({ email: user.email });
@@ -27,19 +27,22 @@ export class UserOneApiService implements RemoteOneUserApi {
       throw new ConflictException('User already exists')
     }
 
-    const hasRoles = user.roles ? user.roles : false;
-    let roles = user.roles;
+    let newUserModel = this.userDomainModelFactory.create(user);
 
-    if (!hasRoles){
-      roles = [RolesEnum.User]
+    if (!newUserModel.hasRoles()){
+      newUserModel.setRoles([RolesEnum.User]);
     }
 
+    // TODO: delegate it down to domain model
     const hashPassword = await bcrypt.hash(user.password, DEFAULT_CRYPT_SALT);
 
-    const userModel = new this.userModel({
-      ...user,
+    const newUser: User = newUserModel.toDTO();
+
+    const userModel = new this.userMongoModel({
+      email: newUser.email,
+      login: newUser.login,
       password: hashPassword,
-      roles
+      roles: newUser.roles
     });
 
     const result = await userModel.save();
@@ -56,7 +59,7 @@ export class UserOneApiService implements RemoteOneUserApi {
     if (nextUser.password) {
       password = await bcrypt.hash(nextUser.password, DEFAULT_CRYPT_SALT);
     }
-    let userModel = await this.userModel.findById(nextUser.id);
+    let userModel = await this.userMongoModel.findById(nextUser.id);
 
     const response = await userModel.updateOne(
       { email: nextUser.email },
@@ -76,17 +79,17 @@ export class UserOneApiService implements RemoteOneUserApi {
     return result.toUser().toDTO();
   }
 
-  async findOne(params: ReadUserParams): Promise<User> {
+  async findOne(params: ReadUserParams): Promise<User | undefined> {
 
     let { email, id } = params;
     let model;
 
     if (email){
-      model = await this.userModel.findOne({
+      model = await this.userMongoModel.findOne({
         email: params.email
       });
     } else if(id){
-      model = await this.userModel.findById(id);
+      model = await this.userMongoModel.findById(id);
     }
 
     if (!model){
@@ -102,6 +105,6 @@ export class UserOneApiService implements RemoteOneUserApi {
     if (!user) {
       throw new NotFoundException(`Can't find user by #id: ${id}`)
     }
-    await this.userModel.remove({_id: id});
+    await this.userMongoModel.remove({_id: id});
   }
 }

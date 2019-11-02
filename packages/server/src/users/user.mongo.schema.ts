@@ -15,6 +15,11 @@ export const UserMongoSchema = new mongoose.Schema<UserMongoDocument>({
     unique: true,
     required: true
   },
+  login: {
+    type: String,
+    unique: true,
+    required: true
+  },
   password: {
     type: String,
     required: true
@@ -31,6 +36,7 @@ UserMongoSchema.methods.toUser = function() {
    return {
      id: result._id.toString(),
      email: result.email,
+     login: result.login,
      password: result.password,
      roles: result.roles
    }

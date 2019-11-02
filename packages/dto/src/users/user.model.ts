@@ -55,6 +55,11 @@ export class UserModel {
     return this;
   }
 
+  async hashPassword(): Promise<this> {
+    // TODO: hash password here
+    return this;
+  }
+
   toDTO(): User {
 
     this.schema.validateSync(this.storage);

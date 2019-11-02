@@ -8,7 +8,6 @@ export class UserModelFactory {
     this.create = this.create.bind(this);
   }
 
-
   create (user: User) {
     return new UserModel(
       user,

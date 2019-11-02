@@ -22,18 +22,21 @@ describe('UserOneApi', () => {
     });
 
     it('CRUD - create, read by id and delete', async () => {
-      expect.assertions(3);
+      expect.assertions(4);
       userId = await Api.User.createOne(user);
       expect(userId && userId.length > 0).toBeTruthy();
 
       const actualUser = await Api.User.findOne({
         id: userId
       });
-      expect(actualUser).toEqual({
+
+      expect(actualUser).toMatchObject({
         id: userId,
         email: user.email,
         roles: [RolesEnum.User]
       });
+
+      expect(actualUser.login.length).toBeTruthy();
 
       await Api.User.removeOne({
         id: actualUser.id
