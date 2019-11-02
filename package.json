@@ -2,6 +2,7 @@
   "name": "zorko",
   "version": "1.0.0-aplha.1",
   "description": "Mono repository for Zorko CMS",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "start": "lerna run start --parallel",

@@ -16,5 +16,6 @@
   },
   "dependencies": {
     "@zorko/ui-markers": "^1.0.1-alpha.0"
-  }
+  },
+  "gitHead": "3a744dd1e526bf58da909e94cb31d2f10d81bc21"
 }
