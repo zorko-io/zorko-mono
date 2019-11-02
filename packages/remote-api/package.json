@@ -1,6 +1,6 @@
 {
   "name": "@zorko/remote-api",
-  "version": "1.0.3-alpha.0",
+  "version": "1.0.4-alpha.0",
   "description": "Remote API Interfaces/Typings to share between frontend and backend",
   "author": "nesterone <igornester@gmail.com>",
   "homepage": "",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@zorko/dto": "^1.0.3-alpha.0"
+    "@zorko/dto": "^1.0.4-alpha.0"
   },
   "devDependencies": {
     "rimraf": "^2.6.3"

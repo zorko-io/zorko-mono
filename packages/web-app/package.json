@@ -1,6 +1,6 @@
 {
   "name": "@zorko/web-app",
-  "version": "1.0.3-alpha.0",
+  "version": "1.0.4-alpha.0",
   "private": false,
   "scripts": {
     "start": "react-scripts start",
@@ -12,10 +12,10 @@
     "clean": "rimraf build && rimraf node_modules"
   },
   "dependencies": {
-    "@zorko/client-api": "^1.0.3-alpha.0",
-    "@zorko/dto": "^1.0.3-alpha.0",
-    "@zorko/remote-api": "^1.0.3-alpha.0",
-    "@zorko/ui-markers": "^1.0.3-alpha.0",
+    "@zorko/client-api": "^1.0.4-alpha.0",
+    "@zorko/dto": "^1.0.4-alpha.0",
+    "@zorko/remote-api": "^1.0.4-alpha.0",
+    "@zorko/ui-markers": "^1.0.4-alpha.0",
     "formik": "^1.5.8",
     "immutable": "^4.0.0-rc.12",
     "lodash": "latest",
