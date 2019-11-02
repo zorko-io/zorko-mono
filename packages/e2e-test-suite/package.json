@@ -1,6 +1,6 @@
 {
   "name": "@zorko/e2e-test-suite",
-  "version": "1.0.4-alpha.0",
+  "version": "1.0.5-alpha.0",
   "description": "UI Integration Tests Suite",
   "private": false,
   "main": "index.js",
@@ -16,7 +16,7 @@
     "cypress": "^3.4.1"
   },
   "dependencies": {
-    "@zorko/ui-markers": "^1.0.4-alpha.0"
+    "@zorko/ui-markers": "^1.0.5-alpha.0"
   },
   "gitHead": "6d67667468be8bc801fa02b0a515463a315bf9b5"
 }
