@@ -1,7 +1,7 @@
 {
   "name": "@zorko/web-app",
   "version": "1.0.0-alplha.6",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "react-scripts start",
     "start:dev": "react-scripts start",
