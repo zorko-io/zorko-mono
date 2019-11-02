@@ -1,6 +1,6 @@
 {
   "name": "@zorko/client-api",
-  "version": "1.0.7-alpha.0+ea40004",
+  "version": "1.0.8-alpha.0",
   "description": "Client API to Zorko Server",
   "author": "nesterone <igornester@gmail.com>",
   "homepage": "",
