@@ -1,7 +1,18 @@
 import 'reflect-metadata';
 import { ApiTestHelper } from '../helper/api.test.helper';
 import { Users } from '../config';
-import { repositoryFakeGenerator } from '@zorko/dto';
+import { Repository } from '@zorko/dto';
+import * as faker from 'faker';
+
+function getOneRandomValidRepository(options?: any): Repository {
+  options = options || {};
+  return {
+    id: !options.skipId ? faker.random.uuid() : undefined,
+    name: faker.lorem.text(5),
+    description: faker.lorem.sentence(20),
+    owner: faker.random.uuid()
+  }
+}
 
 describe('RepositoryOneApi', () => {
    let Api;
@@ -13,7 +24,6 @@ describe('RepositoryOneApi', () => {
 
   it('fails on read with wrong parameters', async () => {
       expect(() => {
-        // TODO: why ts doesnt show error here ?
           Api.Repository.findOne({ zzz: 'fddfdf'})
       }).toThrowErrorMatchingSnapshot()
   });
@@ -21,7 +31,7 @@ describe('RepositoryOneApi', () => {
   it('CRUD - repository (skeleton)', async () => {
     expect.assertions(3);
 
-    let initResource = repositoryFakeGenerator.getOneRandomValidRepository({
+    let initResource = getOneRandomValidRepository({
       skipId: true
     });
     let resourceId = await Api.Repository.createOne(initResource);
